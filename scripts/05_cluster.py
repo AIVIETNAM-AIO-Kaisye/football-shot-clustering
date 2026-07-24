@@ -1,5 +1,5 @@
-"""Task 5.1–5.4 — K-Means + chọn K cho một nhánh. CHỦ SỞ HỮU: B
-(A dùng lại script này cho nhánh unscaled — ADR-010, không copy code)
+"""Task 5.1–5.4 — K-Means + chọn K cho một nhánh. CHỦ SỞ HỮU: Thông
+(Phong dùng lại script này cho nhánh unscaled — ADR-010, không copy code)
 
     python scripts/05_cluster.py --arm scaled
     python scripts/05_cluster.py --arm unscaled

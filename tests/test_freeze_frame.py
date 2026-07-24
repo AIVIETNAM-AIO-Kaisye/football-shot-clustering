@@ -1,4 +1,4 @@
-"""Test freeze-frame parser — CHỦ SỞ HỮU: C. Task T1.4d."""
+"""Test freeze-frame parser — CHỦ SỞ HỮU: Lộc. Task T1.4d."""
 
 import pytest
 

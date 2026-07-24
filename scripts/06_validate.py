@@ -1,4 +1,4 @@
-"""Task 5.3 + 5.5 + 6.2 — ARI, KNN-CV, external validation. CHỦ SỞ HỮU: C
+"""Task 5.3 + 5.5 + 6.2 — ARI, KNN-CV, external validation. CHỦ SỞ HỮU: Lộc
 
     python scripts/06_validate.py
 """

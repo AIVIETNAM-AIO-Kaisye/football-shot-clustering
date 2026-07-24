@@ -1,4 +1,4 @@
-"""Task 6.3–6.4 — Gộp toàn bộ bảng kết quả vào final_report.md. CHỦ SỞ HỮU: C
+"""Task 6.3–6.4 — Gộp toàn bộ bảng kết quả vào final_report.md. CHỦ SỞ HỮU: Lộc
 
     python scripts/07_report.py
 """
@@ -19,8 +19,8 @@ def main() -> None:
     if missing:
         raise SystemExit(f"Thiếu bảng kết quả: {missing}")
 
-    # TODO T6.4 @C — render các bảng vào reports/final_report.md
-    raise NotImplementedError("T6.4 @C")
+    # TODO T6.4 @loc — render các bảng vào reports/final_report.md
+    raise NotImplementedError("T6.4 @loc")
 
 
 if __name__ == "__main__":

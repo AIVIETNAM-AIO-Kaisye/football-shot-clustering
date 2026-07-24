@@ -1,4 +1,4 @@
-"""Thống kê mô tả (Task 2) — CHỦ SỞ HỮU: A (branch `data-eng`)."""
+"""Thống kê mô tả (Task 2) — CHỦ SỞ HỮU: Phong (branch `data-eng`)."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from . import config
 
 def numeric_summary(df: pd.DataFrame) -> pd.DataFrame:
     """min/max/mean/std/median cho toàn bộ cột numeric. T2.1."""
-    raise NotImplementedError("T2.1 @A")
+    raise NotImplementedError("T2.1 @phong")
 
 
 def outcome_distribution(df: pd.DataFrame) -> pd.DataFrame:
@@ -18,7 +18,7 @@ def outcome_distribution(df: pd.DataFrame) -> pd.DataFrame:
     Đối chiếu: Euro 2024 (1.304 shot hợp lệ) — goal rate 7,5%,
     Off T 397 · Blocked 386 · Saved 310 · Goal 98 · Wayward 81 · Post 24.
     """
-    raise NotImplementedError("T2.2 @A")
+    raise NotImplementedError("T2.2 @phong")
 
 
 def categorical_distribution(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
@@ -27,17 +27,17 @@ def categorical_distribution(df: pd.DataFrame, columns: list[str]) -> pd.DataFra
     ⚠️ ``body_part == "Other"`` chỉ có 7 shot ở Euro 2024 → quá ít để one-hot riêng;
     cột gần như toàn 0 chỉ làm nhiễu khoảng cách L2. Đề xuất gộp hoặc bỏ.
     """
-    raise NotImplementedError("T2.3 @A")
+    raise NotImplementedError("T2.3 @phong")
 
 
 def sample_balance(df: pd.DataFrame) -> pd.DataFrame:
     """Số shot theo đội / theo trận → phát hiện lệch mẫu. T2.4."""
-    raise NotImplementedError("T2.4 @A")
+    raise NotImplementedError("T2.4 @phong")
 
 
 def missing_report(df: pd.DataFrame) -> pd.DataFrame:
     """Bảng missing values từng cột (đếm + %). T2.5."""
-    raise NotImplementedError("T2.5 @A")
+    raise NotImplementedError("T2.5 @phong")
 
 
 def feature_scale_table(df: pd.DataFrame, feature_cols: list[str]) -> pd.DataFrame:
@@ -48,4 +48,4 @@ def feature_scale_table(df: pd.DataFrame, feature_cols: list[str]) -> pd.DataFra
     Kỳ vọng thấy: ``distance_to_goal`` (0–120) áp đảo ``angle_to_goal`` (0–π)
     và các boolean (0–1) khi tính khoảng cách L2.
     """
-    raise NotImplementedError("T3.3 @A")
+    raise NotImplementedError("T3.3 @phong")

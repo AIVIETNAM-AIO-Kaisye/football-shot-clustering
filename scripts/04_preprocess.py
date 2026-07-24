@@ -1,4 +1,4 @@
-"""Task 4 — Sinh X_scaled / X_unscaled / y_hidden (artifact GATE 2). CHỦ SỞ HỮU: B
+"""Task 4 — Sinh X_scaled / X_unscaled / y_hidden (artifact GATE 2). CHỦ SỞ HỮU: Thông
 
     python scripts/04_preprocess.py
 """

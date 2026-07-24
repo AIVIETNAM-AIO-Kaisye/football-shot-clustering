@@ -1,4 +1,4 @@
-"""T1.2 + T1.5 — Trích xuất shot → shots_raw.csv (artifact GATE 1). CHỦ SỞ HỮU: A
+"""T1.2 + T1.5 — Trích xuất shot → shots_raw.csv (artifact GATE 1). CHỦ SỞ HỮU: Phong
 
     python scripts/02_extract_shots.py
 """

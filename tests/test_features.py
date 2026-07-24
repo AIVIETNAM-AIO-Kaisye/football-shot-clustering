@@ -1,4 +1,4 @@
-"""Test geometry features — CHỦ SỞ HỮU: B. Task T1.3c.
+"""Test geometry features — CHỦ SỞ HỮU: Thông. Task T1.3c.
 
 Các test này là **đặc tả** của T1.3: viết trước, implement sau.
 Marker ``xfail`` giữ cho ``pytest`` xanh trong lúc chưa implement — khi hàm chạy được,

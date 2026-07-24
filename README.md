@@ -59,6 +59,6 @@ python scripts/07_report.py          # bảng tổng hợp     -> reports/final_
 
 | Vai trò | Branch | Phụ trách |
 |---|---|---|
-| **A** — Data Engineer | `data-eng` | Ingest, EDA, thống kê mô tả, nhánh unscaled |
-| **B** — ML Engineer | `ml-eng` | Feature engineering, preprocessing, K-Means, chọn K |
-| **C** — Evaluation & Report | `eval-eng` | Freeze-frame, Gap statistic, KNN-CV, validation, report |
+| **Phong** — Data Engineer *(kiêm LEAD)* | `data-eng` | Ingest, EDA, thống kê mô tả, nhánh unscaled |
+| **Thông** — ML Engineer | `ml-eng` | Feature engineering, preprocessing, K-Means, chọn K |
+| **Lộc** — Evaluation & Report | `eval-eng` | Freeze-frame, Gap statistic, KNN-CV, validation, report |

@@ -1,4 +1,4 @@
-"""Tiền xử lý cho model — CHỦ SỞ HỮU: B (branch `ml-eng`).
+"""Tiền xử lý cho model — CHỦ SỞ HỮU: Thông (branch `ml-eng`).
 
 Task T4. Sản phẩm: hai phiên bản X (scaled / unscaled) + Y_hidden tách riêng.
 """
@@ -18,16 +18,16 @@ def split_column_groups(
     ⚠️ ``y_hidden`` gồm cả ``end_x/end_y/end_z`` — vị trí bóng SAU khi sút,
     cũng là leakage. Rất hay bị quên.
     """
-    raise NotImplementedError("T4.1 @B")
+    raise NotImplementedError("T4.1 @thong")
 
 
 def encode_categoricals(X: pd.DataFrame) -> pd.DataFrame:
     """One-hot ``config.CATEGORICAL_FEATURES``. T4.2.
 
-    Note: EDA của A (T2.3) có thể đề xuất gộp ``body_part == "Other"``
+    Note: EDA của Phong (T2.3) có thể đề xuất gộp ``body_part == "Other"``
     (chỉ 7 shot ở Euro 2024) để tránh cột gần như toàn 0 làm nhiễu khoảng cách L2.
     """
-    raise NotImplementedError("T4.2 @B")
+    raise NotImplementedError("T4.2 @thong")
 
 
 def handle_missing(X: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
@@ -36,7 +36,7 @@ def handle_missing(X: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     ``báo_cáo`` phải ghi số dòng/cột bị ảnh hưởng để đưa vào DECISIONS.md.
     Chú ý ``gk_*`` NaN khi freeze_frame không có GK.
     """
-    raise NotImplementedError("T4.3 @B")
+    raise NotImplementedError("T4.3 @thong")
 
 
 def make_scaled_unscaled(X: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -45,7 +45,7 @@ def make_scaled_unscaled(X: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     ⚠️ Ghi rõ trong report: scaler fit trên toàn bộ dữ liệu hay chỉ trên train,
     và vì sao cách đó không gây leakage trong bối cảnh unsupervised.
     """
-    raise NotImplementedError("T4.4 @B")
+    raise NotImplementedError("T4.4 @thong")
 
 
 def save_all(X_unscaled, X_scaled, y_hidden, ids) -> None:
@@ -53,4 +53,4 @@ def save_all(X_unscaled, X_scaled, y_hidden, ids) -> None:
 
     Check: hai file X cùng số dòng, cùng thứ tự.
     """
-    raise NotImplementedError("T4.5 @B")
+    raise NotImplementedError("T4.5 @thong")

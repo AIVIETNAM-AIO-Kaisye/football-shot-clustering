@@ -1,22 +1,28 @@
 # Kanban Board — Tổng quan
 
-> Board được **tách 3 file theo người** để không bao giờ conflict khi cùng cập nhật trạng thái.
-> Mỗi người **chỉ sửa file của mình**. File này do LEAD tổng hợp.
+> Board được **tách 3 file theo người** để không bao giờ conflict.
+> Mỗi người **chỉ sửa file của mình**. File này do LEAD (**Phong**) tổng hợp.
+>
+> ⚠️ **Các file `.md` ở đây là nguồn sự thật cho *nội dung* công việc** (output, bẫy kỹ thuật,
+> blocked-by), **không phải cho trạng thái**. Ai đang làm gì / ai đang tắc → xem **board UI**.
+> Tag `#todo` còn sót trong các thẻ là giá trị chết từ lúc khởi tạo, bỏ qua.
+> Luật đầy đủ ở [`WORKFLOW.md`](../WORKFLOW.md) §1.
 
 | Người | File board | Branch | Vai trò |
 |---|---|---|---|
-| **A** | [`A_data.md`](A_data.md) | `data-eng` | Ingest · Thống kê mô tả · EDA · nhánh **unscaled** |
-| **B** | [`B_model.md`](B_model.md) | `ml-eng` | Geometry · Preprocessing · K-Means · nhánh **scaled** |
-| **C** | [`C_eval.md`](C_eval.md) | `eval-eng` | Freeze-frame · Gap statistic · KNN-CV · Validation · Report |
+| **Phong** | [`phong_data.md`](phong_data.md) | `data-eng` | Ingest · Thống kê mô tả · EDA · nhánh **unscaled** |
+| **Thông** | [`thong_model.md`](thong_model.md) | `ml-eng` | Geometry · Preprocessing · K-Means · nhánh **scaled** |
+| **Lộc** | [`loc_eval.md`](loc_eval.md) | `eval-eng` | Freeze-frame · Gap statistic · KNN-CV · Validation · Report |
 
-## Xem board dạng cột (chạy lệnh)
+## Tra cứu nhanh (chạy lệnh)
 
 ```bash
-grep -rn "#doing"    docs/board/     # cột DOING  — kiểm tra WIP limit ≤ 2/người
-grep -rn "#review"   docs/board/     # cột REVIEW — có PR nào đang chờ?
-grep -rn "#blocked"  docs/board/     # ai đang tắc → nêu ở standup
-grep -rc "#done"     docs/board/*.md # đếm tiến độ
+grep -rn "@phong"     docs/board/    # toàn bộ việc của một người
+grep -rn "#p0"        docs/board/    # toàn bộ việc trên đường găng
+grep -rn "blocked-by" docs/board/    # các phụ thuộc chéo giữa 3 người
 ```
+
+Trạng thái (đang làm / tắc / chờ duyệt) **không grep được** — xem board UI.
 
 ## Đường găng (critical path)
 
@@ -35,17 +41,21 @@ T1.4 ─┘        (GATE 1)                                (GATE 2)      └─�
                                                                         T6.4 report (GATE 4)
 ```
 
-## Bảng tiến độ tổng (LEAD cập nhật mỗi standup)
+## Khối lượng thẻ theo ngày
 
-| Ngày | A | B | C | Gate |
+Dùng để cân tải và lập thẻ UI mỗi sáng — **không phải bảng tiến độ**.
+Tiến độ xem board UI; số liệu chốt của project xem [`STATE.md`](../STATE.md).
+
+| Ngày | Phong | Thông | Lộc | Gate |
 |---|---|---|---|---|
-| D1 | ⬜ 0/4 | ⬜ 0/4 | ⬜ 0/4 | 🚦 GATE 1 ⬜ |
-| D2 | ⬜ 0/11 | ⬜ 0/7 | ⬜ 0/4 | 🚦 GATE 2 ⬜ |
-| D3 | ⬜ 0/4 | ⬜ 0/4 | ⬜ 0/4 | 🚦 GATE 3 ⬜ |
-| D4 | ⬜ 0/3 | ⬜ 0/3 | ⬜ 0/3 | 🚦 GATE 4 ⬜ |
+| D1 | 4 thẻ | 4 thẻ | 4 thẻ | 🚦 GATE 1 |
+| D2 | 11 thẻ | 7 thẻ | 4 thẻ | 🚦 GATE 2 |
+| D3 | 4 thẻ | 4 thẻ | 4 thẻ | 🚦 GATE 3 |
+| D4 | 3 thẻ | 3 thẻ | 3 thẻ | 🚦 GATE 4 |
 
 ## Bảng tag nhanh
 
-`#todo` `#doing` `#review` `#done` `#blocked` — trạng thái (mỗi thẻ đúng 1 tag)
 `#data` `#eda` `#model` `#eval` `#docs` `#infra` — loại việc
 `#p0` đường găng · `#p1` quan trọng · `#p2` cắt trước khi thiếu giờ
+
+Trạng thái **không còn là tag** — nó là 5 cột trên board UI. Xem [`WORKFLOW.md`](../WORKFLOW.md) §1.

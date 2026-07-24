@@ -1,6 +1,6 @@
-"""Chọn số cụm K: Elbow + Silhouette — CHỦ SỞ HỮU: B (branch `ml-eng`).
+"""Chọn số cụm K: Elbow + Silhouette — CHỦ SỞ HỮU: Thông (branch `ml-eng`).
 
-Task T5.0b. Gap Statistic nằm ở ``selection_gap.py`` (của C) — tách file để
+Task T5.0b. Gap Statistic nằm ở ``selection_gap.py`` (của Lộc) — tách file để
 hai người không sửa chung một module.
 """
 
@@ -13,7 +13,7 @@ from . import config
 
 def elbow_curve(X: pd.DataFrame, k_range=config.K_RANGE) -> pd.DataFrame:
     """Inertia theo k. T5.0b — trả DataFrame ``[k, inertia]``."""
-    raise NotImplementedError("T5.0b @B")
+    raise NotImplementedError("T5.0b @thong")
 
 
 def suggest_k_elbow(curve: pd.DataFrame) -> int:
@@ -22,7 +22,7 @@ def suggest_k_elbow(curve: pd.DataFrame) -> int:
     Gợi ý: phương pháp khoảng cách lớn nhất tới đường thẳng nối
     (k_min, inertia_min) và (k_max, inertia_max) — tránh phán đoán bằng mắt.
     """
-    raise NotImplementedError("T5.0b @B")
+    raise NotImplementedError("T5.0b @thong")
 
 
 def silhouette_by_k(X: pd.DataFrame, k_range=config.K_RANGE) -> pd.DataFrame:
@@ -30,7 +30,7 @@ def silhouette_by_k(X: pd.DataFrame, k_range=config.K_RANGE) -> pd.DataFrame:
 
     ⚠️ metric = L2 (biến kiểm soát, ADR-009).
     """
-    raise NotImplementedError("T5.0b @B")
+    raise NotImplementedError("T5.0b @thong")
 
 
 def summarize_k_selection(
@@ -45,4 +45,4 @@ def summarize_k_selection(
     Note: không đồng thuận **không phải lỗi** — đó là insight cần phân tích
     trong report (mỗi tiêu chí tối ưu một thứ khác nhau).
     """
-    raise NotImplementedError("T5.1d @B")
+    raise NotImplementedError("T5.1d @thong")

@@ -1,6 +1,6 @@
 # Trạng thái Project
 
-> LEAD cập nhật file này sau standup 09:00 mỗi ngày. Thành viên **không sửa** file này —
+> LEAD (**Phong**) cập nhật file này sau standup 09:00 mỗi ngày. Thành viên **không sửa** file này —
 > trạng thái công việc cá nhân cập nhật ở `docs/board/{tên}.md`.
 
 **Cập nhật lần cuối:** _(chưa bắt đầu)_
@@ -65,6 +65,6 @@ Ký hiệu: ⬜ chưa tới · 🟡 đang làm · ✅ đạt · 🔴 trễ (kíc
 ### D1 — _(chưa diễn ra)_
 | Người | Hôm qua | Hôm nay | Blocked |
 |---|---|---|---|
-| A | — | | |
-| B | — | | |
-| C | — | | |
+| Phong | — | | |
+| Thông | — | | |
+| Lộc | — | | |

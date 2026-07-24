@@ -1,9 +1,9 @@
-"""Kiểm định cụm: ARI + KNN cross-validation — CHỦ SỞ HỮU: C (branch `eval-eng`).
+"""Kiểm định cụm: ARI + KNN cross-validation — CHỦ SỞ HỮU: Lộc (branch `eval-eng`).
 
 Task T5.3a, T5.5a.
 
 💡 Ngày 2 phát triển và test toàn bộ module này trên ``sklearn.datasets.make_blobs``
-   — không cần chờ X thật của B. Đây là điều kiện để 3 luồng chạy song song.
+   — không cần chờ X thật của Thông. Đây là điều kiện để 3 luồng chạy song song.
 """
 
 from __future__ import annotations
@@ -22,7 +22,7 @@ def compare_labelings(labels_a, labels_b) -> float:
     ⚠️ Chỉ có nghĩa khi so ở **cùng một k**.
     ⚠️ Test bắt buộc: hoán vị tên nhãn (0↔1) phải cho ARI = 1.0.
     """
-    raise NotImplementedError("T5.3a @C")
+    raise NotImplementedError("T5.3a @loc")
 
 
 def knn_cv(
@@ -45,9 +45,9 @@ def knn_cv(
     ⚠️ Đây KHÔNG phải bằng chứng cụm "đúng" — nhãn vốn do chính K-Means tạo ra.
     Bằng chứng về ý nghĩa thực tế nằm ở ``evaluate.py`` (external validation).
     """
-    raise NotImplementedError("T5.5a @C")
+    raise NotImplementedError("T5.5a @loc")
 
 
 def stability_summary(cv_result: pd.DataFrame) -> dict:
     """Chọn k_neighbors tốt nhất + accuracy ± std tương ứng. T6.1."""
-    raise NotImplementedError("T6.1 @C")
+    raise NotImplementedError("T6.1 @loc")

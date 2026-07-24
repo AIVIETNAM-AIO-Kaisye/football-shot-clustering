@@ -3,8 +3,8 @@
 > **Trạng thái:** 🟡 DRAFT — sẽ chuyển thành 🔒 **FROZEN** tại GATE 1 (cuối Ngày 1).
 > Sau khi FROZEN, mọi thay đổi phải qua PR có **1 approve** và ghi vào `DECISIONS.md`.
 
-Đây là **giao diện chung** giữa 3 thành viên. B và C code dựa trên bản hợp đồng này mà **không cần chờ**
-A chạy xong ingest — đó là lý do Ngày 2–3 chạy song song được.
+Đây là **giao diện chung** giữa 3 thành viên. Thông và Lộc code dựa trên bản hợp đồng này mà **không cần chờ**
+Phong chạy xong ingest — đó là lý do Ngày 2–3 chạy song song được.
 
 ## 1. Nguồn & bộ lọc
 
@@ -37,23 +37,23 @@ A chạy xong ingest — đó là lý do Ngày 2–3 chạy song song được.
 
 | Cột | Dtype | Nguồn / công thức | Chủ |
 |---|---|---|---|
-| `x` | float | `location[0]` | A |
-| `y` | float | `location[1]` | A |
-| `distance_to_goal` | float | `hypot(120 − x, 40 − y)` | B |
-| `angle_to_goal` | float | góc chắn bởi **2 cột dọc** (xem §4) | B |
-| `under_pressure` | int 0/1 | `under_pressure` → **fillna(0)** | A |
-| `body_part` | str | `shot.body_part.name` | A |
-| `technique` | str | `shot.technique.name` | A |
-| `shot_type` | str | `shot.type.name` | A |
-| `first_time` | int 0/1 | `shot.first_time` → **fillna(0)** | A |
-| `one_on_one` | int 0/1 | `shot.one_on_one` → **fillna(0)** | A |
-| `open_goal` | int 0/1 | `shot.open_goal` → **fillna(0)** | A |
-| `follows_dribble` | int 0/1 | `shot.follows_dribble` → **fillna(0)** | A |
-| `aerial_won` | int 0/1 | `shot.aerial_won` → **fillna(0)** | A |
-| `n_defenders_in_cone` | int | từ `shot.freeze_frame` (xem §5) | C |
-| `n_opponents_within_3y` | int | từ `shot.freeze_frame` | C |
-| `gk_x` / `gk_y` | float | vị trí GK đối phương trong freeze_frame | C |
-| `gk_dist_to_goal` | float | `hypot(120 − gk_x, 40 − gk_y)` | C |
+| `x` | float | `location[0]` | Phong |
+| `y` | float | `location[1]` | Phong |
+| `distance_to_goal` | float | `hypot(120 − x, 40 − y)` | Thông |
+| `angle_to_goal` | float | góc chắn bởi **2 cột dọc** (xem §4) | Thông |
+| `under_pressure` | int 0/1 | `under_pressure` → **fillna(0)** | Phong |
+| `body_part` | str | `shot.body_part.name` | Phong |
+| `technique` | str | `shot.technique.name` | Phong |
+| `shot_type` | str | `shot.type.name` | Phong |
+| `first_time` | int 0/1 | `shot.first_time` → **fillna(0)** | Phong |
+| `one_on_one` | int 0/1 | `shot.one_on_one` → **fillna(0)** | Phong |
+| `open_goal` | int 0/1 | `shot.open_goal` → **fillna(0)** | Phong |
+| `follows_dribble` | int 0/1 | `shot.follows_dribble` → **fillna(0)** | Phong |
+| `aerial_won` | int 0/1 | `shot.aerial_won` → **fillna(0)** | Phong |
+| `n_defenders_in_cone` | int | từ `shot.freeze_frame` (xem §5) | Lộc |
+| `n_opponents_within_3y` | int | từ `shot.freeze_frame` | Lộc |
+| `gk_x` / `gk_y` | float | vị trí GK đối phương trong freeze_frame | Lộc |
+| `gk_dist_to_goal` | float | `hypot(120 − gk_x, 40 − gk_y)` | Lộc |
 
 ### 2.3 Nhóm Y_hidden — 🚫 **CẤM đưa vào K-Means/KNN**
 
@@ -116,4 +116,4 @@ Mỗi phần tử: `{location: [x, y], player: {...}, position: {...}, teammate:
 | Ngày | Thay đổi | Người | ADR |
 |---|---|---|---|
 | D1 | Bản đầu tiên | LEAD | ADR-001 |
-| | *(EDA của A ở Ngày 2 có thể đề xuất bỏ feature dư thừa — ghi vào đây)* | | |
+| | *(EDA của Phong ở Ngày 2 có thể đề xuất bỏ feature dư thừa — ghi vào đây)* | | |

@@ -1,7 +1,7 @@
-"""Test ARI + KNN cross-validation — CHỦ SỞ HỮU: C. Task T5.3a, T5.5a.
+"""Test ARI + KNN cross-validation — CHỦ SỞ HỮU: Lộc. Task T5.3a, T5.5a.
 
 Toàn bộ test chạy trên dữ liệu synthetic (``make_blobs``) — không phụ thuộc
-dữ liệu thật của B. Đây là cơ chế cho phép C làm việc song song ở Ngày 2.
+dữ liệu thật của Thông. Đây là cơ chế cho phép Lộc làm việc song song ở Ngày 2.
 """
 
 import numpy as np

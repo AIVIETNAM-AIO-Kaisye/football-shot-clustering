@@ -1,4 +1,4 @@
-"""Task 2 + T3.3 — Thống kê mô tả. CHỦ SỞ HỮU: A
+"""Task 2 + T3.3 — Thống kê mô tả. CHỦ SỞ HỮU: Phong
 
     python scripts/03_descriptive.py
 """

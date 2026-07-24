@@ -1,7 +1,7 @@
-"""Feature engineering hình học — CHỦ SỞ HỮU: B (branch `ml-eng`).
+"""Feature engineering hình học — CHỦ SỞ HỮU: Thông (branch `ml-eng`).
 
 Task T1.3. Người khác chỉ *gọi* các hàm này, không sửa file.
-Chữ ký hàm đã đóng băng từ Ngày 1 — A gọi trong `ingest.py`.
+Chữ ký hàm đã đóng băng từ Ngày 1 — Phong gọi trong `ingest.py`.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ def distance_to_goal(x: float, y: float) -> float:
 
     T1.3a — dùng ``config.GOAL_CENTER``.
     """
-    raise NotImplementedError("T1.3a @B")
+    raise NotImplementedError("T1.3a @thong")
 
 
 def angle_to_goal(x: float, y: float) -> float:
@@ -32,7 +32,7 @@ def angle_to_goal(x: float, y: float) -> float:
     với sút chính diện ở xa.
     ⚠️ Chặn a·b = 0 (sút từ ngay trên vạch cầu môn).
     """
-    raise NotImplementedError("T1.3b @B")
+    raise NotImplementedError("T1.3b @thong")
 
 
 def add_geometry_features(df: pd.DataFrame) -> pd.DataFrame:
@@ -40,7 +40,7 @@ def add_geometry_features(df: pd.DataFrame) -> pd.DataFrame:
 
     T1.3 — nhận DataFrame có sẵn cột ``x``, ``y``; trả bản copy đã thêm cột.
     """
-    raise NotImplementedError("T1.3 @B")
+    raise NotImplementedError("T1.3 @thong")
 
 
 def one_hot(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
@@ -49,4 +49,4 @@ def one_hot(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
     T1.3d — ``drop_first=False`` để cụm dễ diễn giải; sort tên cột sau khi encode
     để 3 máy cho ra cùng thứ tự (điều kiện để kết quả tái lập được).
     """
-    raise NotImplementedError("T1.3d @B")
+    raise NotImplementedError("T1.3d @thong")

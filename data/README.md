@@ -9,7 +9,7 @@
 ## Vì sao commit `interim/` và `processed/`? — ADR-003
 
 `shots_raw.csv` chỉ ~2.600 dòng (< 1 MB) nhưng là **artifact chung của cả nhóm**.
-Commit nó ⇒ B và C bắt đầu làm việc từ Ngày 2 mà không phải tải lại 350 MB events JSON.
+Commit nó ⇒ Thông và Lộc bắt đầu làm việc từ Ngày 2 mà không phải tải lại 350 MB events JSON.
 Đây chính là điều kiện để 3 luồng chạy song song.
 
 ## Luồng dữ liệu
@@ -27,7 +27,7 @@ data/interim/shots_raw.csv                ~2.600 dòng · GATE 1
    ▼                      ▼                           ▼
 X_unscaled.csv        X_scaled.csv               y_hidden.csv
    │                      │                     🚫 KHÔNG đưa vào model
-   │ (A) K-Means          │ (B) K-Means                │
+   │ Phong: K-Means       │ Thông: K-Means             │
    ▼                      ▼                           │
 labels_unscaled.csv   labels_scaled.csv               │
    └──────── ARI ────────┘                            │

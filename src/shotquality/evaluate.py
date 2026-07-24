@@ -1,4 +1,4 @@
-"""External validation bằng field đã giấu — CHỦ SỞ HỮU: C (branch `eval-eng`).
+"""External validation bằng field đã giấu — CHỦ SỞ HỮU: Lộc (branch `eval-eng`).
 
 Task T6.2, T6.3.
 
@@ -32,7 +32,7 @@ def cluster_profile(
     🎯 Kỳ vọng: cụm gần khung thành / góc mở lớn phải có **cả** goal_rate **và**
     mean_xg cao hơn. Thứ tự khớp ⇒ cụm có ý nghĩa thực tế.
     """
-    raise NotImplementedError("T6.2 @C")
+    raise NotImplementedError("T6.2 @loc")
 
 
 def rank_agreement(profile: pd.DataFrame) -> dict:
@@ -41,7 +41,7 @@ def rank_agreement(profile: pd.DataFrame) -> dict:
     Gợi ý: Spearman rank correlation giữa hai cột. Trả cả hệ số lẫn kết luận
     dạng chữ để đưa thẳng vào report.
     """
-    raise NotImplementedError("T6.2 @C")
+    raise NotImplementedError("T6.2 @loc")
 
 
 def scaling_comparison_table(
@@ -52,4 +52,4 @@ def scaling_comparison_table(
     k_unscaled: int,
 ) -> pd.DataFrame:
     """Bảng tổng hợp scaled vs unscaled. T6.3."""
-    raise NotImplementedError("T6.3 @C")
+    raise NotImplementedError("T6.3 @loc")

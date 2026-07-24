@@ -1,4 +1,4 @@
-"""T0.1 + T1.1 — Tải events JSON. CHỦ SỞ HỮU: A
+"""T0.1 + T1.1 — Tải events JSON. CHỦ SỞ HỮU: Phong
 
     python scripts/01_download.py
 """

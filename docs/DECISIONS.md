@@ -125,9 +125,9 @@ quy được khác biệt cho scaling nữa.
 
 ## ADR-010 · D1 · ✅ Accepted — Cả hai nhánh dùng chung `clustering.py`
 
-**Bối cảnh.** Ngày 3, A chạy nhánh unscaled còn B chạy nhánh scaled.
+**Bối cảnh.** Ngày 3, Phong chạy nhánh unscaled còn Thông chạy nhánh scaled.
 
-**Quyết định.** Chỉ B sở hữu và sửa `clustering.py` + `selection.py`; A **gọi** hàm đó từ notebook của mình.
+**Quyết định.** Chỉ Thông sở hữu và sửa `clustering.py` + `selection.py`; Phong **gọi** hàm đó từ notebook của mình.
 
 **Lý do kép.**
 1. *Kỹ thuật:* hai người không sửa cùng file → không conflict.
