@@ -1,0 +1,10 @@
+# Chuẩn hoá line ending — nếu 3 máy dùng cấu hình khác nhau, git sẽ báo
+# "toàn bộ file đã thay đổi" và tạo conflict giả ở mọi PR.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.csv text eol=lf
+
+# Notebook: giảm nhiễu diff (logic thật nằm ở src/, xem STRUCTURE.md §3)
+*.ipynb -diff
