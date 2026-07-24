@@ -1,5 +1,7 @@
 # ── Dữ liệu thô: KHÔNG commit (≈350 MB events JSON) ───────────────────
-data/raw/
+# Dùng data/raw/* chứ KHÔNG phải data/raw/ — nếu ignore cả thư mục thì
+# dòng phủ định "!" bên dưới sẽ không có tác dụng (git không duyệt vào thư mục bị loại).
+data/raw/*
 !data/raw/.gitkeep
 
 # ── Dữ liệu trung gian/đã xử lý: CÓ commit (xem ADR-003) ──────────────
