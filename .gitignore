@@ -1,0 +1,30 @@
+# ── Dữ liệu thô: KHÔNG commit (≈350 MB events JSON) ───────────────────
+data/raw/
+!data/raw/.gitkeep
+
+# ── Dữ liệu trung gian/đã xử lý: CÓ commit (xem ADR-003) ──────────────
+# data/interim/shots_raw.csv        <- commit, đây là artifact chung
+# data/processed/*.csv              <- commit, nhỏ và cần cho reproduce
+
+# ── Python ────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ── Notebook ──────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── IDE / OS ──────────────────────────────────────────────────────────
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ── Test / cache ──────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
