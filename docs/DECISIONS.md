@@ -151,6 +151,18 @@ Bằng chứng về ý nghĩa thực tế phải lấy từ external validation 
 
 ---
 
+## ADR-012 · D1 · ✅ Accepted — Impute `keeper_x` and `keeper_y` with goal center
+
+**Bối cảnh.** Khung hình `freeze_frame` thỉnh thoảng bị khuyết mất thủ môn vì nằm ngoài camera (125 shots).
+
+**Quyết định.** Impute các giá trị missing của `keeper_x` và `keeper_y` bằng toạ độ trung tâm của khung thành (120, 40).
+
+**Lý do.** Khi thủ môn nằm ngoài frame, khả năng cao họ đang đứng gần khu vực an toàn nhất là chính giữa khung thành, hoặc ít nhất đây là giá trị default ít rủi ro nhất đối với các feature đo khoảng cách tới lưới.
+
+**Hệ quả.** Xử lý được 125 missing values ở `keeper_x` và `keeper_y` (ghi nhận từ scripts/04_preprocess.py) mà không phải xoá dữ liệu, giữ nguyên cỡ mẫu (3200).
+
+---
+
 ## Mẫu cho ADR tiếp theo
 
 ```markdown
