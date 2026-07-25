@@ -49,7 +49,7 @@ gantt
 | Giờ | Hoạt động | Ai |
 |---|---|---|
 | 09:00–09:45 | Kickoff: đọc `README` + `STRUCTURE` + `WORKFLOW`. Mỗi người tạo branch của mình. | Cả 3 |
-| 09:45–10:00 | Chốt scope dữ liệu (đã có sẵn: Euro 2024 + WC 2022, 115 trận) → ghi vào `STATE.md` | LEAD |
+| 09:45–10:00 | Chốt scope dữ liệu (đã có sẵn: World Cup 2018 + WC 2022, 128 trận) → ghi vào `STATE.md` | LEAD |
 | 10:00–12:00 | **Tách 3 luồng song song** (xem bảng dưới) | Phong / Thông / Lộc |
 | 13:00–16:00 | Tiếp tục 3 luồng + viết unit test | Phong / Thông / Lộc |
 | 16:00–17:00 | **Merge window #1** — cả 3 PR vào `main` | Cả 3 |
@@ -143,7 +143,7 @@ Khi một gate trễ **quá 2 giờ**, cắt theo đúng thứ tự sau, không 
 | Nếu gate trễ | Cắt gì | Tiết kiệm | Ảnh hưởng |
 |---|---|---|---|
 | GATE 1 | Bỏ feature từ `freeze_frame` (`n_defenders_in_cone`…) | ~4h của Lộc | Feature set vẫn hợp lệ, chỉ kém phong phú |
-| GATE 1 | Bỏ WC 2022, chỉ dùng Euro 2024 | ~1,5h | Còn 1.304 shot — **vẫn đủ** cho k≤10 + 5-fold CV |
+| GATE 1 | Bỏ WC 2022, chỉ dùng World Cup 2018 | ~1,5h | Còn 1.304 shot — **vẫn đủ** cho k≤10 + 5-fold CV |
 | GATE 2 | Bỏ Gap Statistic, giữ Elbow + Silhouette | ~4h của Lộc | Mất 1 trong 3 phương pháp chọn K |
 | GATE 2 | Bỏ T2.3 (phân bố body_part/technique) + T2.4 (lệch mẫu theo đội) | ~1,5h của Phong | Mất 2 bảng mô tả phụ; **không** ảnh hưởng feature set hay kết quả cụm |
 | GATE 3 | K range 2..8 thay vì 2..10 | ~1h | Ít lựa chọn K hơn |

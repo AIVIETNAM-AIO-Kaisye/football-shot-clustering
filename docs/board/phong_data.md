@@ -38,10 +38,10 @@
       ↳ out: `reports/tables/t2_describe.csv`
 
 - [ ] **T2.2** `@phong` `#eda` `#p1` `#todo` — Phân bố `shot_outcome`, xác nhận mức mất cân bằng `est 0.5h`
-      ↳ note: đối chiếu Euro 2024 đo sẵn — goal rate 7,5%
+      ↳ note: đối chiếu World Cup 2018 đo sẵn — goal rate 7,5%
 
 - [ ] **T2.3** `@phong` `#eda` `#p2` `#todo` — Phân bố `body_part`, `technique`, `shot_type` `est 0.5h`
-      ↳ ⚠️ `body_part == "Other"` chỉ có 7 shot ở Euro 2024 → quá ít để one-hot riêng, đề xuất gộp/bỏ
+      ↳ ⚠️ `body_part == "Other"` chỉ có 7 shot ở World Cup 2018 → quá ít để one-hot riêng, đề xuất gộp/bỏ
 
 - [ ] **T2.4** `@phong` `#eda` `#p2` `#todo` — Số shot theo đội / theo trận → phát hiện lệch mẫu `est 1h`
 

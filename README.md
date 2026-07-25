@@ -21,7 +21,7 @@ kiểm chứng độ ổn định của cụm bằng **KNN + k-fold cross-valida
 
 | Nguồn | `hudl/open-data` (StatsBomb) |
 |---|---|
-| Giải đấu | UEFA Euro 2024 (`comp=55, season=282`) + FIFA World Cup 2022 (`comp=43, season=106`) |
+| Giải đấu | FIFA World Cup 2018 (`comp=43, season=3`) + FIFA World Cup 2022 (`comp=43, season=106`) |
 | Số trận | 115 |
 | Số shot dự kiến | ~2.600 (sau khi loại penalty & luân lưu) |
 
