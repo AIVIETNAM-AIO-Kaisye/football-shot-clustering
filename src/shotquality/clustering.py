@@ -13,6 +13,7 @@ hai nhánh thí nghiệm đi qua cùng một code path nên chênh lệch kết 
 from __future__ import annotations
 
 import pandas as pd
+from sklearn.cluster import KMeans
 
 from . import config
 
@@ -24,7 +25,14 @@ def run_kmeans(X: pd.DataFrame, k: int):
     để kết quả tái lập được trên cả 3 máy (ADR-005).
     Trả ``(labels, inertia, model)``.
     """
-    raise NotImplementedError("T5.0a @thong")
+    model = KMeans(
+        n_clusters=k,
+        random_state=config.RANDOM_STATE,
+        n_init=config.KMEANS_N_INIT,
+    )
+    labels = model.fit_predict(X)
+    inertia = model.inertia_
+    return labels, inertia, model
 
 
 def run_kmeans_sweep(X: pd.DataFrame, k_range=config.K_RANGE) -> dict[int, tuple]:
@@ -32,7 +40,10 @@ def run_kmeans_sweep(X: pd.DataFrame, k_range=config.K_RANGE) -> dict[int, tuple
 
     T5.0a — đây là hàm Phong gọi ở T5.1a cho nhánh unscaled.
     """
-    raise NotImplementedError("T5.0a @thong")
+    results = {}
+    for k in k_range:
+        results[k] = run_kmeans(X, k)
+    return results
 
 
 def describe_centroids(model, X_unscaled: pd.DataFrame, labels) -> pd.DataFrame:
@@ -41,4 +52,8 @@ def describe_centroids(model, X_unscaled: pd.DataFrame, labels) -> pd.DataFrame:
     ⚠️ Nếu model fit trên dữ liệu đã chuẩn hoá thì phải ``inverse_transform``
     centroid về đơn vị gốc, nếu không bảng sẽ không đọc được.
     """
-    raise NotImplementedError("T5.4b @thong")
+    # Grouping by labels on the original unscaled data directly calculates the exact physical 
+    # centroid (mean) for each cluster, avoiding the need to inverse_transform.
+    df = X_unscaled.copy()
+    df['Cluster'] = labels
+    return df.groupby('Cluster').mean()
