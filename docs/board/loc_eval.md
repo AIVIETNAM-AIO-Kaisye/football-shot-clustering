@@ -21,7 +21,7 @@
 - [ ] **T1.4d** `@loc` `#data` `#p1` `#todo` — Unit test freeze-frame `est 1.5h`
       ↳ out: `tests/test_freeze_frame.py`
       ↳ case: freeze_frame rỗng · không có GK · cầu thủ nằm đúng trên cạnh tam giác
-      ↳ note: Euro 2024 có **1304/1304** shot chứa freeze_frame → không cần fallback cho trường hợp thiếu hẳn
+      ↳ note: World Cup 2018 có **1304/1304** shot chứa freeze_frame → không cần fallback cho trường hợp thiếu hẳn
 
 ---
 

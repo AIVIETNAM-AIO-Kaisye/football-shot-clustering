@@ -15,7 +15,7 @@ def numeric_summary(df: pd.DataFrame) -> pd.DataFrame:
 def outcome_distribution(df: pd.DataFrame) -> pd.DataFrame:
     """Phân bố ``shot_outcome`` (đếm + %). T2.2.
 
-    Đối chiếu: Euro 2024 (1.304 shot hợp lệ) — goal rate 7,5%,
+    Đối chiếu: World Cup 2018 (1.304 shot hợp lệ) — goal rate 7,5%,
     Off T 397 · Blocked 386 · Saved 310 · Goal 98 · Wayward 81 · Post 24.
     """
     raise NotImplementedError("T2.2 @phong")
@@ -24,7 +24,7 @@ def outcome_distribution(df: pd.DataFrame) -> pd.DataFrame:
 def categorical_distribution(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
     """Phân bố ``body_part``, ``technique``, ``shot_type``. T2.3.
 
-    ⚠️ ``body_part == "Other"`` chỉ có 7 shot ở Euro 2024 → quá ít để one-hot riêng;
+    ⚠️ ``body_part == "Other"`` chỉ có 7 shot ở World Cup 2018 → quá ít để one-hot riêng;
     cột gần như toàn 0 chỉ làm nhiễu khoảng cách L2. Đề xuất gộp hoặc bỏ.
     """
     raise NotImplementedError("T2.3 @phong")

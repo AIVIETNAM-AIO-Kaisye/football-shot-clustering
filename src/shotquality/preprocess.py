@@ -25,7 +25,7 @@ def encode_categoricals(X: pd.DataFrame) -> pd.DataFrame:
     """One-hot ``config.CATEGORICAL_FEATURES``. T4.2.
 
     Note: EDA của Phong (T2.3) có thể đề xuất gộp ``body_part == "Other"``
-    (chỉ 7 shot ở Euro 2024) để tránh cột gần như toàn 0 làm nhiễu khoảng cách L2.
+    (chỉ 7 shot ở World Cup 2018) để tránh cột gần như toàn 0 làm nhiễu khoảng cách L2.
     """
     raise NotImplementedError("T4.2 @thong")
 

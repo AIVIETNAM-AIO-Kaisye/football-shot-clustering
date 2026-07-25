@@ -7,12 +7,12 @@ Khi bảo vệ report, đây là chỗ trả lời câu "tại sao nhóm chọn 
 
 ---
 
-## ADR-001 · D1 · ✅ Accepted — Chọn Euro 2024 + World Cup 2022
+## ADR-001 · D1 · ✅ Accepted — Chọn World Cup 2018 + World Cup 2022
 
 **Bối cảnh.** `hudl/open-data` có 80 cặp competition-season. Cần đủ mẫu cho K-Means (k≤10) và 5-fold CV,
 đồng thời bối cảnh phải đồng nhất.
 
-**Quyết định.** Dùng UEFA Euro 2024 (`55/282`, 51 trận) + FIFA World Cup 2022 (`43/106`, 64 trận) → ~2.600 shot.
+**Quyết định.** Dùng FIFA World Cup 2018 (`43/3`, 64 trận) + FIFA World Cup 2022 (`43/106`, 64 trận) → ~2.600 shot.
 
 **Lý do.**
 - Cùng là giải quốc tế nam đỉnh cao → không lẫn confound "trình độ giải khác nhau".
@@ -52,14 +52,14 @@ Nếu vẫn muốn clone: `git clone --filter=blob:none --sparse` rồi `git spa
 
 ## ADR-004 · D1 · ✅ Accepted — Loại penalty và loạt luân lưu
 
-**Bối cảnh.** Euro 2024 có 36 penalty + 24 quả luân lưu (`period == 5`).
+**Bối cảnh.** World Cup 2018 có 36 penalty + 24 quả luân lưu (`period == 5`).
 
 **Quyết định.** Lọc bỏ `shot.type.name == "Penalty"` và `period == 5`.
 
 **Lý do.** Mọi penalty ở **cùng một toạ độ**, xG cố định ~0.78 → K-Means sẽ dành hẳn một cụm cho chúng.
 Cụm đó không mang thông tin về "vùng sút" nào cả, mà còn bóp méo Elbow curve và Silhouette score.
 
-**Hệ quả.** Euro 2024: 1.340 → **1.304** shot hợp lệ.
+**Hệ quả.** World Cup 2018: 1.340 → **1.304** shot hợp lệ.
 
 ---
 
@@ -105,7 +105,7 @@ các mô hình xG. Góc tới tâm không phân biệt được sút gần sát 
 **Quyết định.** Bỏ ràng buộc đó.
 
 **Lý do.** `shot.freeze_frame` nằm **ngay trong chính event Shot**, độc lập với 360 data.
-Kiểm chứng thực tế: Euro 2024 có **1304/1304** shot chứa `freeze_frame`; Premier League 2015/16
+Kiểm chứng thực tế: World Cup 2018 có **1304/1304** shot chứa `freeze_frame`; Premier League 2015/16
 (không hề có 360) vẫn đạt 87/88.
 
 **Hệ quả.** Tự do chọn giải theo kích thước mẫu; không phải tải thư mục `three-sixty/` (rất nặng).

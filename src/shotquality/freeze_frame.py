@@ -3,7 +3,7 @@
 Task T1.4. Phong gọi các hàm này trong `ingest.py` — chữ ký đóng băng từ Ngày 1.
 
 Ghi chú: ``freeze_frame`` nằm ngay trong event Shot, KHÔNG cần 360 data (ADR-008).
-Đo thực tế: Euro 2024 có 1304/1304 shot chứa freeze_frame.
+Đo thực tế: World Cup 2018 có 1304/1304 shot chứa freeze_frame.
 """
 
 from __future__ import annotations

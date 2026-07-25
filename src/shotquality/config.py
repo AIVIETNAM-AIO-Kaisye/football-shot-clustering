@@ -33,7 +33,7 @@ OPEN_DATA_BASE = "https://raw.githubusercontent.com/hudl/open-data/master/data"
 
 # (competition_id, season_id, tên gọi)
 COMPETITIONS = [
-    (55, 282, "UEFA Euro 2024"),
+    (43, 3, "FIFA World Cup 2018"),
     (43, 106, "FIFA World Cup 2022"),
 ]
 

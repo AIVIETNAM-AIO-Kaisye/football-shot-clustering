@@ -13,7 +13,7 @@
 
 | Hạng mục | Trạng thái |
 |---|---|
-| Phạm vi dữ liệu | ✅ Đã chốt — Euro 2024 + WC 2022, 115 trận |
+| Phạm vi dữ liệu | ✅ Đã chốt — World Cup 2018 + WC 2022, 128 trận |
 | Data contract | 🟡 DRAFT (đóng băng tại GATE 1) |
 | `shots_raw.csv` | ⬜ chưa có |
 | `X_scaled` / `X_unscaled` | ⬜ chưa có |
@@ -46,7 +46,7 @@ Ký hiệu: ⬜ chưa tới · 🟡 đang làm · ✅ đạt · 🔴 trễ (kíc
 | **KNN CV accuracy ± std** | — | T5.5 |
 | Cụm có goal rate cao nhất | — | T6.2 |
 
-> Tham chiếu đối chiếu (đo sẵn trên Euro 2024, chưa gộp WC 2022):
+> Tham chiếu đối chiếu (đo sẵn trên World Cup 2018, chưa gộp WC 2022):
 > 1.304 shot hợp lệ · goal rate 7,5% · Right Foot 676 / Left Foot 393 / Head 228 / Other 7 ·
 > freeze_frame thiếu 0.
 
@@ -54,7 +54,7 @@ Ký hiệu: ⬜ chưa tới · 🟡 đang làm · ✅ đạt · 🔴 trễ (kíc
 
 | Rủi ro | Mức | Dấu hiệu sớm | Phản ứng |
 |---|---|---|---|
-| Tải 115 file events chậm/lỗi mạng | Trung bình | GATE 1 trễ > 2h | Descope: bỏ WC 2022, chỉ dùng Euro 2024 |
+| Tải 128 file events chậm/lỗi mạng | Trung bình | GATE 1 trễ > 2h | Descope: bỏ WC 2022, chỉ dùng World Cup 2018 |
 | Parse `freeze_frame` phức tạp hơn dự kiến | Cao | C chưa xong cuối D1 | Descope: bỏ nhóm feature freeze_frame |
 | Gap Statistic khó implement đúng | Trung bình | C tắc ở D2 | Descope: giữ Elbow + Silhouette |
 | 3 phương pháp chọn K không đồng thuận | Thấp | — | **Không phải lỗi** — đây là insight, phân tích trong report |

@@ -30,3 +30,9 @@ desktop.ini
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Agent
+CLAUDE.md
+AGENTS.md
+.agents
+.claude
