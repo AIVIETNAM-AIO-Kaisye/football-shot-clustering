@@ -60,9 +60,7 @@ EXCLUDE_PERIODS = (5,)  # loạt luân lưu
 BOOL_FLAGS = [
     "under_pressure",
     "first_time",
-    "one_on_one",
     "open_goal",
-    "follows_dribble",
     "aerial_won",
 ]
 
@@ -70,23 +68,26 @@ BOOL_FLAGS = [
 # Nhóm cột — ADR-006. Chốt lại lần cuối ở T3.6 (@phong).
 # ─────────────────────────────────────────────────────────────────────
 ID_COLS = [
-    "shot_id", "match_id", "competition_id", "season_id",
+    "event_id", "match_id", "season_id",
     "team_id", "team_name", "player_id", "player_name",
-    "period", "minute", "second", "play_pattern", "position_name",
+    "period", "minute", "second", "play_pattern",
 ]
 
 # 🚫 CẤM đưa vào K-Means / KNN
 HIDDEN_COLS = [
-    "shot_outcome", "is_goal", "statsbomb_xg",
-    "end_x", "end_y", "end_z",
+    "outcome", "statsbomb_xg",
+    "end_location_x", "end_location_y",
 ]
 
 NUMERIC_FEATURES = [
+    "location_x",
+    "location_y",
     "distance_to_goal",
     "angle_to_goal",
-    "n_defenders_in_cone",
-    "n_opponents_within_3y",
-    "gk_dist_to_goal",
+    "n_teammates_in_frame",
+    "n_opponents_in_frame",
+    "keeper_x",
+    "keeper_y",
 ]
 
 CATEGORICAL_FEATURES = ["body_part", "technique", "shot_type"]
