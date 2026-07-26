@@ -1,64 +1,41 @@
-# Shot Quality Clustering
+# Football Shot Clustering
 
-Phân cụm chất lượng cơ hội sút bóng (*shot quality*) từ **StatsBomb open-data** bằng **K-Means**,
-kiểm chứng độ ổn định của cụm bằng **KNN + k-fold cross-validation**.
+Clustering football shot opportunities (*shot quality*) from **StatsBomb open-data** using **K-Means**, and verifying cluster stability using **KNN + k-fold cross-validation**.
 
-> **Câu hỏi nghiên cứu:** Feature scaling và cách chọn K ảnh hưởng thế nào đến việc phân cụm
-> các cú sút theo chất lượng cơ hội, và các cụm tìm được có thực sự phản ánh khả năng ghi bàn thật hay không?
+> **Research Question:** How does feature scaling and the choice of K affect the clustering of shots by chance quality, and do the discovered clusters truly reflect the real scoring probability?
 
-## Thiết kế thí nghiệm
+## Experimental Design
 
-| Thành phần | Vai trò |
+| Component | Role |
 |---|---|
-| **Biến thí nghiệm** | Feature scaling (`X_unscaled` vs `X_scaled`) · Số cụm K (2–10) |
-| **Biến kiểm soát** | Distance metric cố định L2/Euclidean · `random_state=42` |
-| **Đo khác biệt** | Adjusted Rand Index (ARI) giữa 2 phiên bản clustering |
+| **Experimental Variables** | Feature scaling (`X_unscaled` vs `X_scaled`) · Number of clusters K (2–10) |
+| **Control Variables** | Fixed distance metric L2/Euclidean · `random_state=42` |
+| **Difference Measurement** | Adjusted Rand Index (ARI) between 2 clustering versions |
 | **Internal validation** | Silhouette · Elbow · Gap Statistic |
-| **External validation** | Goal rate thực tế + xG trung bình theo cụm (từ field đã giấu) |
-| **Kiểm định ổn định** | KNN 5-fold CV dự đoán `cluster_id` → accuracy ± std |
+| **External validation** | Actual goal rate + average xG by cluster (from hidden fields) |
+| **Stability Test** | KNN 5-fold CV predicting `cluster_id` → accuracy ± std |
 
-## Dữ liệu
+## Data
 
-| Nguồn | `hudl/open-data` (StatsBomb) |
+| Source | `saurabhshahane/statsbomb-football-data` (Kaggle Dataset) |
 |---|---|
-| Giải đấu | FIFA World Cup 2018 (`comp=43, season=3`) + FIFA World Cup 2022 (`comp=43, season=106`) |
-| Số trận | 115 |
-| Số shot dự kiến | ~2.600 (sau khi loại penalty & luân lưu) |
-
-⚠️ **Không clone toàn bộ repo open-data (7.06 GB).** Chỉ tải `data/events/{match_id}.json` cho 115 trận
-đã chọn. Xem [`docs/DECISIONS.md`](docs/DECISIONS.md) ADR-002.
+| Tournaments | FIFA World Cup 2018 (`comp=43, season=3`) + FIFA World Cup 2022 (`comp=43, season=106`) |
+| Matches | 128 |
 
 ## Quickstart
 
-```bash
-python -m venv .venv && .venv/Scripts/activate     # Windows
-pip install -r requirements.txt
+### Notebooks Suite
 
-python scripts/01_download.py        # tải events JSON  -> data/raw/
-python scripts/02_extract_shots.py   # trích xuất shot  -> data/interim/shots_raw.csv
-python scripts/03_descriptive.py     # thống kê mô tả   -> reports/
-python scripts/04_preprocess.py      # X_scaled/X_unscaled -> data/processed/
-python scripts/05_cluster.py         # K-Means + chọn K  -> data/processed/labels_*.csv
-python scripts/06_validate.py        # ARI + KNN CV      -> reports/
-python scripts/07_report.py          # bảng tổng hợp     -> reports/final_report.md
-```
-
-## Tài liệu
-
-| File | Nội dung |
-|---|---|
-| [`docs/PLAN.md`](docs/PLAN.md) | Kế hoạch 4 ngày, phân việc theo người, gate & descope |
-| [`docs/STRUCTURE.md`](docs/STRUCTURE.md) | Bản đồ thư mục + **ma trận sở hữu file** (chống conflict) |
-| [`docs/WORKFLOW.md`](docs/WORKFLOW.md) | Quy ước Git branch, PR, và hệ thống tag Kanban |
-| [`docs/DATA_CONTRACT.md`](docs/DATA_CONTRACT.md) | Schema `shots_raw.csv` — **đóng băng từ cuối Ngày 1** |
-| [`docs/DECISIONS.md`](docs/DECISIONS.md) | Nhật ký quyết định kỹ thuật (ADR) |
-| [`docs/STATE.md`](docs/STATE.md) | Trạng thái hiện tại của project (cập nhật mỗi standup) |
-| [`docs/board/BOARD.md`](docs/board/BOARD.md) | Kanban board — tổng quan 3 thành viên |
+The workflow is divided among the team's designated notebooks to prevent git conflicts. These notebooks are designed to be run directly on **Google Colab** or **Kaggle**:
+- [notebooks/01_data_and_eda.ipynb](notebooks/01_data_and_eda.ipynb): Data ingestion, shot extraction, and EDA.
+- [notebooks/02_modeling.ipynb](notebooks/02_modeling.ipynb): Preprocessing, feature scaling, and K-Means modeling.
+- [notebooks/03_evaluation.ipynb](notebooks/03_evaluation.ipynb): Model validation, CV stability, and external evaluation.
+- [notebooks/04_master_pipeline.ipynb](notebooks/04_master_pipeline.ipynb): The combined end-to-end master notebook (assembled at the end of the project).
 
 ## Team
 
-| Vai trò | Branch | Phụ trách |
+| Role | Branch | Assignee |
 |---|---|---|
-| **Phong** — Data Engineer *(kiêm LEAD)* | `data-eng` | Ingest, EDA, thống kê mô tả, nhánh unscaled |
-| **Thông** — ML Engineer | `ml-eng` | Feature engineering, preprocessing, K-Means, chọn K |
-| **Lộc** — Evaluation & Report | `eval-eng` | Freeze-frame, Gap statistic, KNN-CV, validation, report |
+| **Phong** — Repo Setup & Infra *(Team Lead)* | `data-eng` | Setup repo, master pipeline, review |
+| **Lộc** — Data Engineer | `loc-data` | Raw data extraction, EDA |
+| **Thông** — ML & Eval Engineer | `ml-eng` | Feature engineering, preprocessing, K-Means, Validation, Report |
