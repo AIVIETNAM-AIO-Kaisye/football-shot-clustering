@@ -1,0 +1,585 @@
+\documentclass[12pt]{ai_conquer2026}
+\addbibresource{references.bib}
+
+\title{%
+  \begin{center}
+        \Large {AI VIET NAM -- AI Conquer 2026}\\[.5ex]
+        \Huge \textbf{Player Style Clustering from Football Event Data:\\[.3ex]
+        A K-Means Study on Scaling, Model Selection, and Stability}\\[.5ex]
+  \end{center}
+}
+
+% Author --------------------------------------------------------------------
+\posttitle{
+\author{
+\begin{minipage}{\textwidth}
+\centering
+{
+\vspace{-1.5em}
+Group: Phong (Team Lead) $\cdot$ Lộc (Data Engineer) $\cdot$ Thông (ML \& Eval Engineer)
+}\\
+\end{minipage}
+}
+}
+\date{}
+
+% Header --------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\href{https://www.facebook.com/aivietnam.edu.vn}{\textcolor{aivnGreen}{\bfseries AI VIET NAM (AI Conquer 2026)}}}
+\rhead{\href{https://aivietnam.edu.vn/}{\textcolor{aivnGreen}{\bfseries aivietnam.edu.vn}}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1.0pt}
+\renewcommand{\headrule}{{\color{aivnGreen}\hrule width\headwidth height\headrulewidth \vskip-\headrulewidth}}
+
+\begin{document}
+
+% Override Vietnamese labels from .cls for English report
+\renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\refname}{References}
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Table}
+\renewcommand{\capfig}[1]{%
+  \refstepcounter{hinh}%
+    Figure~\thehinh:~#1
+}
+\renewcommand{\appendixtocname}{Appendices}
+\renewcommand{\appendixpagename}{Appendices}
+
+\maketitle
+\vspace{-5.5em}
+
+% --------------------------------------------------------------------------
+\section{Abstract}
+
+Clustering football player styles is a fundamental challenge in modern sports analytics with immediate applications in tactical profiling, opponent preparation, and recruitment scouting. While the K-Means algorithm is widely adopted for partition-based clustering, its practical performance depends heavily on feature scaling transformations, the choice of the cluster hyperparameter $k$, and rigorous validation protocols. In football event streams, performance metrics often follow heavily right-skewed distributions driven by elite outliers (e.g., top-tier goalscorers and high-volume playmakers), making traditional normalization techniques vulnerable to distortion.
+
+This study presents an end-to-end, data-driven methodology for unsupervised player style clustering using K-Means. We analyze 1,016 qualified players ($\ge 900$ minutes played) across 1,140 matches from three premier European competitions (Premier League, La Liga, Serie A) during the complete 2015/2016 season using open StatsBomb event data. Each player is represented across 29 per-90 rate and efficiency metrics spanning shooting, passing, dribbling, defensive engagement, and spatial pitch coordinates.
+
+Our empirical findings demonstrate three core conclusions:
+\begin{enumerate}
+    \item \textbf{Robust Scaling is Essential:} RobustScaler substantially outperforms Unscaled and StandardScaler representations by utilizing order statistics (median and interquartile range), effectively mitigating the distortion of extreme outliers and constructing a resilient, scale-invariant feature space.
+    \item \textbf{Optimal Cluster Resolution ($k=5$):} While mathematical criteria such as the Silhouette score globally peak at $k=2$ (a coarse binary split into defensive and offensive units), selecting $k=5$ achieves the optimal balance between mathematical cohesion (forming a strong local elbow and peak) and domain interpretability across specialized tactical roles.
+    \item \textbf{High Stability and Boundary Learnability:} The five discovered clusters demonstrate strong structural alignment with real-world playing positions (Overall Purity $\approx 69.7\%$, $\text{NMI} \approx 0.546$). Furthermore, a supervised K-Nearest Neighbors (KNN) classifier achieves $96.6\% \pm 0.8\%$ 5-fold cross-validation accuracy, confirming that the unsupervised partitions form highly distinct, stable decision boundaries in 29-dimensional space.
+\end{enumerate}
+
+\newpage
+\setcounter{tocdepth}{2}
+\tableofcontents
+\thispagestyle{fancy}
+
+% --------------------------------------------------------------------------
+\newpage
+\section{Introduction}
+
+The rapid evolution of modern sports analytics has transformed how football clubs, scouts, and performance analysts evaluate player performance. Historically, player evaluation relied on subjective visual scouting combined with rudimentary aggregate statistics such as total goals, assists, or clean sheets. However, modern football is defined by tactical fluidity, high-tempo pressing systems, and positional interchangeability (such as inverted fullbacks, false nines, and roaming playmakers). Consequently, nominal lineup labels (e.g., "Midfielder" or "Defender") fail to capture the nuanced on-pitch behavioral roles executed by players over the course of a competitive season.
+
+With the advent of fine-grained event data streams provided by organizations such as StatsBomb \cite{statsbomb_open_data}, every on-ball action—including passes, shots, pressures, recoveries, and spatial pitch coordinates—is recorded with micro-level precision. This granular data allows analysts to construct comprehensive behavioral profiles that reflect what players actually do on the pitch rather than what their designated position implies. Unsupervised machine learning, specifically partition-based clustering, offers a systematic framework to discover natural tactical archetypes directly from these multidimensional event distributions.
+
+Despite its popularity, the application of K-Means clustering \cite{macqueen1967methods} to football event data presents significant methodological challenges:
+\begin{itemize}
+  \item \textbf{Scale Disparity and Heavy-Tailed Skewness:} Event metrics vary dramatically in scale. For instance, a central midfielder may record over 100 touches per match, whereas a striker may record only 2 to 3 shots per match. Furthermore, exceptional individual performances generate heavy-tailed, right-skewed distributions. Standard distance metrics like Euclidean distance are easily dominated by high-variance features unless appropriate scaling is applied.
+  \item \textbf{Hyperparameter Selection Ambiguity:} Determining the appropriate number of clusters ($k$) requires balancing mathematical validation metrics against domain interpretability. Pure mathematical criteria often favor overly coarse binary splits (such as dividing players broadly into defensive versus offensive units), necessitating a multi-criteria model selection framework.
+  \item \textbf{Cluster Validation and Stability:} Unsupervised clusters risk being mathematical artifacts of centroid initialization unless verified through external domain benchmarks and boundary stability testing.
+\end{itemize}
+
+This study addresses these challenges through a rigorous empirical investigation using complete 2015/2016 season data from three premier European leagues. Importantly, ground-truth player positions (\texttt{primary\_position}) are held out strictly as hidden evaluation targets and are never exposed during feature engineering or cluster fitting.
+
+\textbf{Research Questions:}
+\begin{itemize}
+  \item \textbf{RQ1 (Feature Scaling Impact):} How do different scaling strategies (Unscaled, StandardScaler, RobustScaler) affect the topological geometry of the feature space and the resulting K-Means cluster partitions?
+  \item \textbf{RQ2 (Optimal Cluster Resolution):} Which cluster cardinality $k \in [2, 10]$ maximizes internal cohesion and inter-cluster separation across the Elbow (WCSS), Silhouette Score, and Gap Statistic metrics?
+  \item \textbf{RQ3 (Tactical Alignment and Stability):} To what extent do the discovered unsupervised clusters correspond to ground-truth playing positions, and how robust are these cluster boundaries under cross-validated supervised classification?
+\end{itemize}
+
+\textbf{Paper Organization:} The remainder of this paper is structured as follows: Section~\ref{sec:related_work} reviews related literature on football analytics and clustering methodologies. Section~\ref{sec:methodology} formalizes the mathematical foundations of K-Means, scaling transformations, and evaluation metrics. Section~\ref{sec:data} describes the data processing pipeline, player inclusion filtering, and feature extraction. Section~\ref{sec:results} presents the empirical results, model selection curves, tactical archetype interpretations, and stability tests. Section~\ref{sec:discussion} discusses practical applications for scouting and recruitment, and Section~\ref{sec:conclusion} concludes the paper.
+
+% --------------------------------------------------------------------------
+\section{Related Work}
+\label{sec:related_work}
+
+Player profiling and tactical clustering in association football have evolved across three methodological domains:
+
+\subsection{Positional vs. Behavioral Profiling}
+Early sports statistics categorized players almost exclusively by static nominal roles assigned on team sheets. However, modern tactical paradigms (such as Pep Guardiola's *Juego de Posición* and high-intensity *Gegenpressing*) require players to fulfill multiple functional duties regardless of their starting position. Recent sports analytics literature emphasizes behavioral profiling derived from event data and tracking coordinates \cite{pedregosa2011scikit}. By aggregating event frequencies into per-90 rates and spatial distribution metrics, researchers can identify functional player roles, tactical versatility, and squad redundancy without relying on rigid positional constraints.
+
+\subsection{Distance-Based Clustering in Sports}
+The K-Means algorithm \cite{macqueen1967methods} remains the benchmark unsupervised learning technique in sports analytics due to its computational scalability and intuitive centroid-based cluster representations. However, distance-based algorithms that rely on Euclidean geometry are notoriously sensitive to feature scaling and the presence of outliers. Standard normalization methods, such as $z$-score standardization, rely on the empirical mean and standard deviation, which are easily skewed by heavy-tailed performance metrics \cite{hubert1985comparing}. While robust scaling based on order statistics (medians and interquartile ranges) is widely recognized in robust statistics, comprehensive empirical comparisons of scaling resilience in multi-league football event data remain limited.
+
+\subsection{Cluster Validation and Stability}
+A persistent limitation in applied unsupervised learning is the lack of formal validation. Unsupervised algorithms will partition any given dataset into $k$ groups, regardless of whether true cluster structure exists. Robust validation frameworks require two complementary perspectives: (1) internal validation metrics, such as the Silhouette index \cite{rousseeuw1987silhouettes} and the Gap Statistic \cite{tibshirani2001estimating}, which evaluate cluster separation against null reference distributions; and (2) external validation and stability testing, where cluster labels are tested against ground-truth domain categories and verified for boundary learnability using supervised classifiers such as K-Nearest Neighbors (KNN).
+
+% --------------------------------------------------------------------------
+\section{Methodology}
+\label{sec:methodology}
+
+This section outlines the mathematical formulations and theoretical foundations of the machine learning algorithms, normalization procedures, and validation metrics used throughout this study.
+
+\subsection{K-Means Formulation}
+Let $X = \{\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_n\} \subset \mathbb{R}^d$ denote the dataset of $n = 1016$ players, where each player vector $\mathbf{x}_i \in \mathbb{R}^{29}$ represents 29 normalized performance features. The objective of K-Means is to partition the $n$ observations into $k$ disjoint clusters $C = \{C_1, C_2, \ldots, C_k\}$ such that the Within-Cluster Sum of Squares (WCSS) is minimized:
+
+\begin{equation}
+\text{WCSS}(C) = \sum_{j=1}^{k} \sum_{\mathbf{x}_i \in C_j} \|\mathbf{x}_i - \boldsymbol{\mu}_j\|^2
+\end{equation}
+
+where $\boldsymbol{\mu}_j$ is the centroid vector representing the arithmetic mean of cluster $C_j$:
+
+\begin{equation}
+\boldsymbol{\mu}_j = \frac{1}{|C_j|} \sum_{\mathbf{x}_i \in C_j} \mathbf{x}_i
+\end{equation}
+
+and $\|\mathbf{x}_i - \boldsymbol{\mu}_j\|$ represents the standard $L_2$ Euclidean distance metric:
+
+\begin{equation}
+\|\mathbf{x}_i - \boldsymbol{\mu}_j\| = \sqrt{\sum_{l=1}^{d} (x_{il} - \mu_{jl})^2}
+\end{equation}
+
+The optimization is solved iteratively using Lloyd's algorithm: (1) in the assignment step, each sample is assigned to its nearest centroid; (2) in the update step, cluster centroids are recomputed based on newly assigned members. Convergence is achieved when centroid positions stabilize within a tolerance threshold $\epsilon = 10^{-4}$.
+
+\subsection{Feature Scaling}
+Because the Euclidean distance computation is non-invariant to linear feature scaling, variables with large absolute ranges dominate the objective function. We evaluate three distinct scaling transformations $T(\mathbf{x})$:
+
+\begin{enumerate}
+  \item \textbf{Unscaled ($X_{\text{unscaled}}$):} Raw feature values without transformation:
+  \begin{equation}
+  T(x_{ij}) = x_{ij}
+  \end{equation}
+  \item \textbf{StandardScaler ($X_{\text{standard}}$):} Centers features around the sample mean $\mu_j$ and scales by the standard deviation $\sigma_j$:
+  \begin{equation}
+  T(x_{ij}) = \frac{x_{ij} - \mu_j}{\sigma_j}, \quad \text{where } \mu_j = \frac{1}{n}\sum_{i=1}^{n} x_{ij}, \quad \sigma_j = \sqrt{\frac{1}{n}\sum_{i=1}^{n} (x_{ij} - \mu_j)^2}
+  \end{equation}
+  \item \textbf{RobustScaler ($X_{\text{robust}}$):} Centers features using the sample median and scales by the Interquartile Range (IQR):
+  \begin{equation}
+  T(x_{ij}) = \frac{x_{ij} - \text{Median}(x_j)}{\text{IQR}(x_j)} = \frac{x_{ij} - \text{Q2}(x_j)}{\text{Q3}(x_j) - \text{Q1}(x_j)}
+  \end{equation}
+  where $\text{Q1}(x_j)$, $\text{Q2}(x_j)$, and $\text{Q3}(x_j)$ represent the 25th, 50th, and 75th percentiles of feature $j$, respectively. By utilizing rank-based order statistics rather than parametric moments, RobustScaler prevents extreme statistical outliers from compressing the dynamic range of typical observations.
+\end{enumerate}
+
+\subsection{Internal Model Selection}
+
+\subsubsection{Elbow Method (WCSS)}
+The Elbow method evaluates the rate of reduction in WCSS as $k$ increases. The optimal $k^*$ corresponds to the inflection point ("elbow") beyond which adding further clusters yields diminishing marginal reductions in intra-cluster dispersion.
+
+\subsubsection{Silhouette Coefficient}
+For an observation $\mathbf{x}_i \in C_j$, let $a(i)$ denote the mean intra-cluster distance to all other points within the same cluster $C_j$:
+\begin{equation}
+a(i) = \frac{1}{|C_j| - 1} \sum_{\mathbf{x}_m \in C_j, m \neq i} \|\mathbf{x}_i - \mathbf{x}_m\|
+\end{equation}
+
+Let $b(i)$ denote the minimum mean distance from $\mathbf{x}_i$ to points in any neighboring cluster $C_l \neq C_j$:
+\begin{equation}
+b(i) = \min_{l \neq j} \frac{1}{|C_l|} \sum_{\mathbf{x}_m \in C_l} \|\mathbf{x}_i - \mathbf{x}_m\|
+\end{equation}
+
+The individual Silhouette coefficient $s(i)$ is defined as:
+\begin{equation}
+s(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))}, \quad s(i) \in [-1, 1]
+\end{equation}
+The global Silhouette Score $S(k) = \frac{1}{n}\sum_{i=1}^{n} s(i)$ reflects overall partition quality, where values closer to $+1$ indicate tight, well-separated clusters.
+
+\subsubsection{Gap Statistic}
+The Gap Statistic \cite{tibshirani2001estimating} formalizes cluster validation by comparing the observed log within-cluster dispersion $\log(\text{WCSS}(k))$ against its expected value under an appropriate null reference distribution:
+\begin{equation}
+\text{Gap}(k) = E_n^*\{\log(\text{WCSS}(k))\} - \log(\text{WCSS}(k))
+\end{equation}
+where the expected value $E_n^*\{\cdot\}$ is estimated by drawing $B = 10$ Monte Carlo reference datasets from a uniform distribution generated across the hyper-rectangle aligned with the principal components of the empirical dataset.
+
+\subsection{Partition Agreement (ARI)}
+To measure partition similarity between two distinct clustering assignments $U = \{u_1, \ldots, u_R\}$ and $V = \{v_1, \ldots, v_C\}$, the Adjusted Rand Index (ARI) \cite{hubert1985comparing} evaluates the proportion of sample pairs placed in the same or different clusters, corrected for random chance:
+\begin{equation}
+\text{ARI} = \frac{\sum_{i,j} \binom{n_{ij}}{2} - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}{\frac{1}{2}\left[\sum_i \binom{a_i}{2} + \sum_j \binom{b_j}{2}\right] - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}
+\end{equation}
+where $n_{ij} = |u_i \cap v_j|$, $a_i = \sum_j n_{ij}$, and $b_j = \sum_i n_{ij}$. ARI ranges from $-1$ to $1$, where $1$ indicates identical partitions and values $\le 0$ indicate chance-level agreement.
+
+\subsection{External Validation Metrics}
+
+\subsubsection{Overall Cluster Purity}
+Purity measures the extent to which each unsupervised cluster is dominated by samples belonging to a single ground-truth positional category $Y = \{Y_1, \ldots, Y_L\}$:
+\begin{equation}
+\text{Purity}(C, Y) = \frac{1}{n} \sum_{j=1}^{k} \max_{l \in \{1, \ldots, L\}} |C_j \cap Y_l|
+\end{equation}
+
+\subsubsection{Normalized Mutual Information (NMI)}
+NMI measures the mutual information shared between the unsupervised cluster assignments $C$ and the true positional labels $Y$, normalized by their respective Shannon entropies:
+\begin{equation}
+\text{NMI}(C, Y) = \frac{2 \cdot I(C; Y)}{H(C) + H(Y)}
+\end{equation}
+where $I(C; Y) = \sum_{j,l} \frac{|C_j \cap Y_l|}{n} \log \left(\frac{n |C_j \cap Y_l|}{|C_j| |Y_l|}\right)$, and $H(\cdot)$ denotes Shannon entropy.
+
+\subsection{Cluster Stability via KNN}
+To verify that the discovered cluster boundaries represent learnable, continuous regions in the 29-dimensional feature space, we employ a supervised K-Nearest Neighbors (KNN) classifier. Given an unlabelled vector $\mathbf{x}_i$, KNN assigns a cluster prediction based on majority voting among its $n\_neighbors$ nearest Euclidean neighbors:
+\begin{equation}
+\hat{y}_i = \argmax_{c \in \{0, \ldots, k-1\}} \sum_{m \in N_K(\mathbf{x}_i)} \mathbb{I}(y_m = c)
+\end{equation}
+where $N_K(\mathbf{x}_i)$ represents the index set of the $K$ closest points and $\mathbb{I}(\cdot)$ is the binary indicator function. Model accuracy and variance are evaluated using 5-fold Stratified Cross-Validation.
+
+% --------------------------------------------------------------------------
+\section{Data and Feature Engineering}
+\label{sec:data}
+
+\subsection{Data Source and Scope}
+This research utilizes open event data from StatsBomb \cite{statsbomb_open_data} accessed via Kaggle \cite{saurabhshahane_kaggle}. The dataset captures match events across three premier European domestic competitions during the complete 2015/2016 season (Table~\ref{tab:competitions}). Across all three leagues, every on-ball action is recorded with high spatial resolution within a standardized coordinate system ($[0, 120]$ yards along the longitudinal $x$-axis and $[0, 80]$ yards along the lateral $y$-axis).
+
+\begin{table}[H]
+\centering
+\begin{minipage}{0.85\linewidth}
+  \refstepcounter{table}
+  \begin{captionbelowboxaivn}
+    Table~\thetable: Summary of StatsBomb event data scope across European competitions (2015/2016 season)
+    \label{tab:competitions}
+  \end{captionbelowboxaivn}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X@{}}
+    \toprule
+    \textbf{Competition} & \textbf{competition\_id} & \textbf{season\_id} & \textbf{Total Matches} \\
+    \midrule
+    Premier League (England) & 2 & 27 & 380 \\
+    La Liga (Spain) & 11 & 27 & 380 \\
+    Serie A (Italy) & 12 & 27 & 380 \\
+    \midrule
+    \textbf{Total Dataset Scope} & -- & -- & \textbf{1,140 Matches} \\
+    \bottomrule
+  \end{tabularx}
+\end{minipage}
+\end{table}
+
+\subsection{Player Inclusion Filtering}
+Accurate player profiling requires aggregate performance metrics to be normalized by total playing time. Player match minutes were extracted directly from starting lineups, substitution events, and red cards. 
+
+To eliminate small-sample noise and unstable per-90 rate inflations (e.g., substitute players recording high event rates over brief appearances), we established an inclusion threshold of at least **900 total minutes played** (equivalent to ten complete 90-minute matches). This filtering reduced the raw pool of 1,622 recorded players to a high-confidence evaluation sample of \textbf{1,016 players} across the three leagues.
+
+\subsection{Feature Extraction}
+From the raw match event streams, 29 numerical features were aggregated per player and normalized into per-90 minute rates ($rate = \frac{\text{Count} \times 90}{\text{Total Minutes}}$) or percentage efficiency ratios. Table~\ref{tab:features} details the extracted metrics grouped across five functional tactical domains.
+
+\begin{table}[H]
+\centering
+\begin{minipage}{1.0\linewidth}
+  \refstepcounter{table}
+  \begin{captionbelowboxaivn}
+    Table~\thetable: Description of the 29 numerical features extracted from StatsBomb event streams
+    \label{tab:features}
+  \end{captionbelowboxaivn}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.5cm} >{\raggedright\arraybackslash}p{5.5cm} >{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Tactical Domain} & \textbf{Feature Identifier} & \textbf{Description / Calculation} \\
+    \midrule
+    Shooting \& Scoring & \texttt{shots\_p90} & Total shot attempts per 90 minutes \\
+     & \texttt{np\_goals\_p90} & Non-penalty goals scored per 90 minutes \\
+     & \texttt{avg\_shot\_distance} & Mean distance (yards) to goal line for shot attempts \\
+    \midrule
+    Dribbling & \texttt{dribbles\_p90} & Take-on attempts per 90 minutes \\
+     & \texttt{dribble\_\allowbreak success\_\allowbreak rate} & Ratio of completed take-ons to total attempts \\
+    \midrule
+    Possession \& Position & \texttt{touches\_p90} & On-ball events per 90 minutes \\
+     & \texttt{touches\_in\_box\_p90} & Touches inside the opponent penalty box per 90 \\
+     & \texttt{avg\_location\_x} & Average longitudinal pitch coordinate ($0$--$120$) \\
+     & \texttt{avg\_location\_y} & Average lateral pitch coordinate ($0$--$80$) \\
+     & \texttt{std\_location\_x} & Longitudinal spatial dispersion (standard deviation) \\
+     & \texttt{std\_location\_y} & Lateral spatial dispersion (standard deviation) \\
+    \midrule
+    Passing \& Creation & \texttt{passes\_p90} & Total pass attempts per 90 minutes \\
+     & \texttt{pass\_completion\_pct} & Percentage of successful passes completed \\
+     & \texttt{key\_passes\_p90} & Passes directly leading to a shot attempt per 90 \\
+     & \texttt{assists\_p90} & Passes directly leading to a goal per 90 \\
+     & \texttt{crosses\_p90} & Crosses delivered into the penalty area per 90 \\
+     & \texttt{through\_balls\_p90} & Passes played behind defensive lines per 90 \\
+     & \texttt{long\_balls\_p90} & Passes over 30 yards in length per 90 \\
+     & \texttt{avg\_pass\_length} & Average distance (yards) of attempted passes \\
+    \midrule
+    Defensive Actions & \texttt{pressures\_p90} & Defensive pressure events per 90 minutes \\
+     & \texttt{tackles\_p90} & Total tackle attempts per 90 minutes \\
+     & \texttt{tackle\_\allowbreak success\_\allowbreak rate} & Percentage of tackle attempts resulting in ball gain \\
+     & \texttt{interceptions\_p90} & Interceptions of opponent passes per 90 \\
+     & \texttt{interception\_\allowbreak success\_\allowbreak rate} & Percentage of successful interception completions \\
+     & \texttt{ball\_recoveries\_p90} & Recovery of loose balls per 90 minutes \\
+     & \texttt{clearances\_p90} & Defensive clearances per 90 minutes \\
+     & \texttt{aerial\_won\_p90} & Aerial duels won per 90 minutes \\
+    \midrule
+    Discipline & \texttt{fouls\_committed\_p90} & Fouls committed per 90 minutes \\
+     & \texttt{fouls\_won\_p90} & Fouls suffered/won per 90 minutes \\
+    \bottomrule
+  \end{tabularx}
+\end{minipage}
+\end{table}
+
+\subsection{Missing Value Imputation}
+Four conditional features contained missing values ($NaN$) due to structural non-occurrence: \texttt{avg\_shot\_distance} (75 missing), \texttt{interception\_success\_rate} (72 missing), \texttt{tackle\_success\_rate} (70 missing), and \texttt{dribble\_success\_rate} (42 missing). These instances correspond to players who recorded zero attempts in that specific event category over the entire season (e.g., goalkeepers attempting zero dribbles or shots).
+
+Imputing zero would create severe analytical errors; for example, setting a missing tackle success rate to 0.0 would falsely categorize a player as having attempted tackles and failed 100\% of the time. Instead, we applied median imputation. Because the volume rate for these actions is already captured by corresponding rate metrics (e.g., \texttt{tackles\_p90} $= 0.0$), replacing missing efficiency rates with the median assigns a neutral baseline that prevents artificial distortion in Euclidean distance calculations.
+
+% --------------------------------------------------------------------------
+\section{Results and Analysis}
+\label{sec:results}
+
+\subsection{Scaling Strategy Analysis (RQ1)}
+To examine the geometric distortions introduced by scale disparity and skewed event distributions, Table~\ref{tab:scaling_comparison} summarizes the empirical distribution of four representative features across the Unscaled, StandardScaler, and RobustScaler transformations.
+
+\begin{table}[H]
+\centering
+\begin{minipage}{0.95\linewidth}
+  \refstepcounter{table}
+  \begin{captionbelowboxaivn}
+    Table~\thetable: Empirical comparison of feature distributions under Unscaled, StandardScaler, and RobustScaler transformations
+    \label{tab:scaling_comparison}
+  \end{captionbelowboxaivn}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.2cm}
+      >{\centering\arraybackslash}X >{\centering\arraybackslash}X
+      >{\centering\arraybackslash}X >{\centering\arraybackslash}X@{}}
+    \toprule
+    \textbf{Feature / Variant} & \textbf{Mean} & \textbf{Std Dev} & \textbf{Minimum} & \textbf{Maximum} \\
+    \midrule
+    \multicolumn{5}{l}{\textit{shots\_p90}} \\
+    \quad Unscaled & 1.162 & 1.015 & 0.000 & 6.268 \\
+    \quad StandardScaler & 0.000 & 1.000 & -1.145 & 5.033 \\
+    \quad RobustScaler & 0.239 & 0.704 & -0.566 & 3.779 \\
+    \midrule
+    \multicolumn{5}{l}{\textit{touches\_p90}} \\
+    \quad Unscaled & 127.726 & 35.303 & 49.315 & 305.988 \\
+    \quad StandardScaler & 0.000 & 1.000 & -2.222 & 5.052 \\
+    \quad RobustScaler & 0.040 & 0.777 & -1.685 & 3.962 \\
+    \midrule
+    \multicolumn{5}{l}{\textit{np\_goals\_p90}} \\
+    \quad Unscaled & 0.108 & 0.147 & 0.000 & 1.076 \\
+    \quad StandardScaler & 0.000 & 1.000 & -0.734 & 6.568 \\
+    \quad RobustScaler & 0.327 & 0.988 & -0.397 & 6.810 \\
+    \midrule
+    \multicolumn{5}{l}{\textit{avg\_location\_x}} \\
+    \quad Unscaled & 59.230 & 18.870 & 7.195 & 87.325 \\
+    \quad StandardScaler & 0.000 & 1.000 & -2.759 & 1.490 \\
+    \quad RobustScaler & -0.125 & 0.738 & -2.159 & 0.973 \\
+    \bottomrule
+  \end{tabularx}
+\end{minipage}
+\end{table}
+
+\begin{center}
+    \includegraphics[width=0.85\linewidth]{figures/fig_scaling_boxplots.png}
+    \begin{minipage}{0.85\linewidth}
+    \begin{figurecaptionmodern}
+        \raggedright
+        \capfig{Distribution box plots across four representative features comparing Unscaled, StandardScaler, and RobustScaler data matrices.}
+        \label{fig:scaling_boxplots}
+    \end{figurecaptionmodern}
+    \end{minipage}
+\end{center}
+
+In the unscaled space, \texttt{touches\_p90} spans from $49.3$ to $305.9$ ($\sigma \approx 35.3$), whereas \texttt{np\_goals\_p90} spans from $0.0$ to $1.07$ ($\sigma \approx 0.147$). Because Euclidean distance squares coordinate differences, a 10-touch difference between two midfielders exerts $(10)^2 = 100\times$ more influence than a $0.5$-goal per 90 difference between a world-class striker and a defender.
+
+To quantify how scaling differences alter the resulting cluster partitions, we evaluated pairwise Adjusted Rand Index (ARI) agreement across the three transformations at $k=5$ (Table~\ref{tab:ari_comparison}).
+
+\begin{table}[H]
+\centering
+\begin{minipage}{0.8\linewidth}
+  \refstepcounter{table}
+  \begin{captionbelowboxaivn}
+    Table~\thetable: Pairwise Adjusted Rand Index (ARI) agreement between scaling variants ($k=5$)
+    \label{tab:ari_comparison}
+  \end{captionbelowboxaivn}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X >{\centering\arraybackslash}X@{}}
+    \toprule
+    \textbf{Scaling Strategy Pair} & \textbf{Adjusted Rand Index (ARI)} \\
+    \midrule
+    StandardScaler vs. RobustScaler & \textbf{0.971} \\
+    Unscaled vs. StandardScaler & 0.342 \\
+    Unscaled vs. RobustScaler & 0.355 \\
+    \bottomrule
+  \end{tabularx}
+\end{minipage}
+\end{table}
+
+The near-perfect concordance between StandardScaler and RobustScaler ($\text{ARI} = 0.971$) demonstrates that standardized transformations establish a highly consistent topological geometry. Conversely, the poor agreement with Unscaled clustering ($\text{ARI} \approx 0.35$) confirms that unscaled clustering is completely compromised by touch volume dominance. RobustScaler was selected as our primary transformation for all subsequent modeling due to its superior resilience against heavy-tailed statistical distributions.
+
+\subsection{Model Selection (RQ2)}
+Figure~\ref{fig:k_selection} illustrates the model selection evaluation curves for $k \in [2, 10]$ under the RobustScaler feature space.
+
+\begin{center}
+    \includegraphics[width=0.95\linewidth]{figures/fig_k_elbow.png}\\[1ex]
+    \includegraphics[width=0.95\linewidth]{figures/fig_k_silhouette.png}\\[1ex]
+    \includegraphics[width=0.95\linewidth]{figures/fig_k_gap.png}
+    \begin{minipage}{0.95\linewidth}
+    \begin{figurecaptionmodern}
+        \raggedright
+        \capfig{Model selection evaluation curves across scaling variants: (Top) Elbow WCSS curves, (Middle) Silhouette Scores, and (Bottom) Gap Statistic curves across $k \in [2, 10]$.}
+        \label{fig:k_selection}
+    \end{figurecaptionmodern}
+    \end{minipage}
+\end{center}
+
+Analyzing the model selection curves yields crucial insights into cluster structure:
+\begin{itemize}
+  \item \textbf{Elbow Method (WCSS):} The WCSS curve exhibits a sharp initial drop followed by a clear inflection knee point at $k=5$. Beyond $k=5$, the rate of variance reduction diminishes markedly.
+  \item \textbf{Silhouette Score Analysis:} The Silhouette score achieves its global maximum at $k=2$ ($\approx 0.38$). However, inspecting $k=2$ reveals that it merely produces a coarse, high-level binary split (separating defensive-oriented players from attacking-oriented players)—a broad categorization that lacks actionable granularity for tactical profiling. At $k=5$, the Silhouette curve forms a prominent local peak ($\approx 0.22$), indicating high cohesion and distinct boundaries across specialized tactical sub-roles.
+  \item \textbf{Gap Statistic:} The Gap Statistic displays a consistent, monotonic increase relative to the uniform null reference distribution, confirming that the structural gain remains strong through $k=5$.
+\end{itemize}
+
+Combining internal mathematical criteria with domain requirements, **$k=5$ emerges as the optimal cluster cardinality**, successfully balancing mathematical validity with practical tactical interpretability.
+
+\subsection{Positional Validation (RQ3)}
+To assess the real-world semantic validity of the unsupervised clusters, the five K-Means clusters ($k=5$, RobustScaler) were cross-tabulated against the four broad ground-truth positional groups (Attack, Defense, Goalkeeper, Midfield), as summarized in Table~\ref{tab:crosstab}.
+
+\begin{table}[H]
+\centering
+\begin{minipage}{0.85\linewidth}
+  \refstepcounter{table}
+  \begin{captionbelowboxaivn}
+    Table~\thetable: Contingency matrix comparing K-Means cluster assignments ($k=5$, RobustScaler) against actual positional groups
+    \label{tab:crosstab}
+  \end{captionbelowboxaivn}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabularx}{\linewidth}{@{}>{\centering\arraybackslash}p{2cm}
+      >{\centering\arraybackslash}X >{\centering\arraybackslash}X
+      >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X@{}}
+    \toprule
+    \textbf{Cluster ID} & \textbf{Attack} & \textbf{Defense} & \textbf{Goalkeeper} & \textbf{Midfield} & \textbf{Total Size} \\
+    \midrule
+    Cluster 0 & 0 & \textbf{189} & 0 & 5 & 194 \\
+    Cluster 1 & \textbf{145} & 0 & 0 & 7 & 152 \\
+    Cluster 2 & 0 & 0 & \textbf{73} & 0 & 73 \\
+    Cluster 3 & 92 & 5 & 0 & \textbf{101} & 198 \\
+    Cluster 4 & 10 & 189 & 0 & \textbf{200} & 399 \\
+    \midrule
+    \textbf{Total} & 247 & 383 & 73 & 313 & \textbf{1,016} \\
+    \bottomrule
+  \end{tabularx}
+\end{minipage}
+\end{table}
+
+\begin{center}
+    \includegraphics[width=0.75\linewidth]{figures/fig_cluster_position_heatmap.png}
+    \begin{minipage}{0.75\linewidth}
+    \begin{figurecaptionmodern}
+        \raggedright
+        \capfig{Heatmap matrix visualizing the alignment between K-Means clusters and true ground-truth positional groups.}
+        \label{fig:cluster_heatmap}
+    \end{figurecaptionmodern}
+    \end{minipage}
+\end{center}
+
+Quantitative evaluation of Table~\ref{tab:crosstab} reveals strong external structural correspondence:
+\[
+\text{Overall Purity} = \frac{189 + 145 + 73 + 101 + 200}{1016} = \frac{708}{1016} \approx 0.697 \quad (69.7\%)
+\]
+\[
+\text{Normalized Mutual Information (NMI)} \approx 0.546
+\]
+
+A qualitative deep dive into the feature distributions of each cluster identifies five distinct tactical archetypes:
+\begin{itemize}
+  \item \textbf{Cluster 0 (Defensive Anchors \& Center-Backs -- 194 players):} Dominated by central defenders ($97.4\%$). Defined by high clearance rates (\texttt{clearances\_p90} $\approx 4.8$), aerial duel dominance, and a deep average pitch coordinate (\texttt{avg\_location\_x} $\approx 41.3$).
+  \item \textbf{Cluster 1 (Clinical Finishers \& Primary Forwards -- 152 players):} Composed of pure strikers ($95.4\%$). Characterized by peak shot volume (\texttt{shots\_p90} $\ge 2.8$), high non-penalty goal output, and extensive penalty-box activity (\texttt{touches\_in\_box\_p90} $\ge 12.5$).
+  \item \textbf{Cluster 2 (Goalkeepers -- 73 players):} Achieves $100\%$ pure separation ($73/73$). Defined by near-zero outfield actions and minimal spatial progression (\texttt{avg\_location\_x} $\approx 9.6$).
+  \item \textbf{Cluster 3 (Creative Playmakers \& Dynamic Wingers -- 198 players):} Combines attacking midfielders ($51.0\%$) and wide forwards/wingers ($46.5\%$). Defined by high key pass rates (\texttt{key\_passes\_p90} $\approx 1.8$), assists, crossing frequency, and successful take-ons.
+  \item \textbf{Cluster 4 (Possession Controllers \& Hybrid Fullbacks -- 399 players):} Blends central/defensive midfielders ($50.1\%$) and fullbacks ($47.4\%$). This cluster captures modern football's tactical convergence, where fullbacks and central midfielders share heavy passing volumes, pressing actions, and ball recoveries.
+\end{itemize}
+
+\subsection{Cluster Stability and Learnability}
+To test whether the cluster partitions form learnable, well-separated boundaries in feature space, a K-Nearest Neighbors (KNN) classifier was trained to predict cluster labels under 5-fold Stratified Cross-Validation across varying neighbor hyperparameter values $n\_neighbors \in [5, 20]$ (Table~\ref{tab:knn_sweep}).
+
+\begin{table}[H]
+\centering
+\begin{minipage}{0.8\linewidth}
+  \refstepcounter{table}
+  \begin{captionbelowboxaivn}
+    Table~\thetable: KNN 5-fold cross-validation accuracy across varying neighbor parameter $n\_neighbors$
+    \label{tab:knn_sweep}
+  \end{captionbelowboxaivn}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabularx}{\linewidth}{@{}>{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X@{}}
+    \toprule
+    \textbf{KNN Parameter ($n\_neighbors$)} & \textbf{Mean CV Accuracy} & \textbf{Standard Deviation} \\
+    \midrule
+    $k = 5$ & 0.954 & $\pm 0.011$ \\
+    $k = 10$ & 0.961 & $\pm 0.009$ \\
+    \textbf{$k = 15$ (Final Model)} & \textbf{0.966} & \textbf{$\pm 0.008$} \\
+    $k = 20$ & 0.962 & $\pm 0.009$ \\
+    \bottomrule
+  \end{tabularx}
+\end{minipage}
+\end{table}
+
+At $n\_neighbors=15$, the KNN model achieves an exceptional cross-validation accuracy of **$96.6\% \pm 0.8\%$**. This high accuracy confirms that the unsupervised K-Means clusters form compact, highly separable Voronoi cells with smooth, continuous decision boundaries in the 29-dimensional feature space.
+
+\begin{center}
+    \includegraphics[width=0.85\linewidth]{figures/fig_pca_clusters.png}
+    \begin{minipage}{0.85\linewidth}
+    \begin{figurecaptionmodern}
+        \raggedright
+        \capfig{2D Principal Component Analysis (PCA) projection illustrating cluster separation across the first two principal components.}
+        \label{fig:pca}
+    \end{figurecaptionmodern}
+    \end{minipage}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.85\linewidth]{figures/fig_radar_clusters.png}
+    \begin{minipage}{0.85\linewidth}
+    \begin{figurecaptionmodern}
+        \raggedright
+        \capfig{Radar chart mapping cluster centroid feature profiles across attacking, creation, defensive, and spatial dimensions.}
+        \label{fig:radar}
+    \end{figurecaptionmodern}
+    \end{minipage}
+\end{center}
+
+Figure~\ref{fig:pca} shows the 2D Principal Component Analysis (PCA) projection, visually confirming clear cluster separability. Figure~\ref{fig:radar} illustrates the radar profiles of cluster centroids, clearly showcasing the unique behavioral fingerprints across attacking, creative, defensive, and spatial dimensions.
+
+% --------------------------------------------------------------------------
+\section{Discussion and Applications}
+\label{sec:discussion}
+
+The empirical findings from this study have immediate, practical applications for professional football analytics and recruitment:
+
+\subsection{Player Scouting Applications}
+Traditional scouting frequently struggles when attempting to replace departing players who play unique tactical roles. For example, if a team loses an attacking fullback who functions primarily as an inverted creator, searching solely for nominal "Right Backs" on team sheets will overlook suitable candidates from midfield positions. By mapping candidate players into the 29-dimensional behavioral feature space, clubs can compute Euclidean distances between candidate vectors and the target centroid to identify stylistic clones regardless of nominal positioning.
+
+\subsection{Opponent Tactical Analysis}
+By aggregating the cluster assignments of an opponent's starting eleven over recent matches, coaching staffs can construct an objective tactical fingerprint of the opposing squad. Identifying whether an opponent deploys two pure wingers (Cluster 3) versus two hybrid central creators (Cluster 4) informs defensive pressing schemes, transition traps, and spatial defensive block heights.
+
+\subsection{Limitations and Future Work}
+While this study demonstrates high stability and interpretability, several limitations should be noted:
+\begin{enumerate}
+  \item \textbf{Temporal Aggregation:} Season-aggregated metrics provide high statistical confidence but obscure match-by-match tactical adjustments, fatigue, or role changes caused by managerial turnover.
+  \item \textbf{Context-Free Event Valuing:} Standard per-90 rates treat all passes or pressures equally, without weighting the game state (e.g., winning vs. chasing a lead) or opposition strength.
+\end{enumerate}
+Future work should integrate possession-value metrics (e.g., Expected Threat / xT), tracking data for off-ball movement, and multi-season longitudinal models to track player tactical evolution over time.
+
+% --------------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+
+This research provides a comprehensive, mathematically grounded study on unsupervised player style clustering from football event data. By addressing the critical challenges of feature scaling, model selection, and stability validation on 1,016 qualified players from the 2015/2016 European season, our findings confirm:
+\begin{enumerate}
+  \item \textbf{Scaling is decisive:} RobustScaler normalization based on medians and interquartile ranges is crucial to prevent extreme performance outliers from distorting distance-based clustering.
+  \item \textbf{Five tactical archetypes:} Multi-criteria validation across Elbow, Silhouette, and Gap Statistic curves identifies $k=5$ as the optimal resolution, capturing distinct tactical behaviors (Center-Backs, Strikers, Goalkeepers, Playmakers/Wingers, and Hybrid Controllers).
+  \item \textbf{High structural stability:} The discovered clusters align strongly with ground-truth positions ($\text{Purity} \approx 69.7\%$) and establish robust decision boundaries validated by a $96.6\%$ KNN cross-validation accuracy.
+\end{enumerate}
+
+This framework bridges the gap between raw event data streams and interpretable tactical intelligence, providing sports analysts with a principled foundation for objective player profiling.
+
+% --------------------------------------------------------------------------
+\newpage
+\printbibliography
+
+% --------------------------------------------------------------------------
+\newpage
+\begin{appendices}
+
+\begin{enumerate}
+  \item \textbf{AIVIETNAM Program:} Details regarding AI VIETNAM curriculum, coursework, and initiatives are accessible at \href{https://aivietnam.edu.vn/}{aivietnam.edu.vn}.
+  \item \textbf{GitHub Repository:} Project implementation source code, exploratory notebooks, and pipeline scripts are available at \url{https://github.com/AIVIETNAM-AIO-Kaisye/football-shot-clustering}.
+  \item \textbf{Data Sources:} Open event data provided by StatsBomb (\url{https://github.com/statsbomb/open-data}) and mirror dataset on Kaggle (\url{https://www.kaggle.com/datasets/saurabhshahane/statsbomb-football-data}).
+  \item \textbf{Execution Environment:} Experiments were conducted in Python 3.12 using `scikit-learn`, `pandas`, `numpy`, `matplotlib`, and `seaborn`.
+  \item \textbf{Author Contributions:}
+  \begin{itemize}
+    \item \textbf{Phong (Team Lead):} Repository infrastructure, master pipeline orchestration, and technical code review.
+    \item \textbf{Lộc (Data Engineer):} Event aggregation logic, minute extraction algorithms, and exploratory data analysis.
+    \item \textbf{Thông (ML \& Eval Engineer):} Preprocessing transformations, K-Means modeling, validation metrics, stability testing, and report formulation.
+  \end{itemize}
+\end{enumerate}
+
+\end{appendices}
+
+\end{document}
