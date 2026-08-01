@@ -1,0 +1,1017 @@
+﻿player_id,player_name,primary_team,competitions_played,n_matches_played,total_minutes_played,cluster_id,cluster_id_Unscaled,cluster_id_StandardScaler,cluster_id_RobustScaler
+3339,Asmir Begović,Chelsea,Premier League,17,1472.0,2,2,4,2
+5594,Branislav Ivanović,Chelsea,Premier League,33,3057.0,4,0,0,4
+3456,Kurt Happy Zouma,Chelsea,Premier League,23,2013.0,0,1,1,0
+3645,Gary Cahill,Chelsea,Premier League,23,2061.0,0,1,1,0
+3957,César Azpilicueta Tanco,Chelsea,Premier League,37,3351.0,4,0,0,4
+3478,Francesc Fàbregas i Soler,Chelsea,Premier League,37,3030.0,3,3,2,3
+3381,Nemanja Matić,Chelsea,Premier League,33,2510.0,4,3,0,4
+3958,Pedro Eliezer Rodríguez Ledesma,Chelsea,Premier League,29,2105.0,3,0,2,3
+40122,Oscar dos Santos Emboaba Júnior,Chelsea,Premier League,27,1839.0,3,3,2,3
+3621,Eden Hazard,Chelsea,Premier League,31,2302.0,3,3,2,3
+5198,Diego da Silva Costa,Chelsea,Premier League,28,2468.0,1,4,3,1
+3461,Petr Čech,Arsenal,Premier League,34,3187.0,2,2,4,2
+3511,Héctor Bellerín Moruno,Arsenal,Premier League,36,3374.0,4,0,0,4
+6746,Gabriel Armando de Abreu,Arsenal,Premier League,21,1838.0,0,0,1,0
+3394,Laurent Koscielny,Arsenal,Premier League,33,2962.0,0,0,1,0
+3498,Ignacio Monreal Eraso,Arsenal,Premier League,37,3387.0,4,0,0,4
+3437,Francis Joseph Coquelin,Arsenal,Premier League,26,1702.0,4,3,0,4
+11386,Santiago Cazorla González,Arsenal,Premier League,15,1332.0,3,3,2,3
+3517,Aaron Ramsey,Arsenal,Premier League,31,2732.0,3,3,2,3
+3496,Mesut Özil,Arsenal,Premier League,35,3125.0,3,3,2,3
+3385,Alexis Alejandro Sánchez Sánchez,Arsenal,Premier League,30,2510.0,3,3,2,3
+3668,Theo Walcott,Arsenal,Premier League,28,1430.0,1,4,3,1
+3525,Alex Oxlade-Chamberlain,Arsenal,Premier League,22,982.0,3,0,2,3
+3604,Olivier Giroud,Arsenal,Premier League,38,2541.0,1,4,3,1
+5475,John Michael Nchekwube Obinna,Chelsea,Premier League,25,1879.0,4,3,0,4
+12608,Bradley Guzan,Aston Villa,Premier League,28,2646.0,2,2,4,2
+9642,Alan Hutton,Aston Villa,Premier League,28,2451.0,4,0,0,4
+24380,Tetchi Jores Charlemagne Ulrich Okore,Aston Villa,Premier League,12,1127.0,0,1,1,0
+20285,Joleon Lescott,Aston Villa,Premier League,32,2933.0,0,1,1,0
+9533,Leandro Bacuna,Aston Villa,Premier League,31,2518.0,4,0,0,4
+5685,Carlos Alberto Sánchez Moreno,Aston Villa,Premier League,20,1431.0,4,0,0,4
+7153,Jordan Veretout,Aston Villa,Premier League,25,1900.0,4,0,2,4
+3436,Idrissa Gana Gueye,Aston Villa,Premier League,35,3193.0,4,0,0,4
+11117,Scott Sinclair,Aston Villa,Premier League,27,1668.0,1,4,3,1
+3450,Jordan Ayew,Aston Villa,Premier League,30,2450.0,1,0,3,1
+19362,Rudy Gestede,Aston Villa,Premier League,32,1799.0,1,4,3,1
+3475,Per Mertesacker,Arsenal,Premier League,24,2127.0,0,0,1,0
+6631,Mathieu Flamini,Arsenal,Premier League,16,1139.0,4,0,0,4
+5581,Joel Nathaniel Campbell Samuels,Arsenal,Premier League,19,910.0,3,4,2,3
+6800,Carles Gil de Pareja Vicent,Aston Villa,Premier League,23,1479.0,3,3,2,3
+3291,Joe Hart,Manchester City,Premier League,35,3230.0,2,2,4,2
+7110,Bacary Sagna,Manchester City,Premier League,28,2544.0,4,3,0,4
+3090,Nicolás Hernán Otamendi,Manchester City,Premier League,30,2776.0,0,0,1,0
+3389,Eliaquim Mangala,Manchester City,Premier League,23,2083.0,0,1,1,0
+5596,Aleksandar Kolarov,Manchester City,Premier League,29,2383.0,4,3,0,4
+3089,Kevin De Bruyne,Manchester City,Premier League,25,2077.0,3,3,2,3
+3087,Gnégnéri Yaya Touré,Manchester City,Premier League,32,2397.0,3,3,2,3
+3054,Fernando Luiz Rosa,Manchester City,Premier League,33,2836.0,4,3,0,4
+3064,David Josué Jiménez Silva,Manchester City,Premier League,24,1831.0,3,3,2,3
+3237,Sergio Leonel Agüero del Castillo,Manchester City,Premier League,30,2412.0,1,4,3,1
+3233,Raheem Sterling,Manchester City,Premier League,31,1981.0,3,0,2,3
+3598,Wilfried Guemiand Bony,Manchester City,Premier League,26,1291.0,1,4,3,1
+6821,Jesús Navas González,Manchester City,Premier League,34,2377.0,3,3,2,3
+3262,Łukasz Fabiański,Swansea City,Premier League,37,3481.0,2,2,4,2
+3340,Kyle Naughton,Swansea City,Premier League,27,1871.0,4,3,0,4
+3290,Federico Fernández,Swansea City,Premier League,32,3009.0,0,0,1,0
+3644,Ashley Williams,Swansea City,Premier League,36,3387.0,0,0,1,0
+9627,Neil Taylor,Swansea City,Premier League,34,3081.0,4,0,0,4
+3057,Jonjo Shelvey,Swansea City,Premier League,31,2359.0,3,3,2,3
+3605,Sung-Yeung Ki,Swansea City,Premier League,28,1936.0,4,3,0,4
+3347,André Ayew Pelé,Swansea City,Premier League,34,3005.0,1,4,3,1
+3944,Gylfi Þór Sigurðsson,Swansea City,Premier League,36,3034.0,3,4,2,3
+7063,Jefferson Antonio Montero Vite,Swansea City,Premier League,23,1409.0,3,4,2,3
+20521,Bafétimbi Gomis,Swansea City,Premier League,33,1806.0,1,4,3,1
+4631,Leon Britton,Swansea City,Premier League,25,1569.0,4,3,0,4
+6871,Costel Fane Pantilimon,Sunderland,Premier League,17,1599.0,2,2,4,2
+6300,Sebastián Coates Nión,Sunderland,Premier League,16,1287.0,0,1,1,0
+16890,John O''Shea,Sunderland,Premier League,28,2110.0,0,1,1,0
+4746,Younes Kaboul,Sunderland,Premier League,23,2098.0,0,1,1,0
+3658,DeAndre Yedlin,Sunderland,Premier League,23,1897.0,4,1,0,4
+3321,Patrick van Aanholt,Sunderland,Premier League,33,3106.0,4,4,0,4
+4429,Yann Gérard M''Vila,Sunderland,Premier League,37,3327.0,4,0,0,4
+7171,Fabio Borini,Sunderland,Premier League,26,1953.0,1,4,3,1
+22281,Duncan Watmore,Sunderland,Premier League,23,1000.0,1,4,3,1
+9554,Steven Fletcher,Sunderland,Premier League,16,1038.0,1,4,3,1
+18751,Jack Rodwell,Sunderland,Premier League,22,1256.0,4,1,0,4
+42902,Adam Johnson,Sunderland,Premier League,19,1209.0,3,0,2,3
+16457,Jeremain Lens,Sunderland,Premier League,20,1349.0,3,4,2,3
+3539,Simon Mignolet,Liverpool,Premier League,34,3201.0,2,2,4,2
+4590,Nathaniel Edwin Clyne,Liverpool,Premier League,33,3106.0,4,0,0,4
+18872,Martin Škrtel,Liverpool,Premier League,22,1973.0,0,0,1,0
+3471,Dejan Lovren,Liverpool,Premier League,24,1986.0,0,0,1,0
+7780,Lucas Pezzini Leiva,Liverpool,Premier League,27,2044.0,4,3,0,4
+3473,James Philip Milner,Liverpool,Premier League,28,2495.0,3,3,2,3
+3493,Emre Can,Liverpool,Premier League,30,2599.0,4,3,0,4
+3535,Roberto Firmino Barbosa de Oliveira,Liverpool,Premier League,31,2036.0,3,3,2,3
+3501,Philippe Coutinho Correia,Liverpool,Premier League,26,2051.0,3,3,2,3
+3380,Christian Benteke Liolo,Liverpool,Premier League,29,1634.0,1,4,3,1
+3635,Jordon Ibe,Liverpool,Premier League,27,1251.0,3,0,2,3
+3515,Alberto Moreno Pérez,Liverpool,Premier League,32,2671.0,4,0,0,4
+20201,Maarten Stekelenburg,Southampton,Premier League,17,1598.0,2,2,4,2
+3590,Rhu-endly Martina,Southampton,Premier League,15,1138.0,4,0,0,4
+3960,José Miguel da Rocha Fonte,Southampton,Premier League,37,3301.0,0,1,1,0
+3669,Virgil van Dijk,Southampton,Premier League,34,3203.0,0,1,1,0
+20045,Ryan Bertrand,Southampton,Premier League,32,3015.0,4,0,0,4
+3098,Victor Wanyama,Southampton,Premier League,30,2589.0,4,0,0,4
+16181,Jordy Clasie,Southampton,Premier League,22,1568.0,4,0,0,4
+3328,James Ward-Prowse,Southampton,Premier League,33,1653.0,4,0,2,4
+3629,Sadio Mané,Southampton,Premier League,37,2679.0,3,0,2,3
+3828,Steven Davis,Southampton,Premier League,34,2686.0,4,0,0,4
+3842,Shane Long,Southampton,Premier League,28,2210.0,1,4,3,1
+3272,Oriol Romeu Vidal,Southampton,Premier League,29,1708.0,4,0,0,4
+3831,Dušan Tadić,Southampton,Premier League,34,2339.0,3,0,2,3
+4090,Adam David Lallana,Liverpool,Premier League,30,2180.0,3,0,2,3
+3449,Wayne Routledge,Swansea City,Premier League,28,1718.0,3,0,2,3
+3532,Jordan Brian Henderson,Liverpool,Premier League,17,1338.0,3,3,0,3
+3462,Jack Frank Porteous Cork,Swansea City,Premier League,35,2667.0,4,3,0,4
+3529,Daniel Andre Sturridge,Liverpool,Premier League,14,1020.0,1,4,3,1
+3815,Kasper Schmeichel,Leicester City,Premier League,38,3581.0,2,2,4,2
+3270,Danny Simpson,Leicester City,Premier League,30,2711.0,0,1,1,0
+3813,Wes Morgan,Leicester City,Premier League,38,3581.0,0,1,1,0
+40123,Robert Huth,Leicester City,Premier League,35,3301.0,0,1,1,0
+3812,Christian Fuchs,Leicester City,Premier League,32,2835.0,4,0,0,4
+3961,N''Golo Kanté,Leicester City,Premier League,37,3169.0,4,0,0,4
+3814,Riyad Mahrez,Leicester City,Premier League,37,3091.0,3,0,2,3
+3662,Danny Drinkwater,Leicester City,Premier League,35,3152.0,4,0,0,4
+3307,Marc Albrighton,Leicester City,Premier League,38,2821.0,3,0,2,3
+3671,José Leonardo Ulloa,Leicester City,Premier League,29,1078.0,1,4,3,1
+10960,Jamie Vardy,Leicester City,Premier League,36,3253.0,1,4,3,1
+20074,Artur Boruc,AFC Bournemouth,Premier League,32,3010.0,2,2,4,2
+6409,Adam Smith,AFC Bournemouth,Premier League,31,2223.0,4,0,0,4
+3608,Simon Francis,AFC Bournemouth,Premier League,38,3540.0,4,3,0,4
+3341,Steve Cook,AFC Bournemouth,Premier League,36,3335.0,0,1,1,0
+3345,Charlie Daniels,AFC Bournemouth,Premier League,37,3431.0,4,0,0,4
+3344,Andrew Surman,AFC Bournemouth,Premier League,38,3578.0,4,0,0,4
+3049,Matt Ritchie,AFC Bournemouth,Premier League,37,3094.0,3,0,2,3
+3343,Dan Gosling,AFC Bournemouth,Premier League,34,2562.0,4,0,0,4
+3304,Harry Arter,AFC Bournemouth,Premier League,21,1693.0,4,3,0,4
+3463,Junior Stanislas,AFC Bournemouth,Premier League,21,1487.0,3,0,2,3
+3346,Joshua King,AFC Bournemouth,Premier League,31,1965.0,1,4,3,1
+3810,Shinji Okazaki,Leicester City,Premier League,36,2104.0,1,4,3,1
+5108,Glyn Oliver Myhill,West Bromwich Albion,Premier League,23,2171.0,2,2,4,2
+3523,Craig Dawson,West Bromwich Albion,Premier League,38,3538.0,0,1,1,0
+3596,Gareth McAuley,West Bromwich Albion,Premier League,34,3195.0,0,1,1,0
+11012,Jonathan Grant Evans,West Bromwich Albion,Premier League,30,2703.0,0,1,1,0
+3541,Chris Brunt,West Bromwich Albion,Premier League,22,1878.0,4,1,0,4
+2966,Stéphane Sessègnon,West Bromwich Albion,Premier League,25,1809.0,3,4,2,3
+4022,Darren Fletcher,West Bromwich Albion,Premier League,38,3523.0,4,4,0,4
+3967,Claudio Ariel Yacob,West Bromwich Albion,Premier League,34,2943.0,4,1,0,4
+3514,James McClean,West Bromwich Albion,Premier League,35,2524.0,4,4,0,4
+4041,José Salomón Rondón Giménez,West Bromwich Albion,Premier League,34,2634.0,1,4,3,1
+4630,Saido Berahino,West Bromwich Albion,Premier League,31,1834.0,1,4,3,1
+10503,Billy Jones,Sunderland,Premier League,24,2119.0,4,1,0,4
+10783,Lee Cattermole,Sunderland,Premier League,31,2293.0,4,1,0,4
+3337,Jermain Defoe,Sunderland,Premier League,33,2667.0,1,4,3,1
+9485,Craig Gardner,West Bromwich Albion,Premier League,34,2133.0,4,4,0,4
+3096,Rob Elliot,Newcastle United,Premier League,21,1976.0,2,2,4,2
+3650,Daryl Janmaat,Newcastle United,Premier League,32,2865.0,4,0,0,4
+3044,Chancel Mbemba Mangulu,Newcastle United,Premier League,33,3057.0,0,1,1,0
+26207,Fabricio Coloccini,Newcastle United,Premier League,26,2393.0,0,1,1,0
+3065,Paul Dummett,Newcastle United,Premier League,23,1965.0,0,1,1,0
+16072,Vurnon Anita,Newcastle United,Premier League,28,2180.0,4,0,0,4
+9649,Jack Colback,Newcastle United,Premier League,29,2459.0,4,0,0,4
+3091,Moussa Sissoko,Newcastle United,Premier League,37,3347.0,3,0,2,3
+3567,Georginio Wijnaldum,Newcastle United,Premier League,38,3293.0,3,4,2,3
+30289,Papiss Demba Cissé,Newcastle United,Premier League,21,1104.0,1,0,3,1
+3583,Ashley Westwood,Aston Villa,Premier League,32,2837.0,4,0,0,4
+4269,Aleksandar Mitrović,Newcastle United,Premier League,34,2216.0,1,4,3,1
+3076,Ayoze Pérez Gutiérrez,Newcastle United,Premier League,34,2147.0,3,4,2,3
+13042,Tim Howard,Everton,Premier League,25,2348.0,2,2,4,2
+3244,John Stones,Everton,Premier League,33,2903.0,0,0,1,0
+3518,Leighton Baines,Everton,Premier League,18,1553.0,4,0,0,4
+3607,James McCarthy,Everton,Premier League,29,2520.0,4,0,0,4
+3953,Aaron Lennon,Everton,Premier League,25,1614.0,1,4,3,1
+4275,Ross Barkley,Everton,Premier League,38,3170.0,3,3,2,3
+3683,Tom Cleverley,Everton,Premier League,22,1681.0,3,0,2,3
+9626,Tommy Elphick,AFC Bournemouth,Premier League,12,1064.0,0,1,1,0
+3646,Marc Pugh,AFC Bournemouth,Premier League,26,1406.0,4,0,0,4
+3289,Romelu Lukaku Menama,Everton,Premier League,37,3290.0,1,4,3,1
+3278,Benik Afobe,AFC Bournemouth,Premier League,15,953.0,1,4,3,1
+3488,Wayne Hennessey,Crystal Palace,Premier League,29,2726.0,2,2,4,2
+3443,Joel Ward,Crystal Palace,Premier League,30,2808.0,4,1,0,4
+3407,Scott Dann,Crystal Palace,Premier League,35,3293.0,0,1,1,0
+3693,Damien Delaney,Crystal Palace,Premier League,32,3006.0,0,1,1,0
+4884,Pape N''Diaye Souaré,Crystal Palace,Premier League,34,3144.0,4,0,0,4
+5489,Mile Jedinak,Crystal Palace,Premier League,27,1640.0,0,1,1,0
+3507,Wilfried Zaha,Crystal Palace,Premier League,34,2581.0,3,4,2,3
+3277,Yohan Cabaye,Crystal Palace,Premier League,33,2758.0,4,0,0,4
+20641,Connor Wickham,Crystal Palace,Premier League,21,1366.0,1,4,3,1
+3522,Heurelho da Silva Gomes,Watford,Premier League,38,3542.0,2,2,4,2
+3991,Allan Romeo Nyom,Watford,Premier League,32,2567.0,4,1,0,4
+3309,Sebastian Prödl,Watford,Premier League,21,1860.0,0,1,1,0
+3263,Craig Cathcart,Watford,Premier League,35,3176.0,0,1,1,0
+3306,Nathan Aké,Watford,Premier League,24,1969.0,4,1,0,4
+3626,Ben Watson,Watford,Premier League,35,2951.0,4,0,0,4
+3721,Etienne Capoue,Watford,Premier League,33,2922.0,4,0,0,4
+5540,Valon Behrami,Watford,Premier League,21,1330.0,4,1,0,4
+3454,Troy Deeney,Watford,Premier League,38,3439.0,1,4,3,1
+3302,Nordin Amrabat,Málaga,"La Liga, Premier League",25,1555.0,3,4,2,3
+5458,Odion Jude Ighalo,Watford,Premier League,37,3271.0,1,4,3,1
+43081,Almen Abdi,Watford,Premier League,32,2028.0,4,0,0,4
+23488,Mario Suárez Mata,Watford,"Premier League, Serie A",24,1276.0,4,3,0,4
+18672,Mark Bunn,Aston Villa,Premier League,10,938.0,2,2,4,2
+27146,Aly Cissokho,Aston Villa,Premier League,18,1662.0,4,0,0,4
+42700,Micah Richards,Aston Villa,Premier League,24,2139.0,0,1,1,0
+4053,Ben Foster,West Bromwich Albion,Premier League,15,1406.0,2,2,4,2
+20527,Jonas Olsson,West Bromwich Albion,Premier League,28,2101.0,0,1,1,0
+9628,James Grant Chester,West Bromwich Albion,Premier League,13,1009.0,0,1,1,0
+3099,Hugo Lloris,Tottenham Hotspur,Premier League,37,3470.0,2,2,4,2
+3205,Kyle Walker,Tottenham Hotspur,Premier League,33,3060.0,4,0,0,4
+20005,Toby Alderweireld,Tottenham Hotspur,Premier League,38,3558.0,0,0,1,0
+3594,Danny Rose,Tottenham Hotspur,Premier League,24,2205.0,4,0,0,4
+10956,Eric Dier,Tottenham Hotspur,Premier League,37,3383.0,4,0,0,4
+3037,Mousa Sidi Yaya Dembélé,Tottenham Hotspur,Premier League,29,2339.0,4,3,0,4
+3585,Erik Lamela,Tottenham Hotspur,Premier League,34,2430.0,3,0,2,3
+3094,Bamidele Alli,Tottenham Hotspur,Premier League,33,2529.0,3,0,2,3
+3043,Christian Dannemann Eriksen,Tottenham Hotspur,Premier League,35,3032.0,3,3,2,3
+10955,Harry Kane,Tottenham Hotspur,Premier League,38,3473.0,1,4,3,1
+4416,Max-Alain Gradel,AFC Bournemouth,Premier League,14,902.0,3,4,2,3
+4831,Nacer Chadli,Tottenham Hotspur,Premier League,29,1041.0,1,4,3,1
+3665,Andrew Philip King,Leicester City,Premier League,25,1165.0,4,4,0,4
+19688,Jason Puncheon,Crystal Palace,Premier League,31,2693.0,3,0,2,3
+3589,Yannick Bolasie Yala,Crystal Palace,Premier League,26,2166.0,3,4,2,3
+16309,Joel Robles Blázquez,Everton,Premier League,13,1228.0,2,2,4,2
+4589,Séamus Coleman,Everton,Premier League,28,2477.0,4,0,0,4
+4629,José Ramiro Funes Mori,Everton,Premier League,28,2306.0,0,0,1,0
+3633,Gareth Barry,Everton,Premier League,33,2965.0,4,3,0,4
+26696,Arouna Koné,Everton,Premier League,25,1515.0,1,0,3,1
+5836,Bryan Oviedo,Everton,Premier League,14,1038.0,4,0,0,4
+3469,Bakary Sako,Crystal Palace,Premier League,20,1118.0,3,4,2,3
+4317,Kevin Mirallas,Everton,Premier League,23,1083.0,3,4,2,3
+23635,John Ruddy,Norwich City,Premier League,27,2542.0,2,2,4,2
+9930,Ryan Bennett,Norwich City,Premier League,22,1917.0,0,1,1,0
+21212,Russell Martin,Norwich City,Premier League,30,2813.0,0,1,1,0
+10967,Robert Brady,Norwich City,Premier League,36,3106.0,4,0,0,4
+9463,Alexander Banor Tettey,Norwich City,Premier League,23,2031.0,4,0,0,4
+9578,Jonathan Howson,Norwich City,Premier League,36,3080.0,4,4,0,4
+3286,Nathan Redmond,Norwich City,Premier League,35,2458.0,3,0,2,3
+9528,Steven Naismith,Norwich City,Premier League,23,1364.0,1,4,3,1
+4807,Cameron Jerome,Norwich City,Premier League,34,1859.0,1,4,3,1
+3520,Jeffrey Schlupp,Leicester City,Premier League,24,1467.0,4,4,0,4
+22594,Matt Jarvis,Norwich City,Premier League,22,1150.0,3,4,2,3
+23663,Dieumerci Mbokani Bezua,Norwich City,Premier League,29,1697.0,1,4,3,1
+9539,Vito Mannone,Sunderland,Premier League,19,1791.0,2,2,4,2
+13286,Lamine Koné,Sunderland,Premier League,15,1375.0,0,1,1,0
+13846,Jan Kirchhoff,Sunderland,Premier League,15,1099.0,4,0,0,4
+3196,Wahbi Khazri,Sunderland,Premier League,14,1101.0,3,4,2,3
+3448,Martin Kelly,Crystal Palace,Premier League,13,1094.0,4,1,0,4
+4817,Joe Ledley,Crystal Palace,Premier League,19,1029.0,4,1,1,4
+31296,Sébastien Aymar Bassong Nguena,Norwich City,Premier League,32,2917.0,0,1,1,0
+3576,Martin Olsson,Norwich City,Premier League,24,1867.0,4,1,0,4
+9452,Gary O''Neil,Norwich City,Premier League,27,1858.0,4,0,0,4
+12325,Abdul Rahman Baba,Chelsea,Premier League,15,1070.0,4,0,0,4
+3472,Willian Borges da Silva,Chelsea,Premier League,35,2840.0,3,3,2,3
+3483,Mamadou Sakho,Liverpool,Premier League,22,1934.0,0,0,1,0
+3537,Jack Butland,Stoke City,Premier League,31,2910.0,2,2,4,2
+4724,Glen Johnson,Stoke City,Premier League,25,2271.0,4,0,0,4
+4035,Ryan Shawcross,Stoke City,Premier League,20,1767.0,0,1,1,0
+40121,Philipp Wollscheid,Stoke City,Premier League,31,2800.0,0,1,1,0
+3467,Erik Pieters,Stoke City,Premier League,35,3222.0,4,0,0,4
+3480,Geoff Cameron,Stoke City,Premier League,30,2449.0,0,0,1,0
+9625,Glenn Whelan,Stoke City,Premier League,37,3276.0,4,0,0,4
+3533,Xherdan Shaqiri,Stoke City,Premier League,27,2049.0,3,0,2,3
+4891,Ibrahim Afellay,Stoke City,Premier League,31,2173.0,4,3,0,4
+3325,Marko Arnautović,Stoke City,Premier League,34,2888.0,3,0,2,3
+4913,Bojan Krkíc Pérez,Stoke City,Premier League,27,1741.0,3,0,2,3
+3333,David de Gea Quintana,Manchester United,Premier League,34,3190.0,2,2,4,2
+3612,Ashley Young,Manchester United,Premier League,18,1114.0,3,3,2,3
+10958,Chris Smalling,Manchester United,Premier League,35,3280.0,0,1,1,0
+3311,Daley Blind,Manchester United,Premier League,35,3237.0,4,0,0,4
+4751,Michael Carrick,Manchester United,Premier League,28,2051.0,4,3,0,4
+3606,Ander Herrera Agüera,Manchester United,Premier League,27,1592.0,4,3,0,4
+3294,Juan Manuel Mata García,Manchester United,Premier League,38,2982.0,3,3,2,3
+3296,Marouane Fellaini-Bakkioui,Manchester United,Premier League,18,1106.0,4,0,0,4
+2988,Memphis Depay,Manchester United,Premier League,29,1576.0,3,0,2,3
+20039,Anthony Martial,Manchester United,Premier League,31,2741.0,1,0,3,1
+3538,Wayne Mark Rooney,Manchester United,Premier League,28,2496.0,3,0,2,3
+3603,Mame Biram Diouf,Stoke City,Premier League,26,1360.0,1,4,3,1
+3636,Charlie Adam,Stoke City,Premier League,22,1104.0,4,0,0,4
+3265,José Luis Sanmartín Mato,Stoke City,Premier League,22,1164.0,1,4,3,1
+3288,Miguel Ángel Britos Cabrera,Watford,Premier League,24,2162.0,0,1,1,0
+40118,Ikechi Anya,Watford,Premier League,28,1781.0,4,0,0,4
+3670,Jonathan Walters,Stoke City,Premier League,27,1821.0,1,4,3,1
+19288,Martín Gastón Demichelis,Manchester City,Premier League,20,1082.0,0,0,1,0
+16003,Fernando Francisco Reges,Manchester City,Premier League,24,1792.0,4,0,0,4
+20287,John Terry,Chelsea,Premier League,24,2076.0,0,1,1,0
+4587,Matteo Darmian,Manchester United,Premier League,28,1984.0,4,0,0,4
+3600,Morgan Schneiderlin,Manchester United,Premier League,29,2306.0,4,3,0,4
+18414,Bastian Schweinsteiger,Manchester United,Premier League,18,1250.0,4,3,0,4
+3293,Jesse Lingard,Manchester United,Premier League,25,1695.0,3,0,2,3
+3623,Adrián San Miguel del Castillo,West Ham United,Premier League,32,3012.0,2,2,4,2
+3316,James Tomkins,West Ham United,Premier League,25,2042.0,0,1,1,0
+4280,Winston Reid,West Ham United,Premier League,24,2235.0,0,1,1,0
+3843,Angelo Obinze Ogbonna,West Ham United,Premier League,28,2441.0,0,1,1,0
+3062,Aaron Cresswell,West Ham United,Premier League,37,3472.0,4,0,0,4
+3963,Victor Moses,West Ham United,Premier League,21,1020.0,3,4,2,3
+3874,Mark Noble,West Ham United,Premier League,37,3316.0,4,0,0,4
+3684,Cheikhou Kouyaté,West Ham United,Premier League,34,3141.0,4,4,0,4
+27853,Mauro Matías Zárate,West Ham United,"Premier League, Serie A",30,1570.0,3,0,2,3
+4271,Andy Carroll,West Ham United,Premier League,27,1531.0,1,4,3,1
+3349,Michail Antonio,West Ham United,Premier League,26,2133.0,3,4,2,3
+3897,Pedro Mba Obiang Avomo,West Ham United,Premier League,24,1173.0,4,1,0,4
+21254,Carl Jenkinson,West Ham United,Premier League,20,1302.0,4,0,0,4
+3490,James Morrison,West Bromwich Albion,Premier League,18,1392.0,3,0,2,3
+3464,James McArthur,Crystal Palace,Premier League,28,2254.0,4,0,0,4
+3329,Cédric Ricardo Alves Soares,Southampton,Premier League,24,2039.0,4,0,0,4
+11062,Graziano Pellè,Southampton,Premier League,30,2286.0,1,4,3,1
+3726,Gerard Deulofeu Lázaro,Everton,Premier League,26,1445.0,3,0,2,3
+16334,Graham Dorrans,Norwich City,Premier League,21,1341.0,4,0,0,4
+10966,Wes Hoolahan,Norwich City,Premier League,30,2032.0,3,3,2,3
+3267,Luis Antonio Valencia Mosquera,Manchester United,Premier League,14,905.0,4,3,0,4
+3602,Faustino Marcos Alberto Rojo,Manchester United,Premier League,16,1286.0,4,0,0,4
+3101,Vincent Kompany,Manchester City,Premier League,14,1226.0,0,0,1,0
+6560,Marc Muniesa Martínez,Stoke City,Premier League,15,1162.0,4,1,0,4
+3077,Jan Vertonghen,Tottenham Hotspur,Premier League,29,2697.0,0,0,1,0
+3041,Ciaran Clark,Aston Villa,Premier League,18,1520.0,0,1,1,0
+42699,Gabriel Imuetinyan Agbonlahor,Aston Villa,Premier League,15,1062.0,1,4,3,1
+3086,Ben Davies,Tottenham Hotspur,Premier League,17,1359.0,4,0,0,4
+3300,Maya Yoshida,Southampton,Premier League,20,1094.0,0,1,1,0
+3595,Manuel Lanzini,West Ham United,Premier League,26,1967.0,3,3,2,3
+3491,Dimitri Payet,West Ham United,Premier League,30,2677.0,3,3,2,3
+3962,Diafra Sakho,West Ham United,Premier League,21,1567.0,1,4,3,1
+3651,Matt Targett,Southampton,Premier League,14,1104.0,4,0,0,4
+6870,José Manuel Jurado Marín,Watford,Premier League,27,2036.0,3,0,2,3
+3509,Thibaut Courtois,Chelsea,Premier League,23,2114.0,2,2,4,2
+30702,Brendan Joel Zibusiso Galloway,Everton,Premier League,15,1268.0,4,4,0,4
+3973,Àngel Rangel Zaragoza,Swansea City,Premier League,23,1896.0,4,3,0,4
+3297,Andros Townsend,Newcastle United,Premier League,16,1205.0,3,0,2,3
+3482,James Collins,West Ham United,Premier League,19,1508.0,0,1,1,0
+3052,Pablo Javier Zabaleta Girod,Manchester City,Premier League,13,1106.0,4,0,0,4
+3081,Jamaal Lascelles,Newcastle United,Premier League,18,1221.0,0,1,1,0
+42900,Cheik Ismaël Tioté,Newcastle United,Premier League,20,1258.0,4,3,0,4
+20046,Phil Jagielka,Everton,Premier League,21,1929.0,0,0,1,0
+3083,Heung-Min Son,Tottenham Hotspur,Premier League,28,1166.0,1,0,3,1
+9014,Declan Rudd,Norwich City,Premier League,11,1034.0,2,2,4,2
+28559,Enner Remberto Valencia Lastra,West Ham United,Premier League,19,1070.0,1,4,3,1
+19847,Alessandro Diamanti,Atalanta,"Premier League, Serie A",19,967.0,3,3,2,3
+3725,José Holebas,Watford,Premier League,11,982.0,4,0,0,4
+20302,Gaël Clichy,Manchester City,Premier League,14,1130.0,4,3,0,4
+5689,Juan Guillermo Cuadrado Bello,Juventus,"Premier League, Serie A",29,1831.0,3,3,2,3
+3970,Fraser Forster,Southampton,Premier League,18,1697.0,2,2,4,2
+4346,Gilbert Gianelli Imbula Wanga,Stoke City,Premier League,14,1316.0,3,3,2,3
+6950,Alberto Paloschi,Chievo,"Premier League, Serie A",31,2404.0,1,4,3,1
+5597,Keylor Navas Gamboa,Real Madrid,La Liga,34,3152.0,2,2,4,2
+5721,Daniel Carvajal Ramos,Real Madrid,La Liga,22,1675.0,4,3,0,4
+20016,Kléper Laveran Lima Ferreira,Real Madrid,La Liga,21,1936.0,0,0,1,0
+5485,Raphaël Varane,Real Madrid,La Liga,26,2253.0,0,0,1,0
+5552,Marcelo Vieira da Silva Júnior,Real Madrid,La Liga,30,2548.0,4,3,0,4
+5574,Toni Kroos,Real Madrid,La Liga,32,2808.0,4,3,0,4
+5463,Luka Modrić,Real Madrid,La Liga,32,2675.0,3,3,2,3
+4926,Francisco Román Alarcón Suárez,Real Madrid,La Liga,31,1870.0,3,3,2,3
+6399,Gareth Frank Bale,Real Madrid,La Liga,23,1771.0,1,0,2,1
+5207,Cristiano Ronaldo dos Santos Aveiro,Real Madrid,La Liga,36,3274.0,1,4,3,1
+19677,Karim Benzema,Real Madrid,La Liga,27,2008.0,1,4,3,1
+6610,Iván Cuéllar Sacristán,Sporting Gijón,La Liga,32,2972.0,2,2,4,2
+26633,Alberto Lora Ramos,Sporting Gijón,La Liga,31,2507.0,4,0,0,4
+6561,Luis Hernández Rodríguez,Sporting Gijón,La Liga,36,3331.0,0,1,1,0
+8818,Jorge Meré Pérez,Sporting Gijón,La Liga,25,2238.0,0,1,1,0
+24263,Ismael López Blanco,Sporting Gijón,La Liga,31,2579.0,4,0,0,4
+13107,Sergio Álvarez Díaz,Sporting Gijón,La Liga,27,2253.0,4,0,0,4
+18925,Ignacio Cases Mora,Sporting Gijón,La Liga,24,2032.0,4,0,0,4
+6581,Jonathan Rodríguez Menéndez,Sporting Gijón,La Liga,36,2937.0,3,4,2,3
+6926,Alen Halilović,Sporting Gijón,La Liga,36,2428.0,3,4,2,3
+23994,Alejandro Menéndez Díez,Sporting Gijón,La Liga,21,1092.0,4,4,0,4
+6602,Miguel Ángel Guerrero Martín,Sporting Gijón,La Liga,23,1122.0,1,4,3,1
+5695,James David Rodríguez Rubio,Real Madrid,La Liga,26,1556.0,3,3,2,3
+27526,Rachid Aït-Atmane,Sporting Gijón,La Liga,18,1107.0,4,0,0,4
+5456,Mateo Kovačić,Real Madrid,La Liga,25,1088.0,4,3,0,4
+6880,Arnaldo Antonio Sanabria Ayala,Sporting Gijón,La Liga,29,2298.0,1,4,3,1
+6730,Rubén Iván Martínez Andrade,Levante UD,La Liga,15,1396.0,2,2,4,2
+6647,Zouhair Feddal,Levante UD,La Liga,28,2606.0,0,1,1,0
+26023,Juan Francisco García García,Levante UD,La Liga,20,1562.0,4,1,0,4
+6668,José Luis Morales Nogales,Levante UD,La Liga,35,2743.0,3,4,2,3
+6784,Antonio García Aranda,Levante UD,La Liga,27,2463.0,4,0,0,4
+24149,José Antonio García Rabasco,Levante UD,La Liga,29,2204.0,4,0,0,4
+5678,Jefferson Andrés Lerma Solís,Levante UD,La Liga,33,2766.0,4,4,0,4
+27250,Nabil Ghilas,Levante UD,La Liga,20,1059.0,1,4,3,1
+23791,Víctor Casadesús Castaño,Levante UD,La Liga,23,1013.0,1,4,3,1
+10763,Asier Riesgo Unamuno,Eibar,La Liga,34,3159.0,2,2,4,2
+6699,Ander Capa Rodríguez,Eibar,La Liga,36,3223.0,4,0,0,4
+6837,Mauro Javier Dos Santos,Eibar,La Liga,31,2773.0,0,1,1,0
+27239,Aleksandar Pantić,Eibar,La Liga,20,1734.0,0,1,1,0
+6776,David Juncà Reñé,Eibar,La Liga,31,2426.0,4,0,0,4
+6712,Gonzalo Escalante,Eibar,La Liga,34,2893.0,4,4,0,4
+6775,Daniel García Carrillo,Eibar,La Liga,35,3141.0,4,0,0,4
+6742,Sergio Gontán Gallardo,Eibar,La Liga,29,2361.0,3,0,2,3
+6557,Adrián González Morales,Eibar,La Liga,32,2282.0,4,4,0,4
+5687,Takashi Inui,Eibar,La Liga,27,1670.0,3,4,2,3
+6566,Borja González Tomás,Eibar,La Liga,36,2642.0,1,4,3,1
+6659,Víctor Camarasa Ferrando,Levante UD,La Liga,34,2189.0,4,0,0,4
+23943,Rubén García Santos,Levante UD,La Liga,22,1076.0,3,0,2,3
+24070,Saúl Berjón Pérez,Eibar,La Liga,29,1450.0,3,0,2,3
+6700,Sergio Enrich Ametller,Eibar,La Liga,38,2498.0,1,4,3,1
+25134,Deyverson Brum Silva Acosta,Levante UD,La Liga,33,2228.0,1,4,3,1
+26753,Javier Varas Herrera,Las Palmas,La Liga,31,2803.0,2,2,4,2
+8440,Aythami Artiles Oliva,Las Palmas,La Liga,31,2730.0,0,0,1,0
+7907,Pedro Bigas Rigo,Las Palmas,La Liga,27,2433.0,0,0,1,0
+7906,David Simón Rodríguez Santana,Las Palmas,La Liga,27,2343.0,4,0,0,4
+6932,Dani Castellano Betancor,Las Palmas,La Liga,27,2319.0,4,0,0,4
+15805,Hernán Daniel Santana Trujillo,Las Palmas,La Liga,18,967.0,4,0,0,4
+3610,Roque Mesa Quevedo,Las Palmas,La Liga,34,2883.0,4,3,0,4
+6626,Mubarak Wakaso,Las Palmas,La Liga,20,971.0,4,0,0,4
+10755,Jonathan Viera Ramos,Las Palmas,La Liga,36,3196.0,3,3,2,3
+8167,Sergio Ezequiel Araújo,Las Palmas,La Liga,30,1893.0,1,4,3,1
+6823,Sergio Rico González,Sevilla,La Liga,34,3166.0,2,2,4,2
+6672,Jorge Andújar Moreno,Sevilla,La Liga,21,1794.0,4,0,0,4
+10476,Timothée Kolodziejczak,Sevilla,La Liga,29,2465.0,0,1,1,0
+27483,Benoît Trémoulinas,Sevilla,La Liga,24,2227.0,4,0,0,4
+3637,Grzegorz Krychowiak,Sevilla,La Liga,26,2344.0,4,0,0,4
+7154,Sebastián Carlos Cristóforo Pepe,Sevilla,La Liga,21,1485.0,4,0,0,4
+3497,Vicente Iborra De La Fuente,Sevilla,La Liga,29,1778.0,1,4,3,1
+6356,Michael Krohn-Dehli,Sevilla,La Liga,27,1736.0,3,0,2,3
+3486,Fernando Llorente Torres,Sevilla,"La Liga, Serie A",24,1205.0,1,4,3,1
+7788,Ciro Immobile,Torino,"La Liga, Serie A",22,1370.0,1,4,3,1
+6401,Kevin Gameiro,Sevilla,La Liga,31,2152.0,1,4,3,1
+23816,José Antonio Reyes Calderón,Sevilla,La Liga,24,1220.0,3,0,2,3
+6841,Víctor Machín Pérez,Sevilla,La Liga,28,2117.0,3,4,2,3
+6608,Nabil El Zhar,Las Palmas,La Liga,30,1760.0,3,4,2,3
+6929,José Vicente Gómez Umpiérrez,Las Palmas,La Liga,21,1515.0,4,3,0,4
+23800,Laureano Sanabria Ruiz,RC Deportivo La Coruña,La Liga,23,1603.0,4,1,0,4
+6869,Alejandro Arribas Garrido,RC Deportivo La Coruña,La Liga,31,2821.0,0,1,1,0
+6777,Sidnei Rechel da Silva Júnior,RC Deportivo La Coruña,La Liga,33,2985.0,0,1,1,0
+6913,Fernando Navarro i Corbacho,RC Deportivo La Coruña,La Liga,35,3036.0,4,0,0,4
+6733,Pedro Mosquera Parada,RC Deportivo La Coruña,La Liga,37,3390.0,4,0,0,4
+5582,Celso Borges Mora,RC Deportivo La Coruña,La Liga,24,1965.0,4,0,0,4
+6728,Federico Nicolás Cartabia,RC Deportivo La Coruña,La Liga,26,1390.0,3,0,2,3
+5724,Fayçal Fajr,RC Deportivo La Coruña,La Liga,38,2934.0,3,0,2,3
+7782,Luis Alberto Romero Alconchel,RC Deportivo La Coruña,La Liga,29,2151.0,3,4,2,3
+6732,Lucas Pérez Martínez,RC Deportivo La Coruña,La Liga,36,3233.0,1,4,3,1
+6625,Vicente Guaita Panadero,Getafe,La Liga,38,3534.0,2,2,4,2
+27403,Santiago Vergini,Getafe,La Liga,26,2278.0,0,1,1,0
+6856,Carlos Martín Vigaray,Getafe,La Liga,14,1228.0,4,1,0,4
+6627,Damián Nicolás Suárez Suárez,Getafe,La Liga,31,2720.0,4,0,0,4
+6745,Mehdi Lacen,Getafe,La Liga,31,2744.0,4,0,0,4
+6907,Pedro León Sánchez Gil,Getafe,La Liga,31,1879.0,3,0,2,3
+6736,Álvaro Medrán Just,Getafe,La Liga,20,1528.0,4,4,0,4
+11675,Moisés Gómez Bordonado,Getafe,La Liga,22,970.0,3,0,2,3
+6720,Pablo Sarabia García,Getafe,La Liga,31,2592.0,3,0,2,3
+24035,Álvaro Vázquez García,Getafe,La Liga,34,2040.0,1,4,3,1
+23416,Stefan Šćepović,Getafe,La Liga,34,1902.0,1,4,3,1
+25921,Rubén Gracia Calmache,RC Deportivo La Coruña,La Liga,18,904.0,4,0,0,4
+6738,Juan Francisco Moreno Fuertes,RC Deportivo La Coruña,La Liga,35,2746.0,4,0,0,4
+6861,Juan Torres Ruiz,Getafe,La Liga,22,1979.0,0,1,1,0
+25881,Juan Antonio Rodríguez Villamuela,Getafe,La Liga,32,2575.0,0,1,1,0
+5577,Francisco Guillermo Ochoa Magaña,Málaga,La Liga,11,985.0,2,2,4,2
+6569,Roberto José Rosales Altuve,Málaga,La Liga,35,3176.0,4,0,0,4
+6727,Raúl Albentosa Redal,Málaga,La Liga,29,2644.0,0,1,1,0
+6878,Miguel Torres Gómez,Málaga,La Liga,23,2021.0,4,1,0,4
+8234,Ignacio Camacho Barnola,Málaga,La Liga,23,2072.0,4,0,0,4
+6764,Pablo Fornals Malla,Málaga,La Liga,27,1357.0,4,0,0,4
+6563,Juan Pablo Añor Acosta,Málaga,La Liga,29,1668.0,3,0,2,3
+6740,Gonzalo Castro Irizábal,Málaga,La Liga,24,1444.0,3,0,2,3
+8419,Duje Čop,Málaga,La Liga,31,2074.0,1,4,3,1
+6707,Charles Días Barbosa de Oliveira,Málaga,La Liga,35,3092.0,1,4,3,1
+23843,Diego Mariño Villar,Levante UD,La Liga,23,2144.0,2,2,4,2
+6787,Pedro López Muñoz,Levante UD,La Liga,17,1338.0,4,0,0,4
+27656,Carl Medjani,Levante UD,La Liga,14,1307.0,0,1,1,0
+7141,Giuseppe Rossi,Levante UD,"La Liga, Serie A",28,1574.0,1,4,3,1
+25859,Sérgio Paulo Barbosa Valente,Málaga,La Liga,26,1136.0,3,3,2,3
+26211,Joan Verdú Fernández,Levante UD,"La Liga, Serie A",18,1139.0,3,0,2,3
+6792,Pau López Sabata,Espanyol,La Liga,36,3306.0,2,2,4,2
+6791,Javier López Rodríguez,Espanyol,La Liga,31,2510.0,4,1,0,4
+6762,Álvaro González Soberón,Espanyol,La Liga,36,3334.0,0,1,1,0
+16456,Enzo Pablo Roco Roco,Espanyol,La Liga,33,2570.0,0,1,1,0
+6612,Rubén Duarte Sánchez,Espanyol,La Liga,22,1925.0,4,1,0,4
+5598,Óscar Esau Duarte Gaitán,Espanyol,La Liga,14,1239.0,0,1,1,0
+6758,Víctor Sánchez Mata,Espanyol,La Liga,29,2355.0,4,4,0,4
+6867,Papa Kouly Diop,Espanyol,La Liga,30,2560.0,4,0,0,4
+6838,Hernán Arsenio Pérez González,Espanyol,La Liga,32,2525.0,3,0,2,3
+5719,Marco Asensio Willemsen,Espanyol,La Liga,34,2900.0,3,0,2,3
+6766,Gerard Moreno Balaguero,Espanyol,La Liga,32,1978.0,1,4,3,1
+6675,Antonio Manuel Luna Rodríguez,Eibar,La Liga,15,1036.0,4,1,0,4
+26669,Weligton Róbson Pena de Oliveira,Málaga,La Liga,30,2687.0,0,1,1,0
+6580,José Luis García del Pozo,Málaga,La Liga,33,2822.0,4,0,0,4
+6927,David García Santana,Las Palmas,La Liga,19,1654.0,0,0,1,0
+6928,Pedro Taunausú Domínguez Placeres,Las Palmas,La Liga,27,2152.0,3,3,2,3
+6934,Jerónimo Figueroa Cabrera,Las Palmas,La Liga,23,1422.0,3,3,2,3
+6721,Willian José da Silva,Las Palmas,La Liga,30,1809.0,1,4,3,1
+23848,Carlos Carmona Bonet,Sporting Gijón,La Liga,20,1235.0,4,0,0,4
+6772,Mario Gaspar Pérez Martínez,Villarreal,La Liga,33,2974.0,4,0,0,4
+3324,Eric Bertrand Bailly,Villarreal,La Liga,25,2073.0,0,1,1,0
+6827,Daniele Bonera,Villarreal,La Liga,14,1011.0,0,1,1,0
+5588,Antonio Rukavina,Villarreal,La Liga,18,1406.0,4,1,0,4
+6771,Manuel Trigueros Muñoz,Villarreal,La Liga,31,2184.0,4,0,0,4
+6357,Jonathan dos Santos Ramírez,Villarreal,La Liga,26,1808.0,4,0,0,4
+18867,Matías Nahuel Leiva Esquivel,Villarreal,La Liga,20,1040.0,4,4,2,4
+6829,Samuel Castillejo Azuaga,Villarreal,La Liga,28,1749.0,3,0,2,3
+6761,Leonardo Carrilho Baptistão,Villarreal,La Liga,26,1325.0,1,4,3,1
+6752,Víctor Ruíz Torre,Villarreal,La Liga,35,3102.0,0,1,1,0
+24173,Carlos Castro García,Sporting Gijón,La Liga,25,1071.0,1,4,3,1
+6609,Denis Suárez Fernández,Villarreal,La Liga,33,2460.0,3,0,2,3
+6862,Cédric Bakambu,Villarreal,La Liga,34,1924.0,1,4,3,1
+24138,Joaquín José Marín Ruiz,Rayo Vallecano,La Liga,27,2120.0,4,0,0,4
+27144,Antonio Amaya Carazo,Rayo Vallecano,La Liga,17,1074.0,0,1,1,0
+6914,Roberto Román Triguero,Rayo Vallecano,La Liga,29,2556.0,4,1,0,4
+11298,José Ignacio Martínez García,Rayo Vallecano,La Liga,22,1743.0,4,0,0,4
+26848,Roberto Trashorras Gayoso,Rayo Vallecano,La Liga,36,3209.0,4,3,0,4
+6713,Diego Javier Llorente Ríos,Rayo Vallecano,La Liga,33,2965.0,0,0,1,0
+4711,Pablo Hernández Domínguez,Rayo Vallecano,La Liga,27,1957.0,3,0,2,3
+6852,Jozabed Sánchez Ruiz,Rayo Vallecano,La Liga,27,2119.0,3,0,2,3
+11539,Adrián Embarba Blázquez,Rayo Vallecano,La Liga,28,1889.0,3,0,2,3
+11542,Javier Guerra Rodríguez,Rayo Vallecano,La Liga,30,2150.0,1,4,3,1
+8801,Iván López Mendoza,Levante UD,La Liga,13,990.0,4,1,0,4
+26012,David Navarro Pedrós,Levante UD,La Liga,20,1736.0,0,1,1,0
+27122,Simão Mate,Levante UD,La Liga,30,2233.0,0,1,1,0
+26685,Nicolás Ladislao Fedor Flores,Rayo Vallecano,La Liga,22,1590.0,1,4,3,1
+7900,Tiago Manuel Dias Correia,Rayo Vallecano,La Liga,34,2288.0,3,0,2,3
+6593,Martín Montoya Torralbo,Real Betis,"La Liga, Serie A",16,1468.0,4,0,0,4
+7161,Germán Alejandro Pezzella,Real Betis,La Liga,25,2240.0,0,1,1,0
+27349,Heiko Westermann,Real Betis,La Liga,20,1678.0,0,1,1,0
+27347,Juan Manuel Vargas Risco,Real Betis,La Liga,20,1776.0,4,0,0,4
+5671,Alfred John Momar N''Diaye,Real Betis,La Liga,34,3107.0,4,1,0,4
+27346,Petros Matheus dos Santos Araújo,Real Betis,La Liga,30,2406.0,4,0,0,4
+6651,Joaquín Sánchez Rodríguez,Real Betis,La Liga,30,2010.0,3,0,2,3
+6697,Daniel Ceballos Fernández,Real Betis,La Liga,34,2197.0,3,3,0,3
+6630,Jorge Molina Vidal,Real Betis,La Liga,23,963.0,1,4,3,1
+6832,Rubén Castro Martín,Real Betis,La Liga,38,3481.0,1,4,3,1
+3601,Charly Musonda Junior,Real Betis,La Liga,16,1267.0,3,4,2,3
+27092,Abdoul Karim Yoda,Getafe,La Liga,18,1031.0,4,0,0,4
+24132,Francisco Miguel Varela Martín,Real Betis,La Liga,14,953.0,4,0,0,4
+23806,Alejandro Bergantiños García,RC Deportivo La Coruña,La Liga,22,1802.0,4,0,0,4
+5201,Sergio Ramos García,Real Madrid,La Liga,23,1991.0,0,0,1,0
+5539,Carlos Henrique Casimiro,Real Madrid,La Liga,23,1582.0,4,3,0,4
+6576,Gorka Iraizoz Moreno,Athletic Club,La Liga,37,3352.0,2,2,4,2
+6392,Íñigo Lekue Martínez,Athletic Club,La Liga,20,1204.0,4,0,0,4
+6386,Eneko Bóveda Altube,Athletic Club,La Liga,23,1530.0,0,0,1,0
+26087,Carlos Gurpegi Nausia,Athletic Club,La Liga,15,1181.0,0,1,1,0
+6789,Mikel Balenziaga Oruesagasti,Athletic Club,La Liga,34,2999.0,4,0,0,4
+6389,Mikel San José Domínguez,Athletic Club,La Liga,34,2770.0,4,0,0,4
+6396,Beñat Etxebarria Urkiaga,Athletic Club,La Liga,36,2976.0,4,3,0,4
+6393,Iñaki Williams Arthuer,Athletic Club,La Liga,25,1638.0,1,4,3,1
+6391,Raúl García Escudero,Athletic Club,La Liga,31,2445.0,1,4,3,1
+6390,Markel Susaeta Laskurain,Athletic Club,La Liga,28,1956.0,3,4,2,3
+6394,Aritz Aduriz Zubeldia,Athletic Club,La Liga,34,2866.0,1,4,3,1
+3253,Adil Rami,Sevilla,La Liga,28,2500.0,0,1,1,0
+5737,Steven N''Kemboanza Mike Christopher Nzonzi,Sevilla,La Liga,28,1908.0,4,0,0,4
+8523,Yevhen Konoplyanka,Sevilla,La Liga,32,1692.0,3,0,2,3
+6825,Daniel Filipe Martins Carriço,Sevilla,La Liga,14,1094.0,0,1,1,0
+6718,Sergio Escudero Palomo,Sevilla,La Liga,15,1211.0,4,0,0,4
+6842,Iker Muniain Goñi,Athletic Club,La Liga,20,1051.0,3,0,2,3
+6378,Jan Oblak,Atlético Madrid,La Liga,38,3535.0,2,2,4,2
+6375,Juan Francisco Torres Belén,Atlético Madrid,La Liga,35,3131.0,4,0,0,4
+6376,Stefan Savić,Atlético Madrid,La Liga,12,970.0,0,1,1,0
+5249,Diego Roberto Godín Leal,Atlético Madrid,La Liga,31,2734.0,0,1,1,0
+6320,Filipe Luís Kasmirski,Atlético Madrid,La Liga,32,2927.0,4,3,0,4
+6384,Gabriel Fernández Arenas,Atlético Madrid,La Liga,35,2962.0,4,3,0,4
+19668,Augusto Matías Fernández,Celta Vigo,La Liga,28,2250.0,4,3,0,4
+6381,Saúl Ñíguez Esclapez,Atlético Madrid,La Liga,31,2412.0,4,0,0,4
+5199,Jorge Resurrección Merodio,Atlético Madrid,La Liga,35,3052.0,3,3,2,3
+6382,Fernando José Torres Sanz,Atlético Madrid,La Liga,30,1751.0,1,4,3,1
+5487,Antoine Griezmann,Atlético Madrid,La Liga,38,3112.0,1,0,3,1
+6884,Sergio Álvarez Conde,Celta Vigo,La Liga,31,2824.0,2,2,4,2
+6802,Jonathan Castro Otto,Celta Vigo,La Liga,36,3055.0,4,0,0,4
+6805,Hugo Mallo Novegil,Celta Vigo,La Liga,34,3040.0,4,0,0,4
+6804,Sergi Gómez Solà,Celta Vigo,La Liga,31,2713.0,0,0,1,0
+7577,Carles Planas Antolínez,Celta Vigo,La Liga,26,1751.0,4,0,0,4
+6797,Daniel Wass,Celta Vigo,La Liga,36,2768.0,4,0,0,4
+27341,Marcelo Alfonso Díaz Rojas,Celta Vigo,La Liga,14,1021.0,4,3,0,4
+7105,Fabián Ariel Orellana Valenzuela,Celta Vigo,La Liga,33,2989.0,3,3,2,3
+6801,Pedro Pablo Hernández,Celta Vigo,La Liga,33,2362.0,4,3,0,4
+6724,Manuel Agudo Durán,Celta Vigo,La Liga,29,2549.0,3,0,2,3
+6038,John Guidetti,Celta Vigo,La Liga,35,1330.0,1,4,3,1
+5217,Iago Aspas Juncal,Celta Vigo,La Liga,35,2717.0,1,4,3,1
+23785,Théo Bongonda Mbul''Ofeko Batombo,Celta Vigo,La Liga,23,1235.0,1,4,3,1
+5633,Yannick Ferreira Carrasco,Atlético Madrid,La Liga,29,1541.0,3,3,2,3
+20669,Tiago Cardoso Mendes,Atlético Madrid,La Liga,14,1088.0,4,3,0,4
+6796,Nemanja Radoja,Celta Vigo,La Liga,30,1526.0,4,0,0,4
+6898,Jaume Doménech Sánchez,Valencia,La Liga,17,1579.0,2,2,4,2
+6663,Antonio Barragán Fernández,Valencia,La Liga,24,1714.0,4,0,0,4
+27482,Aderllan Leandro de Jesus Santos,Valencia,La Liga,17,1567.0,0,1,1,0
+6592,Rúben Miguel Nunes Vezo,Valencia,La Liga,15,1130.0,0,1,1,0
+26780,Guilherme Magdalena Siqueira,Valencia,La Liga,15,1219.0,4,0,0,4
+10037,Danilo Barbosa da Silva,Valencia,La Liga,19,1401.0,4,4,0,4
+6595,Daniel Parejo Muñoz,Valencia,La Liga,33,2826.0,3,3,0,3
+10802,André Filipe Tavares Gomes,Valencia,La Liga,30,2445.0,3,3,2,3
+6594,Santiago Mina Lorenzo,Valencia,La Liga,26,1617.0,1,4,3,1
+6402,Francisco Alcácer García,Valencia,La Liga,34,2504.0,1,4,3,1
+6694,Gerónimo Rulli,Real Sociedad,La Liga,36,3291.0,2,2,4,2
+6679,Aritz Elustondo Irribaria,Real Sociedad,La Liga,31,2669.0,4,0,0,4
+16622,Mikel González de Martín Martínez,Real Sociedad,La Liga,19,1596.0,0,1,1,0
+16539,Diego Antonio Reyes Rosales,Real Sociedad,La Liga,27,2379.0,0,1,1,0
+6674,Alberto De La Bella Madureño,Real Sociedad,La Liga,15,1286.0,4,0,0,4
+6671,Asier Illarramendi Andonegi,Real Sociedad,La Liga,33,2931.0,4,0,0,4
+6899,Rubén Pardo Gutiérrez,Real Sociedad,La Liga,28,1842.0,3,0,2,3
+6690,Xabier Prieto Argarate,Real Sociedad,La Liga,36,2452.0,3,0,2,3
+6685,Mikel Oyarzabal Ugarte,Real Sociedad,La Liga,22,1552.0,1,4,3,1
+6669,David Zurutuza Veillet,Real Sociedad,La Liga,16,1144.0,4,0,0,4
+7005,João Pedro Cavaco Cancelo,Valencia,La Liga,28,2181.0,4,0,0,4
+8522,Armindo Tué Na Bangna,Real Sociedad,La Liga,32,1520.0,3,0,2,3
+8584,Jonathas Cristian de Jesus,Real Sociedad,La Liga,27,1671.0,1,4,3,1
+20542,Álvaro Negredo Sánchez,Valencia,La Liga,25,1215.0,1,4,3,1
+5259,José María Giménez de Vargas,Atlético Madrid,La Liga,27,2506.0,0,1,1,0
+6377,Ángel Martín Correa,Atlético Madrid,La Liga,26,1013.0,3,0,2,3
+6778,Iván Ramis Barrios,Eibar,La Liga,23,1850.0,0,1,1,0
+17054,Emiliano Daniel Velázquez Maldonado,Getafe,La Liga,11,1001.0,0,1,1,0
+15893,Víctor Rodríguez Romero,Getafe,La Liga,33,2364.0,3,0,2,3
+6654,Antonio Adán Garrido,Real Betis,La Liga,36,3325.0,2,2,4,2
+6872,Bruno González Cabrera,Real Betis,La Liga,32,2912.0,0,1,1,0
+16332,Ognjen Vranješ,Sporting Gijón,La Liga,11,941.0,4,1,1,4
+8697,Andrés Eduardo Fernández Moreno,Granada,La Liga,37,3453.0,2,2,4,2
+4546,Dimitri Foulquier,Granada,La Liga,21,1594.0,4,1,0,4
+6702,David Rodríguez Lombán,Granada,La Liga,31,2729.0,0,1,1,0
+7158,Cristiano Biraghi,Granada,La Liga,32,2913.0,4,1,0,4
+3160,Rene Krhin,Granada,La Liga,24,1504.0,0,1,1,0
+6599,Rubén Salvador Pérez Del Mármol,Granada,La Liga,31,2545.0,4,0,0,4
+6918,Isaac Ajayi Success,Granada,La Liga,30,2480.0,3,4,2,3
+6847,Adalberto Peñaranda Maestre,Granada,La Liga,23,1705.0,1,4,3,1
+27109,Youssef El-Arabi,Granada,La Liga,35,2604.0,1,4,3,1
+25707,Francisco Manuel Rico Castro,Granada,La Liga,28,1522.0,4,0,0,4
+20064,Hugo Miguel Almeida Costa Lopes,Granada,La Liga,26,2035.0,4,0,0,4
+22819,Bruno Soriano Llido,Villarreal,La Liga,31,2693.0,4,0,0,4
+6622,Tomás Pina Isla,Villarreal,La Liga,27,1696.0,4,1,0,4
+26009,Roberto Soldado Rillo,Villarreal,La Liga,28,2303.0,1,4,3,1
+6605,Joseba Zaldúa Bengoetxea,Real Sociedad,La Liga,13,945.0,4,0,0,4
+6665,Íñigo Martínez Berridi,Real Sociedad,La Liga,30,2787.0,0,0,1,0
+3023,Yuri Berchiche Izeta,Real Sociedad,La Liga,21,1897.0,4,0,0,4
+6633,Markel Bergara Larrañaga,Real Sociedad,La Liga,20,1388.0,4,1,0,4
+5560,Carlos Alberto Vela Garrido,Real Sociedad,La Liga,35,2819.0,3,0,2,3
+6935,Adrián Marín Gómez,Villarreal,La Liga,11,962.0,4,0,0,4
+21210,Mariano Ferreira Filho,Sevilla,La Liga,23,1755.0,4,0,0,4
+5504,Éver Maximiliano David Banega,Sevilla,La Liga,25,1764.0,3,3,2,3
+26723,Álvaro Cejudo Carmona,Real Betis,La Liga,30,1931.0,4,0,0,4
+6788,Xabier Etxeita Gorritxategi,Athletic Club,La Liga,30,2564.0,0,1,1,0
+27241,Víctor Guillermo Álvarez Delgado,Espanyol,La Liga,27,1997.0,4,4,0,4
+27148,Abraham González Casanova,Espanyol,La Liga,20,1144.0,4,0,0,4
+6624,Jorge Franco Alviz,Espanyol,La Liga,26,1044.0,3,0,2,3
+4498,Jean-Sylvain Claude Babin,Granada,La Liga,25,2319.0,0,1,1,0
+19454,Ricardo Miguel Moreira da Costa,Granada,La Liga,14,1295.0,0,1,1,0
+3292,Abdoulaye Doucouré,Granada,La Liga,15,1204.0,4,0,0,4
+6680,Rubén Rochina Naixes,Granada,La Liga,35,2538.0,3,0,2,3
+27054,Roberto Lago Soto,Getafe,La Liga,17,1402.0,4,1,0,4
+24255,Juan Carlos Martín Corral,Rayo Vallecano,La Liga,21,1867.0,2,2,4,2
+26222,José Eduardo Rosa Vale de Castro,Rayo Vallecano,La Liga,22,1763.0,0,0,1,0
+26607,José Raúl Baena Urdiales,Rayo Vallecano,La Liga,24,1889.0,4,1,0,4
+26690,Alberto Mateus Contreiras Gonçalves,Rayo Vallecano,La Liga,28,1032.0,1,4,3,1
+6649,Óscar de Marcos Arana,Athletic Club,La Liga,34,2975.0,4,0,0,4
+25144,Diego Alves Carreira,Valencia,La Liga,13,1209.0,2,2,4,2
+3638,Shkodran Mustafi,Valencia,La Liga,30,2769.0,0,0,1,0
+4406,Aymen Abdennour,Valencia,La Liga,22,1918.0,0,1,1,0
+6751,Javier Fuego Martínez,Valencia,La Liga,26,2108.0,4,0,0,4
+5718,Rodrigo Moreno Machado,Valencia,La Liga,25,1419.0,3,4,2,3
+6596,José Luis Gayà Peña,Valencia,La Liga,20,1493.0,4,0,0,4
+5741,Enzo Nicolás Pérez,Valencia,La Liga,20,1277.0,4,0,0,4
+6865,Francisco José Molinero Calderón,Real Betis,La Liga,21,1230.0,4,0,0,4
+26448,Javier Garrido Behovide,Las Palmas,La Liga,18,1626.0,0,0,1,0
+3379,Alphonse Areola,Villarreal,La Liga,32,2984.0,2,2,4,2
+6734,Luis Carlos Correia Pinto,RC Deportivo La Coruña,La Liga,20,1147.0,4,4,0,4
+6794,Gustavo Daniel Cabral Cáceres,Celta Vigo,La Liga,31,2763.0,0,0,1,0
+6873,Francisco Portillo Soler,Real Betis,La Liga,19,1012.0,4,3,0,4
+5202,José Ignacio Fernández Iglesias,Real Madrid,La Liga,16,1203.0,0,1,1,0
+5200,Lucas Vázquez Iglesias,Real Madrid,La Liga,25,1294.0,3,3,2,3
+7781,Felipe Salvador Caicedo Corozo,Espanyol,La Liga,31,2189.0,1,4,3,1
+18724,Sofiane Feghouli,Valencia,La Liga,21,1318.0,3,0,2,3
+4353,Aymeric Laporte,Athletic Club,La Liga,26,2280.0,0,0,1,0
+3063,Danilo Luiz da Silva,Real Madrid,La Liga,24,2100.0,4,3,0,4
+6743,Manuel Rolando Iturra Urrutia,Udinese,"La Liga, Serie A",23,1445.0,4,1,0,4
+18398,Omar Mascarell González,Sporting Gijón,La Liga,26,1841.0,4,1,0,4
+6744,Luciano Vietto,Atlético Madrid,La Liga,19,984.0,1,0,3,1
+6559,Juan Carlos Pérez López,Málaga,La Liga,19,1294.0,4,4,0,4
+27305,Germán Darío Lux,RC Deportivo La Coruña,La Liga,29,2640.0,2,2,4,2
+6666,Sabin Merino Zuloaga,Athletic Club,La Liga,22,1168.0,1,4,3,1
+26103,Idriss Carlos Kameni,Málaga,La Liga,28,2550.0,2,2,4,2
+6573,Bernardo José Espinosa Zúñiga,Sporting Gijón,La Liga,16,1383.0,0,1,1,0
+7034,Mateo Pablo Musacchio,Villarreal,La Liga,13,1041.0,0,1,1,0
+6677,Imanol Agirretxe Arruti,Real Sociedad,La Liga,16,1197.0,1,4,3,1
+6828,Jaume Vicent Costa Jordá,Villarreal,La Liga,18,1592.0,4,0,0,4
+19431,Fernando Damián Tissone,Málaga,La Liga,12,1021.0,4,0,0,4
+27335,Arthur Etienne Boka,Málaga,La Liga,14,1074.0,4,0,0,4
+24783,Javier Márquez Moreno,Granada,La Liga,19,1358.0,4,4,0,4
+6614,Alexis Ruano Delgado,Getafe,La Liga,15,1394.0,0,1,1,0
+26020,Ángel Lafita Castillo,Getafe,La Liga,14,1031.0,1,4,3,1
+11634,Cristiano Piccini,Real Betis,La Liga,16,1467.0,4,0,0,4
+6673,Sergio Canales Madrazo,Real Sociedad,La Liga,16,921.0,4,0,0,4
+27184,Marcos Alberto Angeleri,Málaga,La Liga,13,1148.0,0,1,1,0
+4691,Claudio Andrés Bravo Muñoz,Barcelona,La Liga,32,2952.0,2,2,4,2
+4324,Daniel Alves da Silva,Barcelona,La Liga,29,2195.0,3,3,0,3
+5213,Gerard Piqué Bernabéu,Barcelona,La Liga,30,2643.0,0,3,1,0
+10609,Jérémy Mathieu,Barcelona,La Liga,21,1308.0,0,0,1,0
+5211,Jordi Alba Ramos,Barcelona,La Liga,31,2657.0,4,3,0,4
+5203,Sergio Busquets i Burgos,Barcelona,La Liga,35,2963.0,4,3,0,4
+6379,Sergi Roberto Carnicer,Barcelona,La Liga,31,1970.0,4,3,0,4
+5216,Andrés Iniesta Luján,Barcelona,La Liga,28,2300.0,3,3,2,3
+4320,Neymar da Silva Santos Junior,Barcelona,La Liga,34,3129.0,3,3,2,3
+5246,Luis Alberto Suárez Díaz,Barcelona,La Liga,35,3233.0,1,4,3,1
+5506,Javier Alejandro Mascherano,Barcelona,La Liga,32,2758.0,0,3,0,0
+5470,Ivan Rakitić,Barcelona,La Liga,36,2630.0,3,3,0,3
+5503,Lionel Andrés Messi Cuccittini,Barcelona,La Liga,33,2801.0,3,3,2,3
+9887,Rafael de Andrade Bittencourt Pinheiro,Hellas Verona,Serie A,12,1047.0,2,2,4,2
+11342,Eros Pisano,Hellas Verona,Serie A,34,3018.0,4,0,0,4
+31488,Vangelis Moras,Hellas Verona,Serie A,31,2862.0,0,1,1,0
+7966,Filip Helander,Hellas Verona,Serie A,24,1951.0,0,1,1,0
+7695,Samuel Souprayen,Hellas Verona,Serie A,20,1645.0,4,0,0,4
+32119,Leandro Greco,Hellas Verona,Serie A,26,1954.0,4,0,0,4
+7020,Jacopo Sala,Hellas Verona,Serie A,23,1728.0,4,0,0,4
+5512,Emil Hallfreðsson,Hellas Verona,Serie A,27,1939.0,4,0,0,4
+26442,Boško Janković,Hellas Verona,Serie A,15,922.0,1,4,3,1
+386651,Juan Ignacio Gómez Taleb,Hellas Verona,Serie A,33,1929.0,1,4,3,1
+6686,Giampaolo Pazzini,Hellas Verona,Serie A,30,2001.0,1,4,3,1
+7174,Antonio Mirante,Bologna,Serie A,33,3089.0,2,2,4,2
+7142,Luca Rossettini,Bologna,Serie A,29,2638.0,0,1,1,0
+30745,Daniele Gastaldello,Bologna,Serie A,26,2283.0,0,1,1,0
+8849,Domenico Maietta,Bologna,Serie A,19,1615.0,0,1,1,0
+7169,Adam Masina,Bologna,Serie A,33,2721.0,4,0,0,4
+8284,Amadou Diawara,Bologna,Serie A,34,2839.0,4,0,0,4
+8280,Godfred Donsah,Bologna,Serie A,20,1364.0,4,4,0,4
+45591,Franco Brienza,Bologna,Serie A,29,1773.0,3,0,2,3
+11729,Luca Rizzo,Bologna,Serie A,23,1464.0,4,4,0,4
+7775,Emanuele Giaccherini,Bologna,Serie A,28,2243.0,3,0,2,3
+8103,Mattia Destro,Bologna,Serie A,27,2215.0,1,4,3,1
+11494,Luca Siligardi,Hellas Verona,Serie A,28,1464.0,3,4,2,3
+18027,Matteo Brighi,Bologna,Serie A,23,1549.0,4,4,0,4
+7949,Artur Ioniţă,Hellas Verona,Serie A,31,2470.0,4,4,0,4
+34565,Anthony Mounier,Bologna,Serie A,30,1983.0,3,4,2,3
+8851,Saphir Sliti Taïder,Bologna,Serie A,29,2181.0,4,0,0,4
+7770,Federico Viviani,Hellas Verona,Serie A,19,1657.0,4,3,0,4
+12491,Federico Marchetti,Lazio,Serie A,29,2646.0,2,2,4,2
+8443,Dušan Basta,Lazio,Serie A,23,1891.0,4,3,0,4
+9939,Maurício dos Santos Nascimento,Lazio,Serie A,24,2017.0,0,1,1,0
+8847,Santiago Juan Gentiletti Selak,Lazio,Serie A,19,1779.0,0,0,1,0
+7785,Senad Lulić,Lazio,Serie A,30,2433.0,4,3,0,4
+5510,Lucas Rodrigo Biglia,Lazio,Serie A,27,2391.0,4,3,0,4
+8173,Marco Parolo,Lazio,Serie A,31,2667.0,4,0,0,4
+8172,Felipe Anderson Pereira Gomes,Lazio,Serie A,35,2164.0,3,3,2,3
+5589,Sergej Milinković-Savić,Lazio,Serie A,25,1706.0,4,0,0,4
+11427,Filip Đorđević,Lazio,Serie A,27,1356.0,1,4,3,1
+11339,Paweł Wszołek,Hellas Verona,Serie A,28,1866.0,3,4,2,3
+8421,Matteo Bianchetti,Hellas Verona,Serie A,23,1671.0,0,1,1,0
+3145,Keita Baldé Diao,Lazio,Serie A,31,1875.0,3,0,2,3
+3588,Wesley Hoedt,Lazio,Serie A,25,2134.0,0,1,1,0
+3742,Orestis Karnezis,Udinese,Serie A,38,3550.0,2,2,4,2
+3577,Molla Wagué,Udinese,Serie A,21,1756.0,0,1,1,0
+7799,Danilo Larangeira,Udinese,Serie A,34,3058.0,0,1,1,0
+6938,Felipe Dias da Silva dal Belo,Udinese,Serie A,26,2195.0,0,1,1,0
+25116,Edenílson Andrade dos Santos,Udinese,Serie A,29,2279.0,4,0,0,4
+8191,Ali Adnan Kadhim Al Tameemi,Udinese,Serie A,28,1974.0,4,0,0,4
+40367,Francesco Lodi,Udinese,Serie A,24,1935.0,4,3,0,4
+5204,Bruno Miguel Borges Fernandes,Udinese,Serie A,31,2168.0,3,0,2,3
+19846,Antonio Di Natale,Udinese,Serie A,23,1202.0,1,4,3,1
+8272,Cyril Théréau,Udinese,Serie A,36,2982.0,1,0,3,1
+24722,Emmanuel Agyemang-Badu,Udinese,Serie A,33,2752.0,4,4,0,4
+7001,Samir Handanovič,Inter Milan,Serie A,36,3377.0,2,2,4,2
+6999,Davide Santon,Inter Milan,Serie A,12,1008.0,4,0,0,4
+5551,João Miranda de Souza Filho,Inter Milan,Serie A,32,2857.0,0,0,1,0
+16453,Gary Alexis Medel Soto,Inter Milan,Serie A,30,2502.0,4,3,0,4
+11183,Alex Nicolao Telles,Inter Milan,Serie A,21,1606.0,4,3,0,4
+25430,Felipe Melo de Carvalho,Inter Milan,Serie A,26,1840.0,4,0,0,4
+32807,Fredy Alejandro Guarín Vásquez,Inter Milan,Serie A,16,1023.0,3,0,2,3
+6589,Geoffrey Kondogbia,Inter Milan,Serie A,26,2056.0,4,3,0,4
+5587,Adem Ljajić,Inter Milan,Serie A,26,1511.0,3,3,2,3
+5474,Ivan Perišić,Inter Milan,Serie A,34,2511.0,1,0,2,1
+6987,Mauro Emanuel Icardi Rivero,Inter Milan,Serie A,33,2656.0,1,4,3,1
+3434,Stevan Jovetić,Inter Milan,Serie A,26,1562.0,3,3,2,3
+11497,Jonathan Ludovic Biabiany,Inter Milan,Serie A,20,922.0,3,0,2,3
+7962,Andrea Ranocchia,Sampdoria,Serie A,24,1440.0,0,1,1,0
+387300,Cristian Zaccardo,Carpi,Serie A,27,2506.0,4,1,1,4
+8278,Nicolás Federico Spolli,Chievo,Serie A,14,1134.0,0,1,1,0
+7172,Simone Romagnoli,Carpi,Serie A,30,2750.0,0,1,1,0
+3416,Gabriel Moisés Antunes da Silva,Carpi,Serie A,27,2145.0,4,4,0,4
+31572,Luca Marrone,Hellas Verona,Serie A,21,1635.0,4,0,0,4
+352172,Raffaele Bianco,Carpi,Serie A,26,1924.0,4,4,0,4
+7696,Ryder Matos Santos,Carpi,Serie A,26,1672.0,1,4,3,1
+11502,Antonio Di Gaudio,Carpi,Serie A,29,1573.0,1,4,3,1
+7793,Kevin Lasagna,Carpi,Serie A,36,1630.0,1,4,3,1
+7460,Isaac Cofie,Carpi,Serie A,29,2238.0,4,1,0,4
+7803,Albano Benjamín Bizzarri,Chievo,Serie A,35,3271.0,2,2,4,2
+23324,Nicolas Sebastian Frey,Chievo,Serie A,19,1544.0,0,1,1,0
+7052,Alessandro Gamberini,Chievo,Serie A,22,1868.0,0,1,1,0
+8877,Boštjan Cesar,Chievo,Serie A,31,2816.0,0,1,1,0
+8645,Massimo Gobbi,Chievo,Serie A,34,2902.0,4,0,0,4
+7041,Nicola Rigoni,Chievo,Serie A,28,2057.0,4,0,0,4
+7049,Lucas Nahuel Castro,Chievo,Serie A,34,2892.0,4,0,0,4
+7046,Perparim Hetemaj,Chievo,Serie A,28,2341.0,4,0,0,4
+7045,Valter Birsa,Chievo,Serie A,35,2379.0,3,0,2,3
+11643,Riccardo Meggiorini,Chievo,Serie A,26,1683.0,1,4,3,1
+7050,Fabrizio Cacciatore,Chievo,Serie A,29,2407.0,4,0,0,4
+7043,Roberto Inglese,Chievo,Serie A,26,1446.0,1,4,3,1
+8662,Vid Belec,Carpi,Serie A,30,2820.0,2,2,4,2
+7114,Gaetano Letizia,Carpi,Serie A,35,3012.0,4,0,0,4
+11499,Riccardo Gagliolo,Carpi,Serie A,31,2743.0,4,1,0,4
+387472,Lorenzo Pasciuti,Carpi,Serie A,21,1605.0,4,0,2,4
+30829,Lorenzo Lollo,Carpi,Serie A,27,2175.0,4,4,0,4
+32608,Jerry Uche Mbakogu,Carpi,Serie A,24,1739.0,1,4,3,1
+38312,Eugenio Lamanna,Genoa,Serie A,13,1213.0,2,2,4,2
+9940,Armando Izzo,Genoa,Serie A,33,2756.0,4,0,0,4
+7176,Sebastian De Maio,Genoa,Serie A,28,2310.0,0,1,1,0
+7464,Cristian Daniel Ansaldi,Genoa,Serie A,24,2084.0,4,0,0,4
+5717,Diego Sebastián Laxalt Suárez,Genoa,Serie A,35,3186.0,4,0,0,4
+7461,Luca Rigoni,Genoa,Serie A,28,1930.0,4,4,0,4
+5554,Blerim Džemaili,Genoa,Serie A,27,1822.0,4,0,0,4
+7702,Alessio Cerci,AC Milan,Serie A,24,1346.0,3,4,2,3
+8180,Leonardo Pavoletti,Genoa,Serie A,25,1976.0,1,4,3,1
+31273,Marco Crimi,Carpi,Serie A,20,1073.0,4,4,0,4
+20252,Luca Toni,Hellas Verona,Serie A,23,1841.0,1,4,3,1
+5669,Wojciech Szczęsny,AS Roma,Serie A,34,3184.0,2,2,4,2
+6964,Alessandro Florenzi,AS Roma,Serie A,33,2814.0,4,3,0,4
+7048,Konstantinos Manolas,AS Roma,Serie A,37,3243.0,0,0,1,0
+7051,Daniele De Rossi,AS Roma,Serie A,24,1963.0,4,3,0,4
+6947,Miralem Pjanić,AS Roma,Serie A,33,2743.0,3,3,2,3
+6962,Radja Nainggolan,AS Roma,Serie A,35,3033.0,3,3,0,3
+15818,Gervais Lombe Yao Kouassi,AS Roma,Serie A,14,1108.0,1,4,3,1
+3531,Mohamed Salah,AS Roma,Serie A,34,2773.0,1,0,2,1
+6973,Edin Džeko,AS Roma,Serie A,31,2058.0,1,4,3,1
+7468,Iago Falqué Silva,AS Roma,Serie A,22,1205.0,3,0,2,3
+20169,Seydou Kéita,AS Roma,Serie A,20,1424.0,4,0,0,4
+7018,Emiliano Viviano,Sampdoria,Serie A,37,3462.0,2,2,4,2
+7473,Lorenzo De Silvestri,Sampdoria,Serie A,17,1445.0,4,0,0,4
+9884,Niklas Moisander,Sampdoria,Serie A,22,1859.0,0,1,1,0
+7012,Vasco Regini,Sampdoria,Serie A,15,1257.0,4,0,0,4
+387417,Mattia Cassani,Sampdoria,Serie A,25,2111.0,4,0,0,4
+16586,Fernando Lucas Martins,Sampdoria,Serie A,35,3090.0,4,3,0,4
+36364,Dávid Ivan,Sampdoria,Serie A,21,1147.0,4,0,0,4
+6759,Roberto Soriano,Sampdoria,Serie A,37,2899.0,3,0,0,3
+7009,Édgar Osvaldo Barreto Cáceres,Sampdoria,Serie A,30,2232.0,4,0,0,4
+27595,Carlos Mario Carbonero Mancilla,Sampdoria,Serie A,14,1073.0,4,0,0,4
+19850,Antonio Cassano,Sampdoria,Serie A,24,1270.0,3,3,2,3
+7055,Stefano Sorrentino,Palermo,Serie A,35,3214.0,2,2,4,2
+24061,Aljaž Struna,Palermo,Serie A,22,1882.0,4,1,0,4
+8102,Edoardo Goldaniga,Palermo,Serie A,17,1260.0,0,1,1,0
+5584,Giancarlo González Castro,Palermo,Serie A,35,3248.0,0,1,1,0
+10032,Achraf Lazaar,Palermo,Serie A,30,2364.0,4,0,0,4
+30735,Mato Jajalo,Palermo,Serie A,28,2102.0,4,0,0,4
+40349,Ivaylo Chochev,Palermo,Serie A,27,1808.0,4,0,0,4
+5605,Oscar Hiljemark,Palermo,Serie A,38,2983.0,4,4,0,4
+30512,Aleksandar Trajkovski,Palermo,Serie A,32,1725.0,3,4,2,3
+6719,Franco Damián Vázquez,Palermo,Serie A,36,3280.0,3,3,2,3
+38389,Alberto Gilardino,Palermo,Serie A,33,2418.0,1,4,3,1
+8552,Robin Quaison,Palermo,Serie A,30,1579.0,3,4,2,3
+6334,Luis Fernando Muriel Fruto,Sampdoria,Serie A,32,1757.0,1,4,3,1
+30769,Andrea Rispoli,Palermo,Serie A,22,1482.0,4,0,0,4
+7157,Marco Sportiello,Atalanta,Serie A,36,3375.0,2,2,4,2
+386607,Gianpaolo Bellini,Atalanta,Serie A,15,982.0,4,1,0,4
+6992,Andrea Masiello,Atalanta,Serie A,29,2485.0,0,1,1,0
+31231,Davide Brivio,Atalanta,Serie A,14,1063.0,4,0,0,4
+8420,Luca Cigarini,Atalanta,Serie A,25,1883.0,4,3,0,4
+6994,Marten de Roon,Atalanta,Serie A,36,3207.0,4,0,0,4
+8184,Marco D''Alessandro,Atalanta,Serie A,23,1223.0,3,4,2,3
+6941,Jasmin Kurtič,Atalanta,Serie A,32,2470.0,4,0,0,4
+8871,Marco Borriello,Atalanta,Serie A,27,1667.0,1,4,3,1
+7796,Silvan Widmer,Udinese,Serie A,27,1988.0,4,4,0,4
+6577,Zdravko Kuzmanović,Udinese,Serie A,16,1172.0,4,0,0,4
+7017,Duván Esteban Zapata Banguera,Udinese,Serie A,25,1589.0,1,4,3,1
+8852,Thomas Heurtaux,Udinese,Serie A,15,1115.0,0,1,1,0
+7002,Rafael Tolói,Atalanta,Serie A,24,1969.0,0,1,1,0
+32037,Nicola Leali,Frosinone,Serie A,33,3089.0,2,2,4,2
+7462,Aleandro Rosi,Frosinone,Serie A,27,2245.0,4,1,0,4
+8291,Arlind Afrim Ajeti,Frosinone,Serie A,16,1267.0,0,1,1,0
+387847,Leonardo Blanchard,Frosinone,Serie A,28,2530.0,0,1,1,0
+8661,Daniel Pavlovic,Frosinone,Serie A,22,1995.0,4,1,0,4
+386512,Alessandro Frara,Frosinone,Serie A,20,1204.0,4,1,0,4
+20636,Mirko Gori,Frosinone,Serie A,28,2219.0,4,4,0,4
+23470,Luca Paganini,Frosinone,Serie A,27,1905.0,4,4,0,4
+8793,Oliver Kragl,Frosinone,Serie A,15,951.0,4,4,0,4
+13613,Daniel Ciofani,Frosinone,Serie A,37,2999.0,1,4,3,1
+24235,Federico Dionisi,Frosinone,Serie A,32,2523.0,1,4,3,1
+46670,Iván Rodrigo Piris Leguizamón,Udinese,Serie A,27,1954.0,4,1,0,4
+9903,Yussif Raman Chibsah,Frosinone,Serie A,22,1206.0,4,4,0,4
+30911,Robert Gucher,Frosinone,Serie A,24,1409.0,4,1,0,4
+34881,Daniele Padelli,Torino,Serie A,35,3287.0,2,2,4,2
+40427,Cesare Bovo,Torino,Serie A,21,1866.0,0,3,1,0
+28289,Gastón Alexis Silva Perdomo,Torino,Serie A,12,923.0,4,0,0,4
+3660,Davide Zappacosta,Torino,Serie A,25,1332.0,4,0,0,4
+6965,Bruno da Silva Peres,Torino,Serie A,31,2687.0,4,0,2,4
+40430,Giuseppe Vives,Torino,Serie A,33,2660.0,4,0,0,4
+7474,Afriyie Acquah,Torino,Serie A,29,1963.0,4,4,0,4
+7149,Marco Benassi,Torino,Serie A,32,1981.0,4,4,0,4
+7471,Andrea Belotti,Torino,Serie A,35,2683.0,1,4,3,1
+12619,Josef Alexander Martínez Mencia,Torino,Serie A,21,983.0,1,4,3,1
+7465,Daniele Baselli,Torino,Serie A,35,2333.0,3,4,2,3
+7479,Cristian Molinaro,Torino,Serie A,27,2029.0,4,0,0,4
+7028,José Manuel Reina Páez,Napoli,Serie A,37,3442.0,2,2,4,2
+7031,Elseid Hysaj,Napoli,Serie A,37,3387.0,4,3,0,4
+7030,Raúl Albiol i Tortajada,Napoli,Serie A,36,3355.0,0,3,1,0
+5675,Kalidou Koulibaly,Napoli,Serie A,33,2991.0,0,3,1,0
+8876,Faouzi Ghoulam,Napoli,Serie A,34,3017.0,4,3,0,4
+7024,Jorge Luiz Frello Filho,Napoli,Serie A,35,3001.0,3,3,0,3
+7035,Allan Marques Loureiro,Napoli,Serie A,35,2896.0,3,3,2,3
+7025,Marek Hamšík,Napoli,Serie A,38,3297.0,3,3,2,3
+7029,José María Callejón Bueno,Napoli,Serie A,38,2872.0,3,0,2,3
+7037,Lorenzo Insigne,Napoli,Serie A,37,2621.0,3,3,2,3
+5497,Gonzalo Gerardo Higuaín,Napoli,Serie A,35,3031.0,1,4,3,1
+5630,Dries Mertens,Napoli,Serie A,33,1193.0,3,3,2,3
+6984,Danilo D''Ambrosio,Inter Milan,Serie A,20,1686.0,4,0,0,4
+6585,Jeison Fabián Murillo Cerón,Inter Milan,Serie A,34,2954.0,0,0,1,0
+5690,Yuto Nagatomo,Inter Milan,Serie A,22,1717.0,4,0,0,4
+5469,Marcelo Brozović,Inter Milan,Serie A,32,2492.0,3,3,2,3
+7165,Rodrigo Sebastián Palacio,Inter Milan,Serie A,27,1471.0,3,0,2,3
+33311,Ogenyi Eddy Onazi,Lazio,Serie A,15,1219.0,4,0,0,4
+7776,Antonio Candreva,Lazio,Serie A,30,2247.0,3,3,2,3
+19286,Miroslav Klose,Lazio,Serie A,24,1414.0,1,4,3,1
+7155,Vincent Laurini,Empoli,Serie A,25,2019.0,4,0,0,4
+8664,Andrea Costa,Empoli,Serie A,24,2177.0,0,0,1,0
+7151,Mário Rui Silva Duarte,Empoli,Serie A,36,3377.0,4,3,0,4
+16308,Leandro Daniel Paredes,Empoli,Serie A,33,2567.0,3,3,0,3
+40251,Daniele Croce,Empoli,Serie A,28,1873.0,4,0,0,4
+8187,Marcel Büchel,Empoli,Serie A,28,1634.0,4,0,0,4
+7150,Riccardo Saponara,Empoli,Serie A,33,2705.0,3,0,2,3
+7054,Manuel Pucciarelli,Empoli,Serie A,38,3156.0,1,4,3,1
+11722,Boukary Dramé,Atalanta,Serie A,25,2126.0,4,0,0,4
+7006,Alejandro Darío Gómez,Atalanta,Serie A,34,2879.0,3,0,2,3
+36770,Mauricio Ricardo Pinilla Ferreira,Atalanta,Serie A,20,1384.0,1,4,3,1
+3112,Anton Ciprian Tătărușanu,Fiorentina,Serie A,37,3440.0,2,2,4,2
+6830,Facundo Sebastián Roncaglia,Fiorentina,Serie A,30,2532.0,4,3,0,4
+25931,Gonzalo Javier Rodríguez,Fiorentina,Serie A,35,3255.0,0,3,1,0
+8275,Davide Astori,Fiorentina,Serie A,33,3016.0,0,3,1,0
+11516,Manuel Pasqual,Fiorentina,Serie A,17,1074.0,4,3,0,4
+5255,Matías Vecino Falero,Fiorentina,Serie A,30,2487.0,4,3,0,4
+6305,Milan Badelj,Fiorentina,Serie A,27,2178.0,4,3,0,4
+6658,Cristian Tello Herrera,Fiorentina,Serie A,15,1092.0,3,0,2,3
+26192,Matías Ariel Fernández Fernández,Fiorentina,Serie A,22,1130.0,3,3,2,3
+7777,Federico Bernardeschi,Fiorentina,Serie A,33,2349.0,3,0,2,3
+7033,Nikola Kalinić,Fiorentina,Serie A,36,2692.0,1,4,3,1
+6997,Borja Valero Iglesias,Fiorentina,Serie A,37,3202.0,3,3,2,3
+3556,Serge Gakpé,Genoa,Serie A,18,913.0,1,4,3,1
+7056,Nenad Tomović,Fiorentina,Serie A,24,1746.0,4,3,0,4
+6849,Lucas Digne,AS Roma,Serie A,33,2967.0,4,0,0,4
+11508,Łukasz Skorupski,Empoli,Serie A,31,2909.0,2,2,4,2
+40250,Marco Zambelli,Empoli,Serie A,19,1304.0,4,0,0,4
+7160,Lorenzo Tonelli,Empoli,Serie A,26,2381.0,0,0,1,0
+17520,Federico Barba,Empoli,Serie A,10,925.0,0,0,1,0
+40252,Massimo Maccarone,Empoli,Serie A,37,2814.0,1,4,3,1
+7107,Danilo Cataldi,Lazio,Serie A,20,1384.0,4,3,0,4
+38237,Gabriel Alejandro Paletta,Atalanta,Serie A,24,2092.0,0,1,1,0
+7132,Andrea Consigli,Sassuolo,Serie A,37,3396.0,2,2,4,2
+8848,Paolo Cannavaro,Sassuolo,Serie A,31,2745.0,0,1,1,0
+7119,Francesco Acerbi,Sassuolo,Serie A,36,3367.0,0,0,1,0
+7118,Federico Peluso,Sassuolo,Serie A,34,3155.0,4,0,0,4
+6963,Lorenzo Pellegrini,Sassuolo,Serie A,19,1185.0,4,0,0,4
+7698,Joseph Alfred Duncan,Sassuolo,Serie A,33,2579.0,3,0,2,3
+7131,Domenico Berardi,Sassuolo,Serie A,29,2214.0,3,0,2,3
+6859,Nicola Sansone,Sassuolo,Serie A,37,2640.0,3,0,2,3
+8093,Diego Falcinelli,Sassuolo,Serie A,26,1183.0,1,4,3,1
+8873,Marios Oikonomou,Bologna,Serie A,20,1689.0,0,1,1,0
+10030,Davide Biondini,Sassuolo,Serie A,22,1148.0,4,0,0,4
+6948,Sergio Floccari,Bologna,Serie A,25,1629.0,1,4,3,1
+7457,Gregoire Defrel,Sassuolo,Serie A,33,2115.0,1,4,3,1
+7704,Alex Ferrari,Bologna,Serie A,21,1322.0,4,0,0,4
+7036,Gianluigi Donnarumma,AC Milan,Serie A,30,2737.0,2,2,4,2
+7463,Ignazio Abate,AC Milan,Serie A,27,2337.0,4,3,0,4
+40945,Alex Rodrigo Dias da Costa,AC Milan,Serie A,25,2174.0,0,1,1,0
+7458,Alessio Romagnoli,AC Milan,Serie A,34,3070.0,0,1,1,0
+8874,Luca Antonelli,AC Milan,Serie A,28,2439.0,4,0,0,4
+10919,Juraj Kucka,AC Milan,Serie A,30,2249.0,4,0,0,4
+7166,Riccardo Montolivo,AC Milan,Serie A,31,2768.0,4,3,0,4
+7026,Giacomo Bonaventura,AC Milan,Serie A,33,2949.0,3,3,2,3
+5661,M''Baye Babacar Niang,AC Milan,Serie A,16,1155.0,1,0,3,1
+5688,Carlos Arturo Bacca Ahumada,AC Milan,Serie A,38,3252.0,1,4,3,1
+7019,Matías Agustín Silvestre,Sampdoria,Serie A,25,2051.0,0,1,1,0
+7000,Eder Citadin Martins,Sampdoria,Serie A,33,2466.0,1,4,3,1
+21272,Luiz Adriano de Souza da Silva,AC Milan,Serie A,26,1262.0,1,4,3,1
+5683,Keisuke Honda,AC Milan,Serie A,30,1989.0,3,0,2,3
+31721,Matteo Ciofani,Frosinone,Serie A,18,1337.0,4,1,1,4
+174418,Modibo Diakité,Frosinone,Serie A,26,2358.0,0,1,1,0
+23349,Paolo Sammarco,Frosinone,Serie A,28,2412.0,4,1,0,4
+9898,Aleksandar Tonev,Frosinone,Serie A,22,1133.0,4,4,0,4
+11608,Danilo Soddimo,Frosinone,Serie A,28,1847.0,3,0,2,3
+6944,Mattia De Sciglio,AC Milan,Serie A,22,1912.0,4,0,0,4
+7147,Andrea Bertolacci,AC Milan,Serie A,27,1878.0,4,0,0,4
+7137,Ervin Zukanović,Sampdoria,Serie A,25,1924.0,0,0,1,0
+6822,Carlos Joaquín Correa,Sampdoria,Serie A,25,1350.0,3,0,2,3
+25505,José Rodolfo Pires Ribeiro,Sampdoria,Serie A,17,1464.0,4,4,0,4
+6991,Etrit Berisha,Lazio,Serie A,11,919.0,2,2,4,2
+26683,Abdoulay Konko,Lazio,Serie A,18,1592.0,4,0,0,4
+3103,Milan Biševac,Lazio,Serie A,11,945.0,0,1,1,0
+7778,Ştefan Daniel Radu,Lazio,Serie A,13,1121.0,4,0,0,4
+7771,Dario Dainelli,Chievo,Serie A,18,1435.0,0,1,1,0
+7042,Ivan Radovanović,Chievo,Serie A,26,2152.0,4,0,0,4
+386657,Giampiero Pinzi,Chievo,Serie A,18,1032.0,4,0,0,4
+6949,Gianluigi Buffon,Juventus,Serie A,35,3264.0,2,2,4,2
+6943,Andrea Barzagli,Juventus,Serie A,31,2833.0,0,3,1,0
+7173,Leonardo Bonucci,Juventus,Serie A,36,3266.0,0,3,1,0
+6954,Giorgio Chiellini,Juventus,Serie A,24,1845.0,0,3,1,0
+20008,Patrice Evra,Juventus,Serie A,26,2119.0,4,0,0,4
+8294,Claudio Marchisio,Juventus,Serie A,23,1994.0,4,3,0,4
+5566,Sami Khedira,Juventus,Serie A,20,1555.0,3,0,0,3
+20004,Paul Pogba,Juventus,Serie A,35,3127.0,3,3,2,3
+5743,Paulo Bruno Exequiel Dybala,Juventus,Serie A,34,2500.0,3,0,2,3
+5472,Mario Mandžukić,Juventus,Serie A,27,2095.0,1,4,3,1
+3964,Marcos Alonso Mendoza,Fiorentina,Serie A,31,2444.0,4,3,0,4
+7139,Josip Iličić,Fiorentina,Serie A,30,1946.0,3,3,2,3
+7013,Stefano Sturaro,Juventus,Serie A,19,1067.0,4,0,0,4
+6945,Alex Sandro Lobo Silva,Juventus,Serie A,22,1566.0,4,3,2,4
+3477,Álvaro Borja Morata Martín,Juventus,Serie A,34,1525.0,1,4,3,1
+40426,Guglielmo Stendardo,Atalanta,Serie A,15,1163.0,0,1,1,0
+6952,Alberto Grassi,Atalanta,Serie A,13,982.0,4,4,0,4
+12759,Maximiliano Nicol Moralez,Atalanta,Serie A,17,1407.0,3,3,2,3
+49439,Germán Gustavo Denis,Atalanta,Serie A,15,1015.0,1,4,3,1
+19299,Maicon Douglas Sisenando,AS Roma,Serie A,15,1026.0,4,3,0,4
+45590,Nicolò Cherubin,Atalanta,Serie A,14,1078.0,0,1,1,0
+8274,Pierluigi Gollini,Hellas Verona,Serie A,26,2417.0,2,2,4,2
+5461,Šime Vrsaljko,Sassuolo,Serie A,35,3171.0,4,0,0,4
+7113,Simone Missiroli,Sassuolo,Serie A,24,1901.0,4,0,0,4
+7109,Matteo Politano,Sassuolo,Serie A,28,1096.0,3,0,2,3
+27110,Antonio Floro Flores,Sassuolo,Serie A,28,1328.0,1,0,3,1
+7164,Ibrahima Mbaye,Bologna,Serie A,15,1018.0,4,0,0,4
+40350,Siniša Anđelković,Palermo,Serie A,23,1977.0,0,1,1,0
+25954,Enzo Maresca,Palermo,Serie A,15,1034.0,4,0,0,4
+7467,Nicolás Andrés Burdisso,Genoa,Serie A,28,2542.0,0,1,1,0
+7475,Tomás Eduardo Rincón Hernández,Genoa,Serie A,33,3034.0,4,0,0,4
+7456,Diego Perotti,Genoa,Serie A,31,2358.0,3,3,2,3
+15415,Matteo Mancosu,Carpi,Serie A,21,954.0,1,4,3,1
+6969,Juan Guilherme Nunes Jesus,Inter Milan,Serie A,19,1475.0,4,0,0,4
+5660,Piotr Zieliński,Empoli,Serie A,35,3123.0,3,0,2,3
+7127,Francesco Magnanelli,Sassuolo,Serie A,34,3179.0,4,3,0,4
+3034,Kamil Glik,Torino,Serie A,33,3102.0,0,0,1,0
+7476,Emiliano Moretti,Torino,Serie A,35,3290.0,0,0,1,0
+7011,Fabio Quagliarella,Torino,Serie A,32,2670.0,1,4,3,1
+8193,Maximiliano Gastón López,Torino,Serie A,26,1184.0,1,4,3,1
+6360,Cristian Eduardo Zapata Valencia,AC Milan,Serie A,16,1389.0,0,1,1,0
+6953,Daniele Rugani,Juventus,Serie A,17,1224.0,0,0,1,0
+5541,Stephan Lichtsteiner,Juventus,Serie A,26,1871.0,4,0,0,4
+6894,Ezequiel Muñoz,Genoa,Serie A,18,1454.0,0,1,1,0
+10530,Jules Olivier Ntcham,Genoa,Serie A,17,1053.0,3,0,0,3
+7022,Jesús Joaquín Fernández Sáez de la Torre,Genoa,Serie A,20,1238.0,3,3,2,3
+3371,Mario Barwuah Balotelli,AC Milan,Serie A,20,902.0,3,0,2,3
+25345,Anderson Hernanes de Carvalho Andrade,Juventus,Serie A,16,952.0,4,3,0,4
+3167,Antonio Rüdiger,AS Roma,Serie A,30,2742.0,0,0,1,0
+6979,Stephan El Shaarawy,AS Roma,Serie A,16,1211.0,1,0,3,1
+16202,Nikola Maksimović,Torino,Serie A,16,1500.0,0,0,1,0
+40351,Alessandro Gazzi,Torino,Serie A,15,1025.0,0,0,1,0
+30704,Gastón Brugman,Palermo,Serie A,14,1006.0,4,0,0,4
+7148,Mattia Perin,Genoa,Serie A,25,2337.0,2,2,4,2
+8644,Sergio Pellissier,Chievo,Serie A,19,995.0,1,4,3,1
+26728,Alberto Facundo Costa,Genoa,Serie A,19,1255.0,4,3,0,4
+31268,Michel Morganella,Palermo,Serie A,14,1056.0,4,4,0,4
+386509,Adriano Russo,Frosinone,Serie A,10,912.0,0,1,1,0
+296873,Roberto Crivello,Frosinone,Serie A,17,1487.0,4,1,0,4
