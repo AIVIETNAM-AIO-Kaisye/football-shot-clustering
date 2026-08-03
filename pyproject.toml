@@ -1,0 +1,17 @@
+[project]
+name = "football-shot-clustering"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "ipykernel>=7.3.0",
+    "kneed>=0.8.6",
+    "matplotlib>=3.10.9",
+    "mplsoccer>=1.8.0",
+    "nbclient>=0.11.0",
+    "nbformat>=5.10.4",
+    "numpy>=2.2.6",
+    "pandas>=2.3.3",
+    "scikit-learn>=1.7.2",
+    "scipy>=1.15.3",
+    "seaborn>=0.13.2",
+]

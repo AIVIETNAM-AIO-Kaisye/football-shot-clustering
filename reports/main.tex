@@ -16,7 +16,7 @@
 \centering
 {
 \vspace{-1.5em}
-Group: Phong (Team Lead) $\cdot$ Lộc (Data Engineer) $\cdot$ Thông (ML \& Eval Engineer)
+Group: Nguyễn Thanh Phong (Team Lead) $\cdot$ Võ Công Tuấn Lộc (Data Engineer) $\cdot$ Trương Hoàng Thông (ML \& Eval Engineer)
 }\\
 \end{minipage}
 }
@@ -61,6 +61,7 @@ Our empirical findings demonstrate three core conclusions:
     \item \textbf{Robust Scaling is Essential:} RobustScaler substantially outperforms Unscaled and StandardScaler representations by utilizing order statistics (median and interquartile range), effectively mitigating the distortion of extreme outliers and constructing a resilient, scale-invariant feature space.
     \item \textbf{Optimal Cluster Resolution ($k=5$):} While mathematical criteria such as the Silhouette score globally peak at $k=2$ (a coarse binary split into defensive and offensive units), selecting $k=5$ achieves the optimal balance between mathematical cohesion (forming a strong local elbow and peak) and domain interpretability across specialized tactical roles.
     \item \textbf{High Stability and Boundary Learnability:} The five discovered clusters demonstrate strong structural alignment with real-world playing positions (Overall Purity $\approx 69.7\%$, $\text{NMI} \approx 0.546$). Furthermore, a supervised K-Nearest Neighbors (KNN) classifier achieves $96.6\% \pm 0.8\%$ 5-fold cross-validation accuracy, confirming that the unsupervised partitions form highly distinct, stable decision boundaries in 29-dimensional space.
+    \item \textbf{Fine-Grained Sub-Clustering (Case Study):} As an illustrative expansion, we apply a secondary K-Means pass on the 152-player striker cluster to reveal three distinct tactical archetypes within this positional group: Poacher, Target Man, and Deep-Lying Forward. This demonstrates the natural extensibility of the pipeline to hierarchical fine-grained role discovery.
 \end{enumerate}
 
 \newpage
@@ -500,7 +501,7 @@ To test whether the cluster partitions form learnable, well-separated boundaries
 \end{minipage}
 \end{table}
 
-At $n\_neighbors=15$, the KNN model achieves an exceptional cross-validation accuracy of **$96.6\% \pm 0.8\%$**. This high accuracy confirms that the unsupervised K-Means clusters form compact, highly separable Voronoi cells with smooth, continuous decision boundaries in the 29-dimensional feature space.
+At $n\_neighbors=15$, the KNN model achieves an exceptional cross-validation accuracy of \textbf{$96.6\% \pm 0.8\%$}. This high accuracy confirms that the unsupervised K-Means clusters form compact, highly separable Voronoi cells with smooth, continuous decision boundaries in the 29-dimensional feature space.
 
 \begin{center}
     \includegraphics[width=0.85\linewidth]{figures/fig_pca_clusters.png}
@@ -525,6 +526,148 @@ At $n\_neighbors=15$, the KNN model achieves an exceptional cross-validation acc
 \end{center}
 
 Figure~\ref{fig:pca} shows the 2D Principal Component Analysis (PCA) projection, visually confirming clear cluster separability. Figure~\ref{fig:radar} illustrates the radar profiles of cluster centroids, clearly showcasing the unique behavioral fingerprints across attacking, creative, defensive, and spatial dimensions.
+
+\subsection{Case Study: Fine-Grained Tactical Sub-Clustering of Primary Forwards}
+\label{sec:striker_subclustering}
+
+The five macro-clusters provide a high-level tactical map of player behavioral roles across the entire pitch. As an illustrative case study, we apply a secondary K-Means sub-clustering pass exclusively on \textbf{Cluster 1 (Clinical Finishers \& Primary Forwards, $n = 152$)} to demonstrate that the unsupervised pipeline can be extended hierarchically to discover fine-grained tactical archetypes within a single specialized positional group.
+
+\subsubsection{Feature Re-engineering for the Striker Subspace}
+
+Within this 152-player subgroup, 12 features from the global 29-feature matrix are near-constant or tactically uninformative (e.g., \texttt{clearances\_p90}, \texttt{tackles\_p90}, \texttt{interceptions\_p90}) and are excluded. Conversely, a critical feature absent from the macro pipeline is introduced: \texttt{passes\_p90}. This 17-feature striker-specific matrix is re-scaled using \texttt{RobustScaler} fitted exclusively on the 152 forwards.
+
+\textbf{Methodological note:} \texttt{np\_goals\_p90} and \texttt{assists\_p90} are retained within this subgroup because, among forwards of comparable positions, they carry behavioral signal distinguishing pure penalty-box finishers from link-up creators.
+
+\subsubsection{Hyperparameter Evaluation ($k \in [2, 7]$)}
+
+We evaluate candidate values of $k \in [2, 7]$ on the scaled 17-dimensional striker feature space using WCSS Elbow (Kneedle algorithm), Silhouette Score, and the Gap Statistic (Figure~\ref{fig:striker_k_selection}).
+
+\begin{center}
+    \includegraphics[width=0.90\linewidth]{figures/fig_striker_k_selection.png}
+    \begin{minipage}{0.90\linewidth}
+    \begin{figurecaptionmodern}
+        \raggedright
+        \capfig{Striker sub-cluster hyperparameter selection: Elbow (WCSS, left) and Silhouette score (right) over $k \in [2, 7]$.}
+        \label{fig:striker_k_selection}
+    \end{figurecaptionmodern}
+    \end{minipage}
+\end{center}
+
+\subsubsection{Initial Candidate ($k = 4$): The Superstar / Outlier Distortion}
+
+While the Gap Statistic and local silhouette inflection suggest $k = 4$, in-depth empirical examination reveals a fundamental methodological pitfall in unsupervised clustering: \emph{the conflation of player quality with playing style}.
+
+When $k = 4$ is fitted, the model separates the forwards into four clusters ($n = 57, 16, 23, 56$). Crucially, \textbf{Cluster 1 ($n = 16$)} isolates a cohort of world-class superstar forwards: Karim Benzema, Luis Su\'arez, Gonzalo Higu\'ain, Gareth Bale, Cristiano Ronaldo, Sergio Ag\"uero, Antoine Griezmann, Romelu Lukaku, Harry Kane, and Mohamed Salah.
+
+\begin{center}
+    \includegraphics[width=0.82\linewidth]{figures/fig_striker_k4_pca.png}
+    \begin{minipage}{0.82\linewidth}
+    \begin{figurecaptionmodern}
+        \raggedright
+        \capfig{2D PCA projection of the 152 forwards under initial $k=4$, highlighting the separate outlier cluster of global superstars and MVP forwards (Cluster 1, red stars, $n=16$).}
+        \label{fig:striker_k4_pca}
+    \end{figurecaptionmodern}
+    \end{minipage}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.85\linewidth]{figures/fig_striker_k4_profiles.png}
+    \begin{minipage}{0.85\linewidth}
+    \begin{figurecaptionmodern}
+        \raggedright
+        \capfig{Z-score centroid feature heatmap for $k = 4$. Cluster 1 exhibits universally positive, outlying values across all attacking volume metrics simultaneously, reflecting elite overall capability rather than a distinct tactical niche.}
+        \label{fig:striker_k4_profiles}
+    \end{figurecaptionmodern}
+    \end{minipage}
+\end{center}
+
+As shown in Figure~\ref{fig:striker_k4_profiles}, Cluster 1 players dominate virtually every offensive category simultaneously: they average $0.65$ non-penalty goals p90, $3.63$ shots p90, $18.38$ box touches p90, $30.83$ passes p90, and $1.22$ key passes p90. Because their statistical volume is overwhelmingly dominant across the entire feature vector, K-Means groups them based on \textbf{production volume and player quality} rather than \textbf{functional playing style}.
+
+Furthermore, extracting this superstar group fragments the remaining 136 players:
+\begin{enumerate}
+    \item \textbf{Target Man dilution:} The physical hold-up forwards are split across Cluster 0 ($n = 57$) and Cluster 3 ($n = 56$), causing the aerial dominance ratio over the next closest cluster to collapse from $1.73\times$ (under $k=3$) to $1.47\times$ (under $k=4$).
+    \item \textbf{Poacher fragmentation:} Elite penalty-box finishers (Su\'arez, Ronaldo, Ag\"uero) are siphoned away from standard box poachers into the superstar cluster, blurring the definition of the Poacher archetype.
+\end{enumerate}
+
+\subsubsection{Model Refinement ($k = 3$): Pure Tactical Archetype Discovery}
+
+To eliminate this quality-driven distortion and recover true tactical roles, we intentionally constrain $k = 3$. Under $k = 3$, world-class forwards naturally integrate into functional archetypes based on their spatial orientation and playing mechanisms (e.g., Su\'arez and Ronaldo into the Poacher cluster; Benzema into Deep-Lying Forwards) rather than forming an artificial ``MVP status'' cluster.
+
+Table~\ref{tab:striker_centroids} summarizes the centroid profiles for the three refined tactical archetypes under $k = 3$.
+
+\begin{table}[H]
+\centering
+\begin{minipage}{1.0\linewidth}
+  \refstepcounter{table}
+  \begin{captionbelowboxaivn}
+    Table~\thetable: Mean (unscaled) centroid feature values for the three refined striker tactical archetypes ($k = 3$, $n = 152$)
+    \label{tab:striker_centroids}
+  \end{captionbelowboxaivn}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.2cm}
+      >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X@{}}
+    \toprule
+    \textbf{Feature} &
+    \textbf{Cluster 0} & \textbf{Cluster 1} & \textbf{Cluster 2} \\
+    & \textbf{Deep-Lying Fwd.} & \textbf{Target Man} & \textbf{Poacher} \\
+    & ($n = 52$) & ($n = 82$) & ($n = 18$) \\
+    \midrule
+    \texttt{touches\_in\_box\_p90}  & 11.41        & 13.97        & \textbf{23.36} \\
+    \texttt{shots\_p90}            & 2.16         & 2.21         & \textbf{4.26}  \\
+    \texttt{np\_goals\_p90}        & 0.26         & 0.28         & \textbf{0.75}  \\
+    \texttt{aerial\_won\_p90}      & 1.95         & \textbf{3.86}& 1.70           \\
+    \texttt{passes\_p90}          & \textbf{30.81}& 21.75       & 29.83          \\
+    \texttt{avg\_location\_x}     & 77.41        & 79.52        & \textbf{82.37} \\
+    \texttt{pressures\_p90}       & \textbf{17.58}& 14.86       & 11.83          \\
+    \bottomrule
+  \end{tabularx}
+\end{minipage}
+\end{table}
+
+\begin{itemize}
+  \item \textbf{Poacher / Clinical Box Finisher (Cluster 2, $n = 18$):} Maximum penalty-box saturation ($\texttt{touches\_in\_box\_p90} = 23.36$), highest shot volume ($4.26$ p90), highest non-penalty goal conversion ($0.75$ p90), and highest pitch positioning ($\texttt{avg\_location\_x} = 82.37$). These forwards operate inside the final 18-yard box with minimal defensive engagement ($11.83$ pressures p90). Representative players: Luis Su\'arez, Cristiano Ronaldo, Gonzalo Higu\'ain, Sergio Ag\"uero, Daniel Sturridge.
+  \item \textbf{Target Man / Aerial Focal Point (Cluster 1, $n = 82$):} Physical forwards defined by aerial dominance ($\texttt{aerial\_won\_p90} = 3.86$, $1.98\times$ higher than deep-lying forwards) and direct hold-up play, accompanied by the lowest passing volume in the forward group ($\texttt{passes\_p90} = 21.75$). Representative players: Salom\'on Rond\'on, Mario Mand\v{z}uki\'c, Romelu Lukaku, Christian Benteke, Graziano Pell\`e.
+  \item \textbf{Deep-Lying Forward (Cluster 0, $n = 52$):} Forwards who drop off the front line into midfield ($\texttt{avg\_location\_x} = 77.41$), logging the highest passing volume ($\texttt{passes\_p90} = 30.81$) and highest defensive pressing intensity ($\texttt{pressures\_p90} = 17.58$). Representative players: Son Heung-Min, Theo Walcott, Nacer Chadli, Borja Bast\'on.
+\end{itemize}
+
+Figures~\ref{fig:striker_pca}, \ref{fig:striker_profiles}, and~\ref{fig:striker_pitch} illustrate the distinct spatial and behavioral separation achieved by the $k = 3$ model.
+
+\begin{center}
+    \includegraphics[width=0.80\linewidth]{figures/fig_striker_pca.png}
+    \begin{minipage}{0.80\linewidth}
+    \begin{figurecaptionmodern}
+        \raggedright
+        \capfig{2D PCA projection of the 152-player striker subset under $k = 3$, showing clean separability between Deep-Lying Forwards, Target Men, and Poachers.}
+        \label{fig:striker_pca}
+    \end{figurecaptionmodern}
+    \end{minipage}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.80\linewidth]{figures/fig_striker_profiles.png}
+    \begin{minipage}{0.80\linewidth}
+    \begin{figurecaptionmodern}
+        \raggedright
+        \capfig{Feature profile heatmap (Z-score normalized across sub-clusters) for the three refined striker archetypes ($k = 3$), confirming clean orthogonal specialization across box finishing, aerial dominance, and midfield link-up.}
+        \label{fig:striker_profiles}
+    \end{figurecaptionmodern}
+    \end{minipage}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.80\linewidth]{figures/fig_striker_pitch.png}
+    \begin{minipage}{0.80\linewidth}
+    \begin{figurecaptionmodern}
+        \raggedright
+        \capfig{Average seasonal pitch positions of the 152 forwards ($k = 3$). The longitudinal gradient clearly separates Deep-Lying Forwards ($x \approx 77.4$) from Target Men ($x \approx 79.5$) and Poachers ($x \approx 82.4$).}
+        \label{fig:striker_pitch}
+    \end{figurecaptionmodern}
+    \end{minipage}
+\end{center}
+
+\subsubsection{Methodological Takeaway}
+
+The progression from $k = 4$ to $k = 3$ demonstrates a critical lesson in sports domain unsupervised learning: \textbf{unconstrained clustering algorithms will readily split on player quality if volume variance exceeds positional variance}. By incorporating domain-informed feature re-engineering (\texttt{passes\_p90}) and deliberately pruning quality-outlier clusters ($k = 4 \rightarrow k = 3$), we achieve an interpretable, noise-resilient taxonomy of forward playing styles.
 
 % --------------------------------------------------------------------------
 \section{Discussion and Applications}
@@ -555,6 +698,7 @@ This research provides a comprehensive, mathematically grounded study on unsuper
   \item \textbf{Scaling is decisive:} RobustScaler normalization based on medians and interquartile ranges is crucial to prevent extreme performance outliers from distorting distance-based clustering.
   \item \textbf{Five tactical archetypes:} Multi-criteria validation across Elbow, Silhouette, and Gap Statistic curves identifies $k=5$ as the optimal resolution, capturing distinct tactical behaviors (Center-Backs, Strikers, Goalkeepers, Playmakers/Wingers, and Hybrid Controllers).
   \item \textbf{High structural stability:} The discovered clusters align strongly with ground-truth positions ($\text{Purity} \approx 69.7\%$) and establish robust decision boundaries validated by a $96.6\%$ KNN cross-validation accuracy.
+  \item \textbf{Extensibility to hierarchical sub-clustering:} A secondary K-Means pass on the 152-player striker cluster successfully uncovers three fine-grained tactical archetypes (Poacher, Target Man, Deep-Lying Forward), demonstrating that the pipeline generalizes naturally to hierarchical role discovery. The critical methodological lesson is that subspace-aware feature re-engineering --- not additional hyperparameter tuning --- unlocks meaningful intra-cluster differentiation.
 \end{enumerate}
 
 This framework bridges the gap between raw event data streams and interpretable tactical intelligence, providing sports analysts with a principled foundation for objective player profiling.
@@ -569,14 +713,22 @@ This framework bridges the gap between raw event data streams and interpretable 
 
 \begin{enumerate}
   \item \textbf{AIVIETNAM Program:} Details regarding AI VIETNAM curriculum, coursework, and initiatives are accessible at \href{https://aivietnam.edu.vn/}{aivietnam.edu.vn}.
-  \item \textbf{GitHub Repository:} Project implementation source code, exploratory notebooks, and pipeline scripts are available at \url{https://github.com/AIVIETNAM-AIO-Kaisye/football-shot-clustering}.
+  \item \textbf{GitHub Repository:} Project implementation source code, exploratory notebooks, and pipeline scripts are available at \url{https://github.com/AIVIETNAM-AIO-Kaisye/player-style-clustering}.
   \item \textbf{Data Sources:} Open event data provided by StatsBomb (\url{https://github.com/statsbomb/open-data}) and mirror dataset on Kaggle (\url{https://www.kaggle.com/datasets/saurabhshahane/statsbomb-football-data}).
-  \item \textbf{Execution Environment:} Experiments were conducted in Python 3.12 using `scikit-learn`, `pandas`, `numpy`, `matplotlib`, and `seaborn`.
+  \item \textbf{Execution Environment:} Experiments were conducted in Python 3.12 using \texttt{scikit-learn}, \texttt{pandas}, \texttt{numpy}, \texttt{matplotlib}, and \texttt{seaborn}.
+  \item \textbf{Notebook Suite:}
+  \begin{itemize}
+    \item \texttt{01\_data\_and\_eda.ipynb}: Data ingestion, feature extraction, and EDA.
+    \item \texttt{02\_modeling.ipynb}: Preprocessing, scaling comparison, and K-Means modeling.
+    \item \texttt{03\_evaluation.ipynb}: Cluster validation (purity, NMI) and KNN stability.
+    \item \texttt{04\_master\_pipeline.ipynb}: End-to-end combined pipeline.
+    \item \texttt{05\_striker\_subclustering.ipynb}: Striker tactical sub-clustering case study.
+  \end{itemize}
   \item \textbf{Author Contributions:}
   \begin{itemize}
-    \item \textbf{Phong (Team Lead):} Repository infrastructure, master pipeline orchestration, and technical code review.
-    \item \textbf{Lộc (Data Engineer):} Event aggregation logic, minute extraction algorithms, and exploratory data analysis.
-    \item \textbf{Thông (ML \& Eval Engineer):} Preprocessing transformations, K-Means modeling, validation metrics, stability testing, and report formulation.
+    \item \textbf{Nguyễn Thanh Phong (Team Lead):} Repository infrastructure, master pipeline orchestration, and technical code review.
+    \item \textbf{Võ Công Tuấn Lộc (Data Engineer):} Event aggregation logic, minute extraction algorithms, and exploratory data analysis.
+    \item \textbf{Trương Hoàng Thông (ML \& Eval Engineer):} Preprocessing transformations, K-Means modeling, validation metrics, stability testing, and report formulation.
   \end{itemize}
 \end{enumerate}
 

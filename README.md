@@ -32,12 +32,13 @@ The workflow is organized into modular notebooks designed to be run directly on 
 - [notebooks/02_modeling.ipynb](notebooks/02_modeling.ipynb): Preprocessing (median imputation, scaling) and K-Means modeling ($k$-selection, ARI comparison).
 - [notebooks/03_evaluation.ipynb](notebooks/03_evaluation.ipynb): Cluster validation (position purity, NMI), KNN stability testing, and tactical interpretation.
 - [notebooks/04_master_pipeline.ipynb](notebooks/04_master_pipeline.ipynb): Combined end-to-end master pipeline (extract/load $\rightarrow$ preprocess $\rightarrow$ cluster $\rightarrow$ validate).
+- [notebooks/05_striker_subclustering.ipynb](notebooks/05_striker_subclustering.ipynb): Case study — fine-grained K-Means sub-clustering of the 152 striker players from Cluster 1, revealing three tactical archetypes (Poacher, Target Man, Deep-Lying Forward).
 
 ## Team
 
 | Role | Branch | Assignee |
 |---|---|---|
-| **Phong** — Repo Setup & Infra *(Team Lead)* | `data-eng` | Setup repo, master pipeline, review |
-| **Lộc** — Data Engineer | `loc-data` | Raw data extraction, EDA |
-| **Thông** — ML & Eval Engineer | `ml-eng` | Feature engineering, preprocessing, K-Means, Validation, Report |
+| **Nguyễn Thanh Phong** — Repo Setup & Infra *(Team Lead)* | `data-eng` | Setup repo, master pipeline, review |
+| **Võ Công Tuấn Lộc** — Data Engineer | `loc-data` | Raw data extraction, EDA |
+| **Trương Hoàng Thông** — ML & Eval Engineer | `ml-eng` | Feature engineering, preprocessing, K-Means, Validation, Report |
 
