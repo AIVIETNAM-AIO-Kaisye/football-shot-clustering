@@ -34,11 +34,10 @@ The workflow is organized into modular notebooks designed to be run directly on 
 - [notebooks/04_master_pipeline.ipynb](notebooks/04_master_pipeline.ipynb): Combined end-to-end master pipeline (extract/load $\rightarrow$ preprocess $\rightarrow$ cluster $\rightarrow$ validate).
 - [notebooks/05_striker_subclustering.ipynb](notebooks/05_striker_subclustering.ipynb): Case study — fine-grained K-Means sub-clustering of the 152 striker players from Cluster 1, revealing three tactical archetypes (Poacher, Target Man, Deep-Lying Forward).
 
-## Team
+## Team & Contributions
 
-| Role | Branch | Assignee |
+| Member | Role | Responsibilities |
 |---|---|---|
-| **Nguyễn Thanh Phong** — Repo Setup & Infra *(Team Lead)* | `data-eng` | Setup repo, master pipeline, review |
-| **Võ Công Tuấn Lộc** — Data Engineer | `loc-data` | Raw data extraction, EDA |
-| **Trương Hoàng Thông** — ML & Eval Engineer | `ml-eng` | Feature engineering, preprocessing, K-Means, Validation, Report |
-
+| **Nguyễn Thanh Phong** | Team Lead / Infra | Repository setup, master pipeline orchestration, code review |
+| **Võ Công Tuấn Lộc** | Data Engineer | Data ingestion, minute extraction, exploratory data analysis |
+| **Trương Hoàng Thông** | ML & Evaluation Engineer | Feature engineering, K-Means modeling, validation, technical report |
