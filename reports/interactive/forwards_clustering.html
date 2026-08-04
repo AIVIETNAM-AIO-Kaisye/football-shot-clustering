@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forward Sub-Clustering — 3 Striker Archetypes</title>
+<style>
+/* ---------------------------------------------------------------- tokens */
+:root {
+  color-scheme: dark;
+  --page:        #0b1220;
+  --surface-1:   #0f172a;          /* chart surface */
+  --surface-2:   rgba(30, 41, 59, 0.55);
+  --border:      rgba(255, 255, 255, 0.10);
+  --border-soft: rgba(255, 255, 255, 0.06);
+
+  --text-primary:   #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted:     #8b9bb4;
+
+  --grid:     rgba(255, 255, 255, 0.055);
+  --baseline: rgba(255, 255, 255, 0.14);
+
+  --radius: 14px;
+  --font: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background:
+    radial-gradient(1100px 600px at 12% -8%, rgba(131, 73, 255, 0.16), transparent 62%),
+    radial-gradient(900px 520px at 92% 4%, rgba(0, 163, 195, 0.14), transparent 60%),
+    var(--page);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+.wrap { max-width: 1440px; margin: 0 auto; padding: 28px 22px 56px; }
+
+/* ---------------------------------------------------------------- header */
+header { margin-bottom: 20px; }
+.kicker {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 8px;
+}
+h1 { font-size: clamp(24px, 3.4vw, 36px); line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.02em; }
+.sub { color: var(--text-secondary); max-width: 76ch; margin: 0 0 14px; font-size: 14.5px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: baseline; gap: 6px;
+  background: var(--surface-2); border: 1px solid var(--border-soft);
+  border-radius: 999px; padding: 5px 12px; font-size: 12.5px; color: var(--text-secondary);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.chip b { color: var(--text-primary); font-weight: 650; font-variant-numeric: tabular-nums; }
+
+/* -------------------------------------------------------------- controls */
+.controls {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  margin: 18px 0 14px; padding: 12px 14px;
+  background: var(--surface-2); border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field > label {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); padding-left: 2px;
+}
+select, input[type="search"], button {
+  font-family: inherit; font-size: 14px; color: var(--text-primary);
+  background: rgba(15, 23, 42, 0.85); border: 1px solid var(--border);
+  border-radius: 10px; padding: 9px 13px; outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+select {
+  min-width: 270px; cursor: pointer; appearance: none; padding-right: 38px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%238b9bb4' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat; background-position: right 13px center;
+}
+select option { background: #0f172a; color: #f8fafc; }
+input[type="search"] { min-width: 210px; }
+select:focus-visible, input:focus-visible, button:focus-visible {
+  border-color: rgba(148, 163, 184, 0.75); box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.18);
+}
+button { cursor: pointer; font-weight: 600; }
+button:hover { background: rgba(30, 41, 59, 0.95); border-color: rgba(255,255,255,0.2); }
+button[aria-pressed="true"] { background: rgba(148, 163, 184, 0.2); border-color: rgba(148,163,184,0.45); }
+.controls .spacer { flex: 1 1 auto; }
+.btn-row { display: flex; gap: 8px; align-self: flex-end; }
+
+/* ---------------------------------------------------------------- layout */
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; align-items: start; }
+@media (max-width: 1020px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+.card {
+  background: var(--surface-2); border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.chart-card { padding: 6px; position: relative; overflow: hidden; }
+#chart { display: block; width: 100%; height: clamp(440px, 62vh, 680px); touch-action: none; cursor: grab; }
+#chart.dragging { cursor: grabbing; }
+/* Lives in the control bar, not over the plot — inside the chart card it
+   collided with the PC1 axis title and the bottom tick row. */
+.hint { font-size: 12px; color: var(--text-muted); align-self: flex-end; padding-bottom: 10px; }
+
+/* ------------------------------------------------------------------ marks */
+.grid-line { stroke: var(--grid); stroke-width: 1; shape-rendering: crispEdges; }
+.zero-line { stroke: var(--baseline); stroke-width: 1; stroke-dasharray: 3 4; }
+.tick-label { fill: var(--text-muted); font-size: 10.5px; font-variant-numeric: tabular-nums; }
+.axis-title { fill: var(--text-secondary); font-size: 12px; font-weight: 600; }
+
+.mark {
+  fill: var(--c);
+  /* Glyphs are drawn centred on their local origin, so scale about 0,0 — the
+     default 50% 50% would resolve against the whole view-box and fling them. */
+  transform-origin: 0 0;
+  transition: opacity 0.4s ease, transform 0.4s ease, stroke-width 0.4s ease, stroke-opacity 0.4s ease;
+  stroke: var(--c); stroke-width: 0; stroke-opacity: 0; paint-order: stroke;
+  opacity: 0.88;
+}
+.mark.dim { opacity: 0.14; }
+.mark.sel {
+  opacity: 1; transform: scale(1.5);
+  stroke-width: 7; stroke-opacity: 0.22;
+  animation: pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.mark.hit { opacity: 1; transform: scale(1.7); stroke-width: 8; stroke-opacity: 0.34; }
+.mark.hover { opacity: 1; transform: scale(1.9); stroke-width: 9; stroke-opacity: 0.4; }
+@keyframes pop { 0% { transform: scale(0.85); } 60% { transform: scale(1.72); } 100% { transform: scale(1.5); } }
+
+.hull {
+  fill: var(--c); fill-opacity: 0.11;
+  stroke: var(--c); stroke-width: 2; stroke-opacity: 0.85;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 14px var(--c));
+  animation: breathe 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes breathe {
+  0%, 100% { stroke-opacity: 0.85; fill-opacity: 0.11; }
+  50%      { stroke-opacity: 0.45; fill-opacity: 0.18; }
+}
+.hull-enter { animation: hullIn 0.45s ease both, breathe 3.4s ease-in-out 0.45s infinite; }
+@keyframes hullIn { from { opacity: 0; } to { opacity: 1; } }
+
+.centroid-label {
+  font-size: 12px; font-weight: 700; paint-order: stroke;
+  stroke: var(--surface-1); stroke-width: 4; stroke-linejoin: round;
+  fill: var(--c); pointer-events: none;
+  transition: opacity 0.4s ease, font-size 0.4s ease;
+}
+.centroid-label.faded { opacity: 0.28; }
+.centroid-label.strong { font-size: 14.5px; }
+
+/* ----------------------------------------------------------------- legend */
+.side { display: flex; flex-direction: column; gap: 14px; }
+.card h2 {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin: 0; padding: 14px 16px 10px;
+}
+.legend { padding: 0 8px 10px; }
+.legend-item {
+  display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; align-items: center; gap: 10px;
+  width: 100%; text-align: left; padding: 9px 10px; border-radius: 10px;
+  background: none; border: 1px solid transparent; cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, opacity 0.3s ease;
+}
+.legend-item:hover { background: rgba(255, 255, 255, 0.05); }
+.legend-item[aria-pressed="true"] { background: rgba(255, 255, 255, 0.07); border-color: var(--c); }
+.legend-item.muted { opacity: 0.4; }
+.legend-item .swatch { width: 20px; height: 20px; overflow: visible; }
+.legend-item .name { font-size: 13.5px; font-weight: 600; color: var(--text-primary); line-height: 1.25; }
+.legend-item .desc { font-size: 11.5px; color: var(--text-muted); line-height: 1.3; margin-top: 2px; }
+.legend-item .count {
+  font-size: 12px; font-variant-numeric: tabular-nums; color: var(--text-secondary);
+  background: rgba(255,255,255,0.06); border-radius: 999px; padding: 2px 8px; align-self: start;
+}
+
+/* --------------------------------------------------------------- profile */
+.profile { padding: 0 16px 16px; }
+.profile .lead { font-size: 12.5px; color: var(--text-secondary); margin: 0 0 12px; }
+.bar-row { margin-bottom: 9px; }
+.bar-head { display: flex; justify-content: space-between; font-size: 11.5px; margin-bottom: 3px; }
+.bar-head .lab { color: var(--text-secondary); }
+.bar-head .val { color: var(--text-primary); font-variant-numeric: tabular-nums; font-weight: 600; }
+.bar-track { position: relative; height: 6px; background: rgba(255,255,255,0.07); border-radius: 3px; }
+.bar-track::before {
+  content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px;
+  background: var(--baseline);
+}
+.bar-track.no-center::before { display: none; }
+.bar-fill {
+  position: absolute; top: 0; height: 6px; border-radius: 3px; background: var(--c);
+  transition: left 0.4s ease, width 0.4s ease, background 0.4s ease;
+}
+
+/* ----------------------------------------------------------------- table */
+.table-card { margin-top: 16px; }
+.table-scroll { overflow-x: auto; max-height: 460px; overflow-y: auto; padding: 0 4px 8px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 7px 12px; white-space: nowrap; }
+thead th {
+  position: sticky; top: 0; background: #101a30; color: var(--text-muted);
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
+  border-bottom: 1px solid var(--border);
+}
+tbody tr { border-bottom: 1px solid var(--border-soft); }
+tbody tr:hover { background: rgba(255,255,255,0.04); }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.tag { display: inline-flex; align-items: center; gap: 6px; }
+.tag .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex: none; }
+
+/* --------------------------------------------------------------- tooltip */
+#tooltip {
+  position: fixed; z-index: 40; pointer-events: none; opacity: 0;
+  transition: opacity 0.16s ease;
+  min-width: 220px; max-width: 290px;
+  background: rgba(12, 20, 36, 0.94); border: 1px solid var(--border);
+  border-left: 3px solid var(--c);
+  border-radius: 12px; padding: 11px 13px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+}
+#tooltip.on { opacity: 1; }
+#tooltip .tt-name { font-size: 14px; font-weight: 700; line-height: 1.25; }
+#tooltip .tt-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+#tooltip .tt-cluster {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 8px;
+  font-size: 11.5px; font-weight: 650; color: var(--c);
+}
+#tooltip .tt-cluster .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+#tooltip dl {
+  display: grid; grid-template-columns: 1fr auto; gap: 3px 12px;
+  margin: 9px 0 0; padding-top: 8px; border-top: 1px solid var(--border-soft);
+  font-size: 12px;
+}
+#tooltip dt { color: var(--text-secondary); }
+#tooltip dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; font-weight: 650; }
+
+footer { margin-top: 22px; font-size: 12px; color: var(--text-muted); }
+footer code { background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mark, .hull, .bar-fill, .centroid-label { transition-duration: 0.01ms !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Hierarchical sub-clustering · k = 3</div>
+    <h1>Inside the Forwards: Tactical Sub-Clusters</h1>
+    <p class="sub">A second K-Means pass over the 152 players in the “Clinical Finishers” macro-cluster, using 17 finishing, aerial and link-up features. Where the top-level model says “this is a forward”, this one says <em>what kind</em> — and the three archetypes separate on box presence, aerial duels and how deep the player drops.</p>
+    <div class="chips" id="chips"></div>
+  </header>
+
+  <div class="controls">
+    <div class="field">
+      <label for="clusterSelect">Focus cluster</label>
+      <select id="clusterSelect"></select>
+    </div>
+    <div class="field">
+      <label for="search">Find player</label>
+      <input type="search" id="search" placeholder="e.g. Suárez" autocomplete="off" spellcheck="false">
+    </div>
+    <span class="hint">Scroll to zoom · drag to pan</span>
+    <div class="spacer"></div>
+    <div class="btn-row">
+      <button id="resetBtn" type="button">Reset view</button>
+      <button id="tableBtn" type="button" aria-pressed="false" aria-controls="tableCard">Table view</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <section class="card chart-card" aria-label="PCA scatter plot of player clusters">
+      <svg id="chart" role="img" aria-labelledby="chartTitle"><title id="chartTitle">Inside the Forwards: Tactical Sub-Clusters — 2D PCA projection</title></svg>
+    </section>
+
+    <aside class="side">
+      <div class="card">
+        <h2>Clusters</h2>
+        <div class="legend" id="legend" role="group" aria-label="Cluster legend"></div>
+      </div>
+      <div class="card">
+        <h2 id="profileTitle">Cluster profile</h2>
+        <div class="profile" id="profile"></div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="card table-card" id="tableCard" hidden>
+    <h2 id="tableTitle">Data table</h2>
+    <div class="table-scroll"><table id="dataTable"><thead></thead><tbody></tbody></table></div>
+  </section>
+
+  <footer>Source: StatsBomb open event data, forwards only. Sub-cluster labels from <code>data/sub-cluster/striker/striker_sub_clusters_k3_final.csv</code>. k = 3 was chosen over k = 4 because k = 4 splits on output volume rather than tactical role.</footer>
+</div>
+
+<div id="tooltip" role="status" aria-live="polite"></div>
+<p class="sr-only" id="liveRegion" aria-live="polite"></p>
+
+<script>
+"use strict";
+const DATA = {"title":"Forward Sub-Clustering","evr":[21.8,14.8],"statLabels":["Goals/90","Shots/90","Box touches/90","Aerials won/90","Pressures/90","Key passes/90","Passes/90","Avg X"],"clusters":[{"id":0,"name":"Deep-Lying Forward","desc":"Drops into midfield: highest passing volume and pressing","n":52,"color":"#00a3c3","shape":"circle"},{"id":1,"name":"Target Man","desc":"Aerial reference point: hold-up play, lowest passing volume","n":82,"color":"#c38400","shape":"square"},{"id":2,"name":"Poacher","desc":"Clinical box finisher: box touches, shot volume, advanced position","n":18,"color":"#f20078","shape":"triangle"}],"players":[{"n":"Diego da Silva Costa","t":"Chelsea","p":"Striker","l":"","m":28,"c":2,"x":1.671,"y":0.941,"s":[0.44,2.55,21.73,2.22,12.18,0.73,29.83,83.24]},{"n":"Theo Walcott","t":"Arsenal","p":"Striker","l":"","m":28,"c":0,"x":-0.621,"y":0.559,"s":[0.31,2.9,15.04,0.5,9.57,0.82,20.96,78.91]},{"n":"Olivier Giroud","t":"Arsenal","p":"Striker","l":"","m":38,"c":2,"x":2.306,"y":-0.608,"s":[0.53,3.65,22.74,5.56,15.09,0.92,29.22,81.69]},{"n":"Scott Sinclair","t":"Aston Villa","p":"Striker","l":"","m":27,"c":0,"x":-3.429,"y":0.231,"s":[0.05,0.92,8.85,0.43,11.06,0.22,19.1,75.7]},{"n":"Jordan Ayew","t":"Aston Villa","p":"Striker","l":"","m":30,"c":0,"x":-1.856,"y":3.031,"s":[0.22,2.24,9.92,2.39,25.68,0.51,30.27,76.72]},{"n":"Rudy Gestede","t":"Aston Villa","p":"Striker","l":"","m":32,"c":1,"x":0.337,"y":-2.265,"s":[0.25,3.15,16.01,12.71,9.51,0.55,29.72,77.91]},{"n":"Sergio Leonel Agüero del Castillo","t":"Manchester City","p":"Striker","l":"","m":30,"c":2,"x":3.858,"y":1.11,"s":[0.75,4.4,23.62,0.37,10.37,0.9,27.61,85.33]},{"n":"Wilfried Guemiand Bony","t":"Manchester City","p":"Striker","l":"","m":26,"c":1,"x":1.68,"y":-0.626,"s":[0.28,4.25,17.08,4.67,6.83,0.56,27.75,79.27]},{"n":"André Ayew Pelé","t":"Swansea City","p":"Striker","l":"","m":34,"c":0,"x":-1.113,"y":0.056,"s":[0.36,2.07,10.6,1.71,17.94,0.51,32.89,73.67]},{"n":"Bafétimbi Gomis","t":"Swansea City","p":"Striker","l":"","m":33,"c":1,"x":-0.01,"y":-0.927,"s":[0.25,2.94,14.85,2.69,10.32,0.7,24.87,77.54]},{"n":"Fabio Borini","t":"Sunderland","p":"Striker","l":"","m":26,"c":0,"x":-2.217,"y":0.814,"s":[0.18,2.26,9.95,1.61,17.51,0.69,27.65,75.12]},{"n":"Duncan Watmore","t":"Sunderland","p":"Striker","l":"","m":23,"c":0,"x":-1.58,"y":-0.282,"s":[0.27,1.53,12.51,0.72,14.04,0.81,15.66,81.52]},{"n":"Steven Fletcher","t":"Sunderland","p":"Striker","l":"","m":16,"c":1,"x":-0.168,"y":-1.322,"s":[0.35,1.99,12.4,7.46,12.4,0.87,25.49,78.68]},{"n":"Christian Benteke Liolo","t":"Liverpool","p":"Striker","l":"","m":29,"c":2,"x":2.486,"y":-1.098,"s":[0.44,3.53,22.64,7.27,8.92,1.27,27.15,82.3]},{"n":"Shane Long","t":"Southampton","p":"Striker","l":"","m":28,"c":1,"x":0.743,"y":-0.364,"s":[0.41,2.57,14.82,5.01,14.62,1.22,26.43,82.74]},{"n":"Daniel Andre Sturridge","t":"Liverpool","p":"Striker","l":"","m":14,"c":2,"x":2.815,"y":0.869,"s":[0.71,4.24,18.09,0.62,8.74,0.44,28.85,82.36]},{"n":"José Leonardo Ulloa","t":"Leicester City","p":"Striker","l":"","m":29,"c":0,"x":-0.309,"y":0.196,"s":[0.42,2.76,15.78,6.01,21.21,0.75,33.06,78.85]},{"n":"Jamie Vardy","t":"Leicester City","p":"Striker","l":"","m":36,"c":1,"x":1.619,"y":-0.669,"s":[0.53,3.26,15.85,3.1,13.64,1.0,18.79,84.48]},{"n":"Joshua King","t":"AFC Bournemouth","p":"Striker","l":"","m":31,"c":0,"x":-0.478,"y":0.657,"s":[0.27,2.56,17.18,1.83,27.16,0.96,20.93,81.33]},{"n":"Shinji Okazaki","t":"Leicester City","p":"Striker","l":"","m":36,"c":1,"x":-2.067,"y":-0.648,"s":[0.21,1.88,13.0,3.17,22.03,0.73,22.29,76.72]},{"n":"José Salomón Rondón Giménez","t":"West Bromwich Albion","p":"Striker","l":"","m":34,"c":1,"x":-0.128,"y":-0.858,"s":[0.31,2.46,14.86,4.82,17.67,0.82,22.62,82.47]},{"n":"Saido Berahino","t":"West Bromwich Albion","p":"Striker","l":"","m":31,"c":0,"x":-1.438,"y":-0.075,"s":[0.2,1.77,11.78,0.74,13.0,0.88,23.21,78.65]},{"n":"Jermain Defoe","t":"Sunderland","p":"Striker","l":"","m":33,"c":1,"x":0.774,"y":-1.043,"s":[0.47,2.97,13.53,0.67,11.74,0.61,14.81,82.33]},{"n":"Papiss Demba Cissé","t":"Newcastle United","p":"Striker","l":"","m":21,"c":0,"x":-0.856,"y":0.122,"s":[0.24,1.96,13.45,3.34,15.65,0.82,33.18,76.66]},{"n":"Aleksandar Mitrović","t":"Newcastle United","p":"Striker","l":"","m":34,"c":1,"x":0.395,"y":-0.31,"s":[0.28,3.25,17.02,5.44,15.88,0.89,29.0,77.95]},{"n":"Aaron Lennon","t":"Everton","p":"Striker","l":"","m":25,"c":0,"x":-2.176,"y":-0.405,"s":[0.28,1.0,7.42,0.0,18.23,1.17,28.77,76.51]},{"n":"Romelu Lukaku Menama","t":"Everton","p":"Striker","l":"","m":37,"c":2,"x":2.606,"y":-0.336,"s":[0.47,3.17,19.83,3.45,8.34,1.18,30.42,82.47]},{"n":"Benik Afobe","t":"AFC Bournemouth","p":"Striker","l":"","m":15,"c":1,"x":-0.828,"y":-0.921,"s":[0.38,1.32,14.17,1.7,18.6,1.04,21.15,80.02]},{"n":"Connor Wickham","t":"Crystal Palace","p":"Striker","l":"","m":21,"c":1,"x":-0.414,"y":-0.36,"s":[0.26,2.31,13.37,5.8,17.0,0.66,26.95,78.58]},{"n":"Troy Deeney","t":"Watford","p":"Striker","l":"","m":38,"c":1,"x":-0.292,"y":0.29,"s":[0.18,2.46,12.88,7.96,15.94,1.28,34.07,76.46]},{"n":"Odion Jude Ighalo","t":"Watford","p":"Striker","l":"","m":37,"c":1,"x":1.019,"y":-0.574,"s":[0.41,3.05,18.32,0.66,13.7,0.85,19.45,81.12]},{"n":"Harry Kane","t":"Tottenham Hotspur","p":"Striker","l":"","m":38,"c":2,"x":1.708,"y":0.801,"s":[0.52,4.09,15.91,2.49,12.72,1.01,26.04,81.46]},{"n":"Nacer Chadli","t":"Tottenham Hotspur","p":"Striker","l":"","m":29,"c":0,"x":-0.361,"y":2.044,"s":[0.26,2.25,12.02,2.07,14.87,1.64,33.54,77.48]},{"n":"Arouna Koné","t":"Everton","p":"Striker","l":"","m":25,"c":0,"x":-0.538,"y":1.76,"s":[0.3,2.2,10.99,1.66,10.69,0.53,35.17,75.01]},{"n":"Steven Naismith","t":"Norwich City","p":"Striker","l":"","m":23,"c":0,"x":-0.99,"y":1.549,"s":[0.26,1.72,11.55,2.11,19.53,1.19,33.39,78.2]},{"n":"Cameron Jerome","t":"Norwich City","p":"Striker","l":"","m":34,"c":1,"x":-0.358,"y":-1.868,"s":[0.15,2.37,15.35,5.42,10.89,0.29,21.01,83.33]},{"n":"Dieumerci Mbokani Bezua","t":"Norwich City","p":"Striker","l":"","m":29,"c":1,"x":0.416,"y":-0.944,"s":[0.37,1.96,15.7,7.16,8.38,1.11,25.03,81.74]},{"n":"Anthony Martial","t":"Manchester United","p":"Striker","l":"","m":31,"c":0,"x":0.075,"y":2.652,"s":[0.36,1.87,14.45,2.2,12.21,1.05,30.8,82.11]},{"n":"Mame Biram Diouf","t":"Stoke City","p":"Striker","l":"","m":26,"c":1,"x":-1.406,"y":-1.338,"s":[0.33,2.12,13.3,3.04,14.03,0.46,18.0,77.91]},{"n":"José Luis Sanmartín Mato","t":"Stoke City","p":"Striker","l":"","m":22,"c":0,"x":-1.011,"y":0.002,"s":[0.31,2.24,12.6,4.41,20.49,0.62,29.07,76.75]},{"n":"Jonathan Walters","t":"Stoke City","p":"Striker","l":"","m":27,"c":1,"x":-0.976,"y":-1.322,"s":[0.25,1.63,14.18,5.29,10.97,0.94,26.54,79.05]},{"n":"Andy Carroll","t":"West Ham United","p":"Striker","l":"","m":27,"c":1,"x":0.689,"y":-1.432,"s":[0.47,3.23,16.64,9.58,9.64,0.82,25.45,76.99]},{"n":"Graziano Pellè","t":"Southampton","p":"Striker","l":"","m":30,"c":2,"x":2.164,"y":-0.133,"s":[0.43,3.23,19.88,6.02,10.2,1.02,35.0,80.45]},{"n":"Gabriel Imuetinyan Agbonlahor","t":"Aston Villa","p":"Striker","l":"","m":15,"c":1,"x":-1.937,"y":-0.949,"s":[0.08,0.93,10.17,3.05,15.42,0.93,19.75,77.77]},{"n":"Diafra Sakho","t":"West Ham United","p":"Striker","l":"","m":21,"c":1,"x":-0.406,"y":-0.946,"s":[0.29,2.64,15.97,4.42,14.65,0.69,20.68,80.84]},{"n":"Heung-Min Son","t":"Tottenham Hotspur","p":"Striker","l":"","m":28,"c":0,"x":-0.392,"y":2.275,"s":[0.31,2.93,12.04,0.77,23.0,1.31,35.12,78.32]},{"n":"Enner Remberto Valencia Lastra","t":"West Ham United","p":"Striker","l":"","m":19,"c":0,"x":-1.352,"y":1.204,"s":[0.34,2.78,10.35,2.19,17.33,0.59,21.79,75.57]},{"n":"Alberto Paloschi","t":"Chievo","p":"Striker","l":"","m":31,"c":1,"x":-0.75,"y":-0.835,"s":[0.34,2.1,15.16,1.01,17.9,0.52,21.86,77.87]},{"n":"Gareth Frank Bale","t":"Real Madrid","p":"Striker","l":"","m":23,"c":2,"x":4.416,"y":2.742,"s":[0.97,4.12,14.89,1.63,10.06,1.98,40.2,79.55]},{"n":"Cristiano Ronaldo dos Santos Aveiro","t":"Real Madrid","p":"Striker","l":"","m":36,"c":2,"x":5.305,"y":1.803,"s":[0.8,6.27,22.07,1.73,4.7,0.93,31.5,84.17]},{"n":"Karim Benzema","t":"Real Madrid","p":"Striker","l":"","m":27,"c":2,"x":5.046,"y":0.899,"s":[1.08,4.39,20.84,0.85,10.13,1.43,30.79,83.14]},{"n":"Miguel Ángel Guerrero Martín","t":"Sporting Gijón","p":"Striker","l":"","m":23,"c":0,"x":-1.486,"y":-0.675,"s":[0.16,1.76,11.55,2.17,23.58,0.96,22.22,77.9]},{"n":"Arnaldo Antonio Sanabria Ayala","t":"Sporting Gijón","p":"Striker","l":"","m":29,"c":1,"x":-0.613,"y":-0.363,"s":[0.39,2.04,10.85,3.49,15.94,0.47,24.44,77.43]},{"n":"Nabil Ghilas","t":"Levante UD","p":"Striker","l":"","m":20,"c":0,"x":-1.976,"y":0.023,"s":[0.0,1.78,11.13,3.74,14.28,0.76,19.97,78.2]},{"n":"Víctor Casadesús Castaño","t":"Levante UD","p":"Striker","l":"","m":23,"c":0,"x":-1.636,"y":0.651,"s":[0.27,1.07,5.69,4.44,11.37,0.98,34.38,74.97]},{"n":"Borja González Tomás","t":"Eibar","p":"Striker","l":"","m":36,"c":1,"x":0.902,"y":-1.052,"s":[0.51,3.2,15.12,3.13,18.77,0.55,22.04,82.03]},{"n":"Sergio Enrich Ametller","t":"Eibar","p":"Striker","l":"","m":38,"c":1,"x":-0.156,"y":-0.451,"s":[0.32,1.59,15.24,6.95,20.64,0.76,30.88,79.22]},{"n":"Deyverson Brum Silva Acosta","t":"Levante UD","p":"Striker","l":"","m":33,"c":1,"x":-0.639,"y":-0.249,"s":[0.36,2.91,13.17,7.72,19.23,0.81,25.85,77.18]},{"n":"Sergio Ezequiel Araújo","t":"Las Palmas","p":"Striker","l":"","m":30,"c":1,"x":-0.03,"y":0.56,"s":[0.24,2.9,12.12,2.76,13.31,0.76,24.91,78.66]},{"n":"Vicente Iborra De La Fuente","t":"Sevilla","p":"Striker","l":"","m":29,"c":1,"x":-1.781,"y":-0.941,"s":[0.35,1.62,14.02,6.28,13.77,0.56,32.9,67.39]},{"n":"Fernando Llorente Torres","t":"Sevilla","p":"Striker","l":"","m":24,"c":1,"x":1.2,"y":-1.899,"s":[0.3,2.32,22.56,9.41,15.24,1.05,29.35,81.51]},{"n":"Ciro Immobile","t":"Torino","p":"Striker","l":"","m":22,"c":1,"x":0.867,"y":0.592,"s":[0.33,3.35,19.71,1.18,16.95,1.31,22.07,81.92]},{"n":"Kevin Gameiro","t":"Sevilla","p":"Striker","l":"","m":31,"c":1,"x":1.537,"y":-1.235,"s":[0.5,3.05,21.25,1.34,13.72,0.88,18.36,85.99]},{"n":"Lucas Pérez Martínez","t":"RC Deportivo La Coruña","p":"Striker","l":"","m":36,"c":2,"x":1.624,"y":1.035,"s":[0.45,2.73,12.42,0.42,15.31,1.67,28.48,84.83]},{"n":"Álvaro Vázquez García","t":"Getafe","p":"Striker","l":"","m":34,"c":1,"x":-0.922,"y":-0.905,"s":[0.18,2.12,14.12,1.68,15.88,0.88,18.31,81.27]},{"n":"Stefan Šćepović","t":"Getafe","p":"Striker","l":"","m":34,"c":1,"x":-1.389,"y":-1.07,"s":[0.28,1.42,10.22,2.22,9.7,0.95,23.28,77.38]},{"n":"Duje Čop","t":"Málaga","p":"Striker","l":"","m":31,"c":0,"x":-0.988,"y":0.901,"s":[0.26,2.13,10.68,2.52,17.1,0.65,29.94,76.64]},{"n":"Charles Días Barbosa de Oliveira","t":"Málaga","p":"Striker","l":"","m":35,"c":1,"x":0.03,"y":-1.299,"s":[0.32,2.5,15.05,4.1,12.08,0.9,25.41,78.65]},{"n":"Giuseppe Rossi","t":"Levante UD","p":"Striker","l":"","m":28,"c":0,"x":0.575,"y":1.161,"s":[0.29,2.8,11.49,1.09,16.52,1.49,27.79,78.13]},{"n":"Gerard Moreno Balaguero","t":"Espanyol","p":"Striker","l":"","m":32,"c":0,"x":-0.162,"y":1.04,"s":[0.27,2.46,15.29,2.96,15.93,0.59,30.26,78.03]},{"n":"Willian José da Silva","t":"Las Palmas","p":"Striker","l":"","m":30,"c":1,"x":0.166,"y":0.394,"s":[0.45,2.69,11.29,3.23,12.99,1.0,27.36,76.34]},{"n":"Leonardo Carrilho Baptistão","t":"Villarreal","p":"Striker","l":"","m":26,"c":0,"x":-1.367,"y":0.403,"s":[0.2,2.17,11.95,2.78,19.02,0.48,26.15,79.9]},{"n":"Carlos Castro García","t":"Sporting Gijón","p":"Striker","l":"","m":25,"c":1,"x":-0.651,"y":-0.952,"s":[0.59,2.1,9.16,1.6,11.68,0.34,17.06,76.81]},{"n":"Cédric Bakambu","t":"Villarreal","p":"Striker","l":"","m":34,"c":1,"x":0.013,"y":0.121,"s":[0.56,2.29,12.21,1.73,17.78,0.61,24.09,76.99]},{"n":"Javier Guerra Rodríguez","t":"Rayo Vallecano","p":"Striker","l":"","m":30,"c":1,"x":0.442,"y":0.118,"s":[0.5,2.97,17.5,4.02,15.66,1.0,27.75,77.59]},{"n":"Nicolás Ladislao Fedor Flores","t":"Rayo Vallecano","p":"Striker","l":"","m":22,"c":1,"x":0.18,"y":-0.279,"s":[0.51,2.38,14.49,2.49,19.92,1.25,23.15,76.85]},{"n":"Jorge Molina Vidal","t":"Real Betis","p":"Striker","l":"","m":23,"c":1,"x":-1.455,"y":-1.151,"s":[0.09,1.21,11.21,3.27,12.06,0.75,28.04,78.63]},{"n":"Rubén Castro Martín","t":"Real Betis","p":"Striker","l":"","m":38,"c":1,"x":0.417,"y":0.335,"s":[0.41,2.66,11.58,1.14,6.21,0.67,26.42,81.06]},{"n":"Iñaki Williams Arthuer","t":"Athletic Club","p":"Striker","l":"","m":25,"c":0,"x":-0.092,"y":-0.359,"s":[0.44,2.47,11.54,1.26,15.77,0.55,26.65,80.48]},{"n":"Raúl García Escudero","t":"Athletic Club","p":"Striker","l":"","m":31,"c":0,"x":-1.18,"y":1.043,"s":[0.26,2.91,8.98,4.82,23.52,0.63,35.78,72.9]},{"n":"Aritz Aduriz Zubeldia","t":"Athletic Club","p":"Striker","l":"","m":34,"c":1,"x":1.95,"y":-1.219,"s":[0.53,3.01,16.33,6.09,9.83,0.82,23.83,81.82]},{"n":"Fernando José Torres Sanz","t":"Atlético Madrid","p":"Striker","l":"","m":30,"c":1,"x":0.612,"y":0.245,"s":[0.57,2.93,15.93,4.11,15.01,0.72,19.99,80.51]},{"n":"Antoine Griezmann","t":"Atlético Madrid","p":"Striker","l":"","m":38,"c":0,"x":0.789,"y":1.896,"s":[0.61,2.66,11.83,1.74,17.9,1.42,40.31,74.43]},{"n":"John Guidetti","t":"Celta Vigo","p":"Striker","l":"","m":35,"c":1,"x":0.58,"y":-1.249,"s":[0.41,2.23,16.58,2.17,17.8,1.08,21.38,83.93]},{"n":"Iago Aspas Juncal","t":"Celta Vigo","p":"Striker","l":"","m":35,"c":2,"x":1.49,"y":0.159,"s":[0.43,2.72,17.75,0.96,14.64,1.36,32.33,80.8]},{"n":"Théo Bongonda Mbul''Ofeko Batombo","t":"Celta Vigo","p":"Striker","l":"","m":23,"c":0,"x":-3.0,"y":2.457,"s":[0.15,1.38,6.7,0.66,10.35,0.73,24.41,75.44]},{"n":"Santiago Mina Lorenzo","t":"Valencia","p":"Striker","l":"","m":26,"c":0,"x":-3.099,"y":1.931,"s":[0.22,1.34,7.9,2.28,22.71,0.5,31.06,73.76]},{"n":"Francisco Alcácer García","t":"Valencia","p":"Striker","l":"","m":34,"c":1,"x":0.097,"y":-1.244,"s":[0.4,2.26,12.26,0.86,13.98,0.86,17.25,79.52]},{"n":"Mikel Oyarzabal Ugarte","t":"Real Sociedad","p":"Striker","l":"","m":22,"c":0,"x":-1.819,"y":2.129,"s":[0.35,1.86,8.06,2.09,22.09,1.22,29.63,76.78]},{"n":"Jonathas Cristian de Jesus","t":"Real Sociedad","p":"Striker","l":"","m":27,"c":1,"x":0.68,"y":-0.309,"s":[0.38,3.12,17.56,3.55,16.59,0.7,19.82,82.42]},{"n":"Álvaro Negredo Sánchez","t":"Valencia","p":"Striker","l":"","m":25,"c":1,"x":0.851,"y":-1.167,"s":[0.37,2.89,15.26,7.19,9.78,0.89,26.44,79.36]},{"n":"Adalberto Peñaranda Maestre","t":"Granada","p":"Striker","l":"","m":23,"c":0,"x":-1.9,"y":1.101,"s":[0.26,1.16,5.91,0.74,20.96,0.63,20.11,78.21]},{"n":"Youssef El-Arabi","t":"Granada","p":"Striker","l":"","m":35,"c":1,"x":-1.015,"y":-0.316,"s":[0.31,2.49,12.44,3.04,18.08,0.73,22.22,76.12]},{"n":"Roberto Soldado Rillo","t":"Villarreal","p":"Striker","l":"","m":28,"c":0,"x":-0.646,"y":0.586,"s":[0.2,1.6,11.96,2.11,13.83,0.7,31.97,76.44]},{"n":"Alberto Mateus Contreiras Gonçalves","t":"Rayo Vallecano","p":"Striker","l":"","m":28,"c":1,"x":-0.666,"y":-2.097,"s":[0.35,2.18,13.69,8.55,13.78,0.7,21.02,77.67]},{"n":"Felipe Salvador Caicedo Corozo","t":"Espanyol","p":"Striker","l":"","m":31,"c":1,"x":-0.777,"y":-1.386,"s":[0.33,1.73,10.28,3.91,12.95,0.58,21.38,78.26]},{"n":"Luciano Vietto","t":"Atlético Madrid","p":"Striker","l":"","m":19,"c":0,"x":-0.279,"y":1.386,"s":[0.09,2.29,14.63,0.91,18.84,0.82,34.3,79.49]},{"n":"Sabin Merino Zuloaga","t":"Athletic Club","p":"Striker","l":"","m":22,"c":0,"x":-0.803,"y":0.984,"s":[0.39,2.08,10.79,2.93,14.79,0.77,24.89,79.88]},{"n":"Imanol Agirretxe Arruti","t":"Real Sociedad","p":"Striker","l":"","m":16,"c":2,"x":1.943,"y":-0.621,"s":[0.98,3.38,15.86,2.41,11.8,0.23,24.81,78.76]},{"n":"Ángel Lafita Castillo","t":"Getafe","p":"Striker","l":"","m":14,"c":0,"x":-1.9,"y":2.708,"s":[0.26,2.44,7.51,2.36,17.46,0.61,24.09,75.21]},{"n":"Luis Alberto Suárez Díaz","t":"Barcelona","p":"Striker","l":"","m":35,"c":2,"x":5.755,"y":0.744,"s":[1.03,3.87,30.18,0.67,9.33,1.25,27.09,87.33]},{"n":"Boško Janković","t":"Hellas Verona","p":"Striker","l":"","m":15,"c":0,"x":-3.842,"y":-0.398,"s":[0.1,1.46,7.32,2.54,13.18,0.29,23.13,74.01]},{"n":"Juan Ignacio Gómez Taleb","t":"Hellas Verona","p":"Striker","l":"","m":33,"c":0,"x":-2.282,"y":0.716,"s":[0.05,1.68,12.55,3.69,16.75,1.03,30.42,76.68]},{"n":"Giampaolo Pazzini","t":"Hellas Verona","p":"Striker","l":"","m":30,"c":1,"x":-0.33,"y":-1.741,"s":[0.13,3.55,18.04,2.07,15.43,0.49,16.64,81.1]},{"n":"Mattia Destro","t":"Bologna","p":"Striker","l":"","m":27,"c":1,"x":-0.806,"y":-0.186,"s":[0.24,2.72,15.52,2.07,15.93,0.37,16.78,78.58]},{"n":"Filip Đorđević","t":"Lazio","p":"Striker","l":"","m":27,"c":1,"x":-1.025,"y":-1.395,"s":[0.2,1.33,18.45,2.32,22.83,0.73,22.43,81.01]},{"n":"Antonio Di Natale","t":"Udinese","p":"Striker","l":"","m":23,"c":1,"x":1.107,"y":-0.951,"s":[0.07,2.47,16.85,0.9,8.84,1.65,25.83,86.01]},{"n":"Cyril Théréau","t":"Udinese","p":"Striker","l":"","m":36,"c":0,"x":-0.127,"y":1.51,"s":[0.33,2.29,12.37,3.47,17.02,1.39,36.64,76.33]},{"n":"Ivan Perišić","t":"Inter Milan","p":"Striker","l":"","m":34,"c":0,"x":-0.835,"y":3.446,"s":[0.25,2.54,10.29,2.83,16.7,0.75,44.98,76.6]},{"n":"Mauro Emanuel Icardi Rivero","t":"Inter Milan","p":"Striker","l":"","m":33,"c":1,"x":0.688,"y":-1.76,"s":[0.51,2.0,19.21,2.07,13.38,0.91,18.91,81.38]},{"n":"Ryder Matos Santos","t":"Carpi","p":"Striker","l":"","m":26,"c":0,"x":-1.857,"y":1.077,"s":[0.11,1.83,10.07,1.18,17.49,1.24,26.86,78.62]},{"n":"Antonio Di Gaudio","t":"Carpi","p":"Striker","l":"","m":29,"c":0,"x":-1.14,"y":2.172,"s":[0.17,2.06,13.5,0.29,17.97,0.57,22.43,78.26]},{"n":"Kevin Lasagna","t":"Carpi","p":"Striker","l":"","m":36,"c":1,"x":-0.189,"y":-0.585,"s":[0.28,2.32,15.79,3.98,19.66,1.1,20.76,81.9]},{"n":"Riccardo Meggiorini","t":"Chievo","p":"Striker","l":"","m":26,"c":0,"x":-0.695,"y":0.393,"s":[0.27,2.09,12.14,4.49,23.1,0.91,23.85,80.29]},{"n":"Roberto Inglese","t":"Chievo","p":"Striker","l":"","m":26,"c":1,"x":-1.044,"y":-0.644,"s":[0.19,2.18,13.07,3.61,18.42,0.68,19.11,79.34]},{"n":"Jerry Uche Mbakogu","t":"Carpi","p":"Striker","l":"","m":24,"c":1,"x":-0.366,"y":-0.524,"s":[0.05,1.81,17.34,2.95,12.68,1.09,23.5,82.67]},{"n":"Leonardo Pavoletti","t":"Genoa","p":"Striker","l":"","m":25,"c":1,"x":1.721,"y":-1.477,"s":[0.64,3.05,18.4,5.83,14.62,0.82,20.5,79.27]},{"n":"Luca Toni","t":"Hellas Verona","p":"Striker","l":"","m":23,"c":1,"x":0.316,"y":-2.396,"s":[0.15,3.03,22.24,5.67,10.56,0.49,17.6,83.25]},{"n":"Gervais Lombe Yao Kouassi","t":"AS Roma","p":"Striker","l":"","m":14,"c":0,"x":0.478,"y":1.056,"s":[0.49,2.19,12.92,0.0,11.13,0.97,26.81,81.98]},{"n":"Mohamed Salah","t":"AS Roma","p":"Striker","l":"","m":34,"c":2,"x":1.577,"y":0.799,"s":[0.45,2.37,15.51,0.42,14.7,1.72,38.82,81.51]},{"n":"Edin Džeko","t":"AS Roma","p":"Striker","l":"","m":31,"c":1,"x":1.855,"y":-0.868,"s":[0.26,3.85,26.68,5.77,13.34,0.66,26.15,82.86]},{"n":"Alberto Gilardino","t":"Palermo","p":"Striker","l":"","m":33,"c":1,"x":0.278,"y":-2.035,"s":[0.37,1.82,18.24,3.76,10.79,0.74,20.06,81.33]},{"n":"Luis Fernando Muriel Fruto","t":"Sampdoria","p":"Striker","l":"","m":32,"c":0,"x":0.789,"y":1.624,"s":[0.31,2.87,13.06,1.69,16.08,1.08,26.23,80.18]},{"n":"Marco Borriello","t":"Atalanta","p":"Striker","l":"","m":27,"c":1,"x":0.827,"y":0.09,"s":[0.38,2.97,18.09,3.13,12.26,0.81,22.95,79.89]},{"n":"Duván Esteban Zapata Banguera","t":"Udinese","p":"Striker","l":"","m":25,"c":1,"x":0.533,"y":-0.902,"s":[0.45,2.95,18.63,3.34,14.67,0.45,18.46,81.1]},{"n":"Daniel Ciofani","t":"Frosinone","p":"Striker","l":"","m":37,"c":1,"x":-0.572,"y":-1.631,"s":[0.21,2.31,15.25,5.28,16.33,1.05,18.25,78.61]},{"n":"Federico Dionisi","t":"Frosinone","p":"Striker","l":"","m":32,"c":0,"x":-0.903,"y":2.109,"s":[0.29,3.07,11.13,0.54,19.98,0.89,21.97,78.87]},{"n":"Andrea Belotti","t":"Torino","p":"Striker","l":"","m":35,"c":1,"x":-1.146,"y":-0.735,"s":[0.27,2.45,13.48,1.74,18.89,0.74,17.98,75.47]},{"n":"Josef Alexander Martínez Mencia","t":"Torino","p":"Striker","l":"","m":21,"c":1,"x":0.225,"y":-1.565,"s":[0.27,3.2,12.27,0.73,12.82,1.19,14.1,77.3]},{"n":"Gonzalo Gerardo Higuaín","t":"Napoli","p":"Striker","l":"","m":35,"c":2,"x":5.493,"y":0.13,"s":[0.98,5.4,23.37,0.5,11.94,1.4,28.0,83.59]},{"n":"Miroslav Klose","t":"Lazio","p":"Striker","l":"","m":24,"c":1,"x":0.35,"y":-1.311,"s":[0.38,1.91,18.52,3.37,14.77,0.57,20.18,78.52]},{"n":"Manuel Pucciarelli","t":"Empoli","p":"Striker","l":"","m":38,"c":0,"x":-0.737,"y":0.708,"s":[0.17,1.65,13.0,0.31,19.96,1.11,30.17,79.79]},{"n":"Mauricio Ricardo Pinilla Ferreira","t":"Atalanta","p":"Striker","l":"","m":20,"c":1,"x":-0.084,"y":-0.054,"s":[0.33,2.8,16.58,4.62,16.91,0.98,22.83,77.43]},{"n":"Nikola Kalinić","t":"Fiorentina","p":"Striker","l":"","m":36,"c":1,"x":0.675,"y":-1.554,"s":[0.4,2.47,17.28,1.91,15.11,0.5,18.92,82.21]},{"n":"Serge Gakpé","t":"Genoa","p":"Striker","l":"","m":18,"c":1,"x":-0.142,"y":-0.402,"s":[0.3,2.27,15.18,1.97,16.46,0.99,21.49,82.24]},{"n":"Massimo Maccarone","t":"Empoli","p":"Striker","l":"","m":37,"c":1,"x":0.476,"y":0.354,"s":[0.38,2.62,14.36,1.12,14.2,0.99,20.72,82.25]},{"n":"Diego Falcinelli","t":"Sassuolo","p":"Striker","l":"","m":26,"c":1,"x":-0.776,"y":-1.079,"s":[0.08,1.9,18.26,1.37,24.73,1.14,17.04,82.14]},{"n":"Sergio Floccari","t":"Bologna","p":"Striker","l":"","m":25,"c":1,"x":-0.022,"y":0.367,"s":[0.33,2.54,18.23,2.6,20.33,0.72,24.97,79.45]},{"n":"Gregoire Defrel","t":"Sassuolo","p":"Striker","l":"","m":33,"c":0,"x":-0.476,"y":0.25,"s":[0.3,2.21,13.36,1.83,23.79,0.94,24.81,78.71]},{"n":"M''Baye Babacar Niang","t":"AC Milan","p":"Striker","l":"","m":16,"c":0,"x":-0.398,"y":2.848,"s":[0.23,2.96,14.65,2.03,18.78,0.78,29.38,79.18]},{"n":"Carlos Arturo Bacca Ahumada","t":"AC Milan","p":"Striker","l":"","m":38,"c":1,"x":1.202,"y":-1.215,"s":[0.44,2.24,17.49,1.41,13.04,1.13,18.79,84.46]},{"n":"Eder Citadin Martins","t":"Sampdoria","p":"Striker","l":"","m":33,"c":0,"x":-0.578,"y":1.176,"s":[0.36,2.92,11.42,0.66,14.42,0.73,26.17,78.11]},{"n":"Luiz Adriano de Souza da Silva","t":"AC Milan","p":"Striker","l":"","m":26,"c":1,"x":-0.306,"y":-1.567,"s":[0.21,1.85,14.76,2.21,16.55,0.78,19.54,82.23]},{"n":"Mario Mandžukić","t":"Juventus","p":"Striker","l":"","m":27,"c":1,"x":-0.329,"y":-1.207,"s":[0.43,1.72,14.18,4.08,20.02,0.99,24.14,79.3]},{"n":"Álvaro Borja Morata Martín","t":"Juventus","p":"Striker","l":"","m":34,"c":0,"x":0.637,"y":2.674,"s":[0.35,2.89,13.81,1.59,20.42,1.18,30.57,78.94]},{"n":"Germán Gustavo Denis","t":"Atalanta","p":"Striker","l":"","m":15,"c":1,"x":0.448,"y":-0.206,"s":[0.27,2.22,17.91,5.59,7.71,1.42,29.62,76.24]},{"n":"Antonio Floro Flores","t":"Sassuolo","p":"Striker","l":"","m":28,"c":0,"x":0.425,"y":3.203,"s":[0.27,4.0,10.78,2.44,14.1,1.08,33.95,78.2]},{"n":"Matteo Mancosu","t":"Carpi","p":"Striker","l":"","m":21,"c":1,"x":-2.317,"y":-1.64,"s":[0.09,1.13,11.51,2.36,23.02,0.94,18.02,78.98]},{"n":"Fabio Quagliarella","t":"Torino","p":"Striker","l":"","m":32,"c":1,"x":-0.152,"y":-1.092,"s":[0.24,3.4,15.88,1.58,19.89,0.57,20.02,79.91]},{"n":"Maximiliano Gastón López","t":"Torino","p":"Striker","l":"","m":26,"c":1,"x":0.114,"y":-1.94,"s":[0.15,1.98,18.32,1.6,15.51,0.76,15.96,82.47]},{"n":"Stephan El Shaarawy","t":"AS Roma","p":"Striker","l":"","m":16,"c":2,"x":1.909,"y":3.001,"s":[0.59,3.42,18.95,1.19,17.32,0.82,39.83,78.52]},{"n":"Sergio Pellissier","t":"Chievo","p":"Striker","l":"","m":19,"c":1,"x":-0.586,"y":-2.006,"s":[0.27,1.99,11.76,2.26,14.74,1.18,17.55,81.14]}],"tooltipStats":[0,1,2,3],"season":"PL · La Liga · Serie A, 2015/16"};
+
+/* ------------------------------------------------------------------ setup */
+const svg      = document.getElementById("chart");
+const NS       = "http://www.w3.org/2000/svg";
+const tooltip  = document.getElementById("tooltip");
+const liveEl   = document.getElementById("liveRegion");
+const clusters = DATA.clusters;
+const players  = DATA.players;
+const byId     = new Map(clusters.map(c => [c.id, c]));
+
+const state = { selected: null, query: "", hover: null, k: 1, tx: 0, ty: 0 };
+const PAD = { top: 26, right: 26, bottom: 46, left: 54 };
+
+const el = (tag, attrs) => {
+  const n = document.createElementNS(NS, tag);
+  for (const key in attrs) n.setAttribute(key, attrs[key]);
+  return n;
+};
+
+/* Secondary encoding: every cluster gets its own glyph, so identity never rests
+   on hue alone (colour-vision deficiency, greyscale printing, forced colours). */
+function shapePath(kind, r) {
+  switch (kind) {
+    case "triangle": return `M0,${-r * 1.15} L${r},${r * 0.72} L${-r},${r * 0.72} Z`;
+    case "square":   return `M${-r * .88},${-r * .88} H${r * .88} V${r * .88} H${-r * .88} Z`;
+    case "diamond":  return `M0,${-r * 1.25} L${r * 1.25},0 L0,${r * 1.25} L${-r * 1.25},0 Z`;
+    case "cross": {
+      const a = r * 0.42, b = r * 1.2;
+      return `M${-a},${-b} H${a} V${-a} H${b} V${a} H${a} V${b} H${-a} V${a} H${-b} V${-a} H${-a} Z`;
+    }
+    default: return `M0,${-r} A${r},${r} 0 1,1 0,${r} A${r},${r} 0 1,1 0,${-r} Z`;
+  }
+}
+
+/* ------------------------------------------------------------ scales/hull */
+const xVals = players.map(p => p.x), yVals = players.map(p => p.y);
+const ext = arr => { let lo = Infinity, hi = -Infinity; for (const v of arr) { if (v < lo) lo = v; if (v > hi) hi = v; } const m = (hi - lo) * 0.06 || 1; return [lo - m, hi + m]; };
+const xDom = ext(xVals), yDom = ext(yVals);
+let W = 0, H = 0, baseX = () => 0, baseY = () => 0;
+
+function rebuildScales() {
+  const rect = svg.getBoundingClientRect();
+  W = Math.max(320, rect.width); H = Math.max(320, rect.height);
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const iw = W - PAD.left - PAD.right, ih = H - PAD.top - PAD.bottom;
+  baseX = v => PAD.left + ((v - xDom[0]) / (xDom[1] - xDom[0])) * iw;
+  baseY = v => PAD.top + ih - ((v - yDom[0]) / (yDom[1] - yDom[0])) * ih;
+  clipRect.setAttribute("x", PAD.left - 2);
+  clipRect.setAttribute("y", PAD.top - 2);
+  clipRect.setAttribute("width", iw + 4);
+  clipRect.setAttribute("height", ih + 4);
+}
+const sx = v => baseX(v) * state.k + state.tx;
+const sy = v => baseY(v) * state.k + state.ty;
+
+/* Andrew's monotone chain — computed once per cluster in data space. */
+function convexHull(pts) {
+  if (pts.length < 3) return pts.slice();
+  const p = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const half = src => {
+    const out = [];
+    for (const pt of src) {
+      while (out.length >= 2 && cross(out[out.length - 2], out[out.length - 1], pt) <= 0) out.pop();
+      out.push(pt);
+    }
+    out.pop();
+    return out;
+  };
+  return half(p).concat(half(p.slice().reverse()));
+}
+const hullCache = new Map(
+  clusters.map(c => [c.id, convexHull(players.filter(p => p.c === c.id).map(p => [p.x, p.y]))])
+);
+
+/* Closed Catmull-Rom spline → cubic Béziers, so the boundary reads as a smooth
+   enclosure rather than a polygon. */
+function smoothClosed(pts, tension) {
+  const n = pts.length;
+  let d = `M${pts[0][0].toFixed(2)},${pts[0][1].toFixed(2)}`;
+  for (let i = 0; i < n; i++) {
+    const p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+    const c1 = [p1[0] + (p2[0] - p0[0]) * tension, p1[1] + (p2[1] - p0[1]) * tension];
+    const c2 = [p2[0] - (p3[0] - p1[0]) * tension, p2[1] - (p3[1] - p1[1]) * tension];
+    d += ` C${c1[0].toFixed(2)},${c1[1].toFixed(2)} ${c2[0].toFixed(2)},${c2[1].toFixed(2)} ${p2[0].toFixed(2)},${p2[1].toFixed(2)}`;
+  }
+  return d + "Z";
+}
+
+function hullPath(id) {
+  const hull = hullCache.get(id);
+  if (!hull || !hull.length) return null;
+  const scr = hull.map(([x, y]) => [sx(x), sy(y)]);
+  const cx = scr.reduce((s, p) => s + p[0], 0) / scr.length;
+  const cy = scr.reduce((s, p) => s + p[1], 0) / scr.length;
+  const pad = 18;
+  if (scr.length === 1) {
+    const [x, y] = scr[0];
+    return `M${x},${y - pad} A${pad},${pad} 0 1,1 ${x},${y + pad} A${pad},${pad} 0 1,1 ${x},${y - pad}Z`;
+  }
+  if (scr.length === 2) {
+    const mx = (scr[0][0] + scr[1][0]) / 2, my = (scr[0][1] + scr[1][1]) / 2;
+    const r = Math.hypot(scr[0][0] - scr[1][0], scr[0][1] - scr[1][1]) / 2 + pad;
+    return `M${mx},${my - r} A${r},${r} 0 1,1 ${mx},${my + r} A${r},${r} 0 1,1 ${mx},${my - r}Z`;
+  }
+  const grown = scr.map(([x, y]) => {
+    const dx = x - cx, dy = y - cy, len = Math.hypot(dx, dy) || 1;
+    return [x + (dx / len) * pad, y + (dy / len) * pad];
+  });
+  return smoothClosed(grown, 0.22);
+}
+
+/* ------------------------------------------------------------------ build */
+const gGrid   = el("g", {});
+const gHull   = el("g", {});
+const gMarks  = el("g", {});
+const gLabels = el("g", {});
+const gAxes   = el("g", {});
+/* Everything data-bearing is clipped to the plot rect, so a zoomed-in hull or a
+   panned-off point can never paint over the axes and tick labels. */
+const defs = el("defs", {});
+const clip = el("clipPath", { id: "plotClip" });
+const clipRect = el("rect", {});
+clip.appendChild(clipRect);
+defs.appendChild(clip);
+const gPlot = el("g", { "clip-path": "url(#plotClip)" });
+gPlot.append(gHull, gMarks, gLabels);
+svg.append(defs, gGrid, gPlot, gAxes);
+
+const nodes = players.map(p => {
+  const c = byId.get(p.c);
+  const g = el("g", {});
+  const path = el("path", { d: shapePath(c.shape, 5), class: "mark" });
+  path.style.setProperty("--c", c.color);
+  g.appendChild(path);
+  gMarks.appendChild(g);
+  return { p, g, path };
+});
+
+const hullEl = el("path", { class: "hull" });
+gHull.appendChild(hullEl);
+hullEl.style.display = "none";
+
+const centroids = clusters.map(c => {
+  const pts = players.filter(p => p.c === c.id);
+  const cx = pts.reduce((s, p) => s + p.x, 0) / pts.length;
+  const cy = pts.reduce((s, p) => s + p.y, 0) / pts.length;
+  const t = el("text", { class: "centroid-label", "text-anchor": "middle" });
+  t.style.setProperty("--c", c.color);
+  t.textContent = c.name;
+  gLabels.appendChild(t);
+  return { c, cx, cy, t };
+});
+
+/* ----------------------------------------------------------------- render */
+function niceTicks(lo, hi, count) {
+  const span = hi - lo, raw = span / count;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const norm = raw / mag;
+  const step = (norm >= 5 ? 10 : norm >= 2 ? 5 : norm >= 1 ? 2 : 1) * mag;
+  const out = [];
+  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) out.push(+v.toFixed(10));
+  return out;
+}
+
+function renderAxes() {
+  gGrid.textContent = ""; gAxes.textContent = "";
+  const invX = px => xDom[0] + ((px - state.tx) / state.k - PAD.left) / (W - PAD.left - PAD.right) * (xDom[1] - xDom[0]);
+  const ih = H - PAD.top - PAD.bottom;
+  const invY = py => yDom[0] + (PAD.top + ih - (py - state.ty) / state.k) / ih * (yDom[1] - yDom[0]);
+  const xLo = invX(PAD.left), xHi = invX(W - PAD.right);
+  const yLo = invY(H - PAD.bottom), yHi = invY(PAD.top);
+
+  for (const t of niceTicks(xLo, xHi, 7)) {
+    const x = sx(t);
+    if (x < PAD.left - 1 || x > W - PAD.right + 1) continue;
+    gGrid.appendChild(el("line", { class: t === 0 ? "zero-line" : "grid-line", x1: x, x2: x, y1: PAD.top, y2: H - PAD.bottom }));
+    const lab = el("text", { class: "tick-label", x, y: H - PAD.bottom + 16, "text-anchor": "middle" });
+    lab.textContent = t;
+    gAxes.appendChild(lab);
+  }
+  for (const t of niceTicks(yLo, yHi, 5)) {
+    const y = sy(t);
+    if (y < PAD.top - 1 || y > H - PAD.bottom + 1) continue;
+    gGrid.appendChild(el("line", { class: t === 0 ? "zero-line" : "grid-line", x1: PAD.left, x2: W - PAD.right, y1: y, y2: y }));
+    const lab = el("text", { class: "tick-label", x: PAD.left - 9, y: y + 3.5, "text-anchor": "end" });
+    lab.textContent = t;
+    gAxes.appendChild(lab);
+  }
+  const xt = el("text", { class: "axis-title", x: W - PAD.right, y: H - 12, "text-anchor": "end" });
+  xt.textContent = `PC1 — ${DATA.evr[0]}% of variance`;
+  const yt = el("text", { class: "axis-title", x: 14, y: PAD.top - 10, "text-anchor": "start" });
+  yt.textContent = `PC2 — ${DATA.evr[1]}%`;
+  gAxes.append(xt, yt);
+}
+
+function matches(p) {
+  return !state.query || p.n.toLowerCase().includes(state.query) || p.t.toLowerCase().includes(state.query);
+}
+
+function renderMarks() {
+  const inv = 1 / state.k;
+  for (const node of nodes) {
+    const { p, g, path } = node;
+    g.setAttribute("transform", `translate(${sx(p.x).toFixed(2)},${sy(p.y).toFixed(2)}) scale(${inv.toFixed(4)})`);
+    const hit = state.query ? matches(p) : false;
+    const focus = state.selected !== null && p.c === state.selected;
+    const dim = (state.selected !== null && !focus) || (state.query && !hit);
+    path.classList.toggle("dim", dim);
+    path.classList.toggle("sel", focus && !state.query);
+    path.classList.toggle("hit", hit);
+    path.classList.toggle("hover", state.hover === node);
+  }
+}
+
+function renderHull() {
+  if (state.selected === null) { hullEl.style.display = "none"; return; }
+  const d = hullPath(state.selected);
+  if (!d) { hullEl.style.display = "none"; return; }
+  hullEl.style.display = "";
+  hullEl.style.setProperty("--c", byId.get(state.selected).color);
+  hullEl.setAttribute("d", d);
+}
+
+function renderLabels() {
+  for (const { c, cx, cy, t } of centroids) {
+    t.setAttribute("x", sx(cx));
+    t.setAttribute("y", sy(cy) - 14);
+    const off = state.selected !== null && c.id !== state.selected;
+    t.classList.toggle("faded", off);
+    t.classList.toggle("strong", state.selected === c.id);
+  }
+}
+
+let frame = null;
+function render() {
+  if (frame) return;
+  frame = requestAnimationFrame(() => {
+    frame = null;
+    renderAxes(); renderMarks(); renderHull(); renderLabels();
+  });
+}
+
+/* ------------------------------------------------------------ legend/UI */
+const selectEl = document.getElementById("clusterSelect");
+selectEl.appendChild(new Option(`All clusters (${players.length} players)`, ""));
+for (const c of clusters) selectEl.appendChild(new Option(`${c.name} (${c.n})`, String(c.id)));
+
+const legend = document.getElementById("legend");
+const legendItems = clusters.map(c => {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "legend-item";
+  btn.setAttribute("aria-pressed", "false");
+  btn.style.setProperty("--c", c.color);
+  const sw = el("svg", { class: "swatch", viewBox: "-10 -10 20 20" });
+  const pth = el("path", { d: shapePath(c.shape, 6.5) });
+  pth.setAttribute("fill", c.color);
+  sw.appendChild(pth);
+  const mid = document.createElement("div");
+  mid.innerHTML = `<div class="name"></div><div class="desc"></div>`;
+  mid.querySelector(".name").textContent = c.name;
+  mid.querySelector(".desc").textContent = c.desc;
+  const cnt = document.createElement("span");
+  cnt.className = "count";
+  cnt.textContent = c.n;
+  btn.append(sw, mid, cnt);
+  btn.addEventListener("click", () => select(state.selected === c.id ? null : c.id));
+  legend.appendChild(btn);
+  return { c, btn };
+});
+
+function renderLegend() {
+  for (const { c, btn } of legendItems) {
+    const on = state.selected === c.id;
+    btn.setAttribute("aria-pressed", String(on));
+    btn.classList.toggle("muted", state.selected !== null && !on);
+  }
+}
+
+/* Centroid profile: each stat as a z-score across cluster means, so the bars say
+   "high/low relative to the other clusters" rather than raw units. */
+const statCount = DATA.statLabels.length;
+const clusterMeans = new Map(clusters.map(c => {
+  const pts = players.filter(p => p.c === c.id);
+  const means = [];
+  for (let i = 0; i < statCount; i++) {
+    const vals = pts.map(p => p.s[i]).filter(v => v !== null && v !== undefined);
+    means.push(vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0);
+  }
+  return [c.id, means];
+}));
+const zStats = (() => {
+  const out = [];
+  for (let i = 0; i < statCount; i++) {
+    const col = clusters.map(c => clusterMeans.get(c.id)[i]);
+    const mu = col.reduce((a, b) => a + b, 0) / col.length;
+    const sd = Math.sqrt(col.reduce((a, b) => a + (b - mu) ** 2, 0) / col.length) || 1;
+    out.push({ mu, sd });
+  }
+  return out;
+})();
+
+const profileEl = document.getElementById("profile");
+const profileTitle = document.getElementById("profileTitle");
+
+function renderProfile() {
+  if (state.selected === null) {
+    profileTitle.textContent = "Cluster sizes";
+    const max = Math.max(...clusters.map(c => c.n));
+    profileEl.innerHTML =
+      `<p class="lead">Select a cluster to draw its boundary and see how its average profile compares with the rest.</p>` +
+      clusters.map(c => `
+        <div class="bar-row" style="--c:${c.color}">
+          <div class="bar-head"><span class="lab">${c.name}</span><span class="val">${c.n}</span></div>
+          <div class="bar-track no-center">
+            <div class="bar-fill" style="left:0;width:${(c.n / max * 100).toFixed(1)}%"></div>
+          </div>
+        </div>`).join("");
+    return;
+  }
+  const c = byId.get(state.selected);
+  const means = clusterMeans.get(c.id);
+  profileTitle.textContent = `${c.name} — profile`;
+  const rows = DATA.statLabels.map((lab, i) => {
+    const z = Math.max(-2.4, Math.min(2.4, (means[i] - zStats[i].mu) / zStats[i].sd));
+    const half = (Math.abs(z) / 2.4) * 50;
+    const left = z >= 0 ? 50 : 50 - half;
+    return `
+      <div class="bar-row">
+        <div class="bar-head"><span class="lab">${lab}</span><span class="val">${means[i].toFixed(2)}</span></div>
+        <div class="bar-track"><div class="bar-fill" style="left:${left}%;width:${half}%"></div></div>
+      </div>`;
+  }).join("");
+  profileEl.style.setProperty("--c", c.color);
+  profileEl.innerHTML = `<p class="lead">${c.desc}. Bars show each average as a z-score against the other clusters' averages; the centre line is the cross-cluster mean.</p>${rows}`;
+}
+
+/* ------------------------------------------------------------------ table */
+const tableCard = document.getElementById("tableCard");
+const tableBtn = document.getElementById("tableBtn");
+const tableEl = document.getElementById("dataTable");
+const tableTitle = document.getElementById("tableTitle");
+let tableBuilt = false;
+
+function renderTable() {
+  if (tableCard.hidden) return;
+  const rows = players
+    .filter(p => (state.selected === null || p.c === state.selected) && matches(p))
+    .sort((a, b) => a.c - b.c || a.n.localeCompare(b.n));
+  tableEl.querySelector("thead").innerHTML =
+    `<tr><th>Player</th><th>Club</th><th>Position</th><th>Cluster</th>` +
+    DATA.statLabels.map(s => `<th class="num">${s}</th>`).join("") + `</tr>`;
+  tableEl.querySelector("tbody").innerHTML = rows.map(p => {
+    const c = byId.get(p.c);
+    return `<tr><td>${p.n}</td><td>${p.t}</td><td>${p.p}</td>` +
+      `<td><span class="tag" style="--c:${c.color}"><span class="dot"></span>${c.name}</span></td>` +
+      p.s.map(v => `<td class="num">${v === null ? "—" : v}</td>`).join("") + `</tr>`;
+  }).join("");
+  tableTitle.textContent = `Data table — ${rows.length} player${rows.length === 1 ? "" : "s"}`;
+}
+
+tableBtn.addEventListener("click", () => {
+  tableCard.hidden = !tableCard.hidden;
+  tableBtn.setAttribute("aria-pressed", String(!tableCard.hidden));
+  tableBuilt = true;
+  renderTable();
+});
+
+/* -------------------------------------------------------------- selection */
+function select(id) {
+  state.selected = id;
+  selectEl.value = id === null ? "" : String(id);
+  hullEl.classList.remove("hull-enter");
+  void hullEl.offsetWidth;
+  if (id !== null) hullEl.classList.add("hull-enter");
+  renderLegend(); renderProfile(); render();
+  if (tableBuilt) renderTable();
+  liveEl.textContent = id === null
+    ? `Showing all ${players.length} players.`
+    : `${byId.get(id).name} highlighted — ${byId.get(id).n} players enclosed.`;
+}
+
+selectEl.addEventListener("change", () => select(selectEl.value === "" ? null : Number(selectEl.value)));
+document.getElementById("search").addEventListener("input", e => {
+  state.query = e.target.value.trim().toLowerCase();
+  render();
+  if (tableBuilt) renderTable();
+});
+document.getElementById("resetBtn").addEventListener("click", () => {
+  state.k = 1; state.tx = 0; state.ty = 0;
+  render();
+});
+
+/* ---------------------------------------------------------- zoom and pan */
+svg.addEventListener("wheel", e => {
+  e.preventDefault();
+  const r = svg.getBoundingClientRect();
+  const mx = (e.clientX - r.left) * (W / r.width), my = (e.clientY - r.top) * (H / r.height);
+  const next = Math.max(0.7, Math.min(14, state.k * Math.pow(1.0016, -e.deltaY)));
+  state.tx = mx - (mx - state.tx) * (next / state.k);
+  state.ty = my - (my - state.ty) * (next / state.k);
+  state.k = next;
+  render();
+}, { passive: false });
+
+let drag = null;
+svg.addEventListener("pointerdown", e => {
+  drag = { x: e.clientX, y: e.clientY, tx: state.tx, ty: state.ty, moved: false };
+  svg.setPointerCapture(e.pointerId);
+  svg.classList.add("dragging");
+});
+svg.addEventListener("pointerup", e => {
+  if (drag) svg.releasePointerCapture(e.pointerId);
+  drag = null;
+  svg.classList.remove("dragging");
+});
+svg.addEventListener("pointercancel", () => { drag = null; svg.classList.remove("dragging"); });
+
+/* ------------------------------------------------------------- tooltip */
+const HIT_RADIUS = 16;
+function nearest(mx, my) {
+  let best = null, bestD = HIT_RADIUS * HIT_RADIUS;
+  for (const node of nodes) {
+    if (state.selected !== null && node.p.c !== state.selected) continue;
+    const dx = sx(node.p.x) - mx, dy = sy(node.p.y) - my;
+    const d = dx * dx + dy * dy;
+    if (d < bestD) { bestD = d; best = node; }
+  }
+  return best;
+}
+
+svg.addEventListener("pointermove", e => {
+  const r = svg.getBoundingClientRect();
+  if (drag) {
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true;
+    state.tx = drag.tx + dx * (W / r.width);
+    state.ty = drag.ty + dy * (H / r.height);
+    hideTip(); render();
+    return;
+  }
+  const mx = (e.clientX - r.left) * (W / r.width), my = (e.clientY - r.top) * (H / r.height);
+  const node = nearest(mx, my);
+  if (node !== state.hover) { state.hover = node; render(); }
+  if (!node) { hideTip(); return; }
+  showTip(node.p, e.clientX, e.clientY);
+});
+svg.addEventListener("pointerleave", () => { state.hover = null; hideTip(); render(); });
+
+function showTip(p, cx, cy) {
+  const c = byId.get(p.c);
+  tooltip.style.setProperty("--c", c.color);
+  const meta = [p.t, p.p, p.l, `${p.m} matches`].filter(Boolean).join(" · ");
+  tooltip.innerHTML =
+    `<div class="tt-name">${p.n}</div><div class="tt-meta">${meta}</div>` +
+    `<div class="tt-cluster"><span class="dot"></span>${c.name}</div><dl>` +
+    DATA.tooltipStats.map(i =>
+      `<dt>${DATA.statLabels[i]}</dt><dd>${p.s[i] === null ? "—" : p.s[i]}</dd>`).join("") +
+    `</dl>`;
+  tooltip.classList.add("on");
+  const box = tooltip.getBoundingClientRect();
+  let left = cx + 16, top = cy + 16;
+  if (left + box.width > innerWidth - 10) left = cx - box.width - 16;
+  if (top + box.height > innerHeight - 10) top = cy - box.height - 16;
+  tooltip.style.left = Math.max(8, left) + "px";
+  tooltip.style.top = Math.max(8, top) + "px";
+}
+const hideTip = () => tooltip.classList.remove("on");
+
+/* ------------------------------------------------------------------ chips */
+document.getElementById("chips").innerHTML = [
+  [`${players.length}`, "players"],
+  [`${clusters.length}`, "clusters"],
+  [`${(DATA.evr[0] + DATA.evr[1]).toFixed(1)}%`, "variance in view"],
+  [DATA.season, ""],
+].filter(([a]) => a).map(([a, b]) => `<span class="chip"><b>${a}</b>${b}</span>`).join("");
+
+/* ------------------------------------------------------------------- boot */
+const ro = new ResizeObserver(() => { rebuildScales(); render(); });
+ro.observe(svg);
+rebuildScales();
+renderLegend();
+renderProfile();
+render();
+</script>
+</body>
+</html>
