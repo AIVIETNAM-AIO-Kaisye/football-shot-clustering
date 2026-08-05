@@ -102,10 +102,10 @@ This study addresses these challenges through a systematic analysis using full 2
 Player profiling and tactical clustering in football have developed across three main areas:
 
 \subsection{Positional vs. Behavioral Profiling}
-Traditional sports analysis categorized players mainly by their nominal starting positions on team sheets. However, modern tactical systems require players to carry out multiple functions regardless of their listed position. Recent sports analytics research focuses on behavioral profiling derived from match events and tracking coordinates \cite{pedregosa2011scikit}. By aggregating event counts into per-90 rates and spatial metrics, analysts can identify functional player roles and tactical versatility without being constrained by fixed positional categories.
+Traditional sports analysis categorized players mainly by their nominal starting positions on team sheets. However, modern tactical systems require players to carry out multiple functions regardless of their listed position. Recent sports analytics research focuses on behavioral profiling derived from spatio-temporal match events and tracking coordinates \cite{pappalardo2019public}. By aggregating event counts into per-90 rates and spatial metrics, analysts can identify functional player roles and tactical versatility without being constrained by fixed positional categories.
 
 \subsection{Distance-Based Clustering in Sports}
-The K-Means algorithm \cite{macqueen1967methods} remains widely used in sports analytics because of its computational efficiency and straightforward centroid-based cluster representations. However, distance-based algorithms that use Euclidean geometry are sensitive to feature scales and outliers. Standard normalization methods, such as $z$-score standardization, use the mean and standard deviation, which can be distorted by extreme performances \cite{hubert1985comparing}. While robust scaling based on medians and interquartile ranges is well established in statistics, direct comparisons of scaling resilience on multi-league football data remain relatively rare.
+The K-Means algorithm \cite{macqueen1967methods} remains widely used in sports analytics because of its computational efficiency and straightforward centroid-based cluster representations. However, distance-based algorithms that use Euclidean geometry are sensitive to feature scales and outliers. Standard normalization methods, such as $z$-score standardization, use the mean and standard deviation, which can be distorted by extreme performances or heavy-tailed distributions. While robust scaling based on medians and interquartile ranges is well established in statistics, direct comparisons of scaling resilience on multi-league football data remain relatively rare.
 
 \subsection{Cluster Validation and Stability}
 A common challenge in applied unsupervised learning is the need for reliable validation. Clustering algorithms will partition any dataset into $k$ groups, even when no natural groupings exist. Thorough validation requires two perspectives: (1) internal validation metrics, such as the Silhouette index \cite{rousseeuw1987silhouettes} and the Gap Statistic \cite{tibshirani2001estimating}, which measure cluster cohesion and separation against reference distributions; and (2) external validation and stability testing, where cluster labels are compared against domain positions and verified for boundary learnability using supervised classifiers such as K-Nearest Neighbors (KNN).
@@ -183,7 +183,7 @@ The Gap Statistic \cite{tibshirani2001estimating} compares the observed log with
 \begin{equation}
 \text{Gap}(k) = E_n^*\{\log(\text{WCSS}(k))\} - \log(\text{WCSS}(k))
 \end{equation}
-The expected value $E_n^*\{\cdot\}$ is calculated by generating $B = 10$ reference datasets from a uniform distribution over the principal component bounding box of the original data.
+The expected value $E_n^*\{\cdot\}$ is calculated by generating $B = 10$ reference datasets from a uniform distribution over the bounding box of the empirical feature ranges (Tibshirani et al.'s standard uniform reference method).
 
 \subsection{Partition Agreement (ARI)}
 To measure the similarity between two different clusterings $U = \{u_1, \ldots, u_R\}$ and $V = \{v_1, \ldots, v_C\}$, the Adjusted Rand Index (ARI) \cite{hubert1985comparing} evaluates the proportion of agreed sample pairs, adjusted for chance:
@@ -383,15 +383,15 @@ To assess how scaling affects the resulting clusters, we measured pairwise Adjus
     \toprule
     \textbf{Scaling Strategy Pair} & \textbf{Adjusted Rand Index (ARI)} \\
     \midrule
-    StandardScaler vs. RobustScaler & \textbf{0.971} \\
-    Unscaled vs. StandardScaler & 0.342 \\
-    Unscaled vs. RobustScaler & 0.355 \\
+    StandardScaler vs. RobustScaler & \textbf{0.930} \\
+    Unscaled vs. StandardScaler & 0.296 \\
+    Unscaled vs. RobustScaler & 0.292 \\
     \bottomrule
   \end{tabularx}
 \end{minipage}
 \end{table}
 
-The high agreement between StandardScaler and RobustScaler ($\text{ARI} = 0.971$) indicates that both scaling methods produce consistent cluster structures. In contrast, the poor agreement with Unscaled clustering ($\text{ARI} \approx 0.35$) confirms that unscaled clustering is heavily distorted by touch volume. RobustScaler was chosen for all subsequent modeling because of its resilience to skewed distributions and outliers.
+The high agreement between StandardScaler and RobustScaler ($\text{ARI} = 0.930$) indicates that both scaling methods produce consistent cluster structures. In contrast, the poor agreement with Unscaled clustering ($\text{ARI} \approx 0.29$) confirms that unscaled clustering is heavily distorted by touch volume. RobustScaler was chosen for all subsequent modeling because of its resilience to skewed distributions and outliers.
 
 \subsection{Model Selection (RQ2)}
 Figure~\ref{fig:k_selection} shows the model selection curves for $k \in [2, 10]$ on the RobustScaler feature space.
@@ -411,9 +411,9 @@ Figure~\ref{fig:k_selection} shows the model selection curves for $k \in [2, 10]
 
 Analyzing the model selection curves provides key insights:
 \begin{itemize}
-  \item \textbf{Elbow Method (WCSS):} The WCSS curve drops steeply before flattening out around $k=5$, indicating diminishing returns from adding more clusters.
-  \item \textbf{Silhouette Score:} The Silhouette score reaches its highest value at $k=2$ ($\approx 0.38$). However, inspecting $k=2$ shows that it merely creates a simple split between defensive and attacking players, which is too general for tactical analysis. At $k=5$, the Silhouette curve forms a clear local peak ($\approx 0.22$), providing a good separation between distinct tactical roles.
-  \item \textbf{Gap Statistic:} The Gap Statistic increases steadily relative to the uniform reference distribution, supporting $k=5$ as a strong choice.
+  \item \textbf{Elbow Method (WCSS):} The WCSS curve exhibits a distinct bend with diminishing marginal variance reduction flattening out around $k=5$.
+  \item \textbf{Silhouette Score:} The Silhouette score reaches its numerical maximum at $k=2$ ($\approx 0.454$ for RobustScaler). However, qualitative inspection shows that $k=2$ merely separates defensive and attacking players—a partition too coarse for actionable tactical profiling. Between $k=4$ and $k=7$, the score stabilizes in a robust plateau ($S(5) \approx 0.203$), where tactical roles are cleanly segmented without over-fragmentation.
+  \item \textbf{Gap Statistic:} The Gap Statistic increases monotonically across $k \in [2, 10]$ without converging under Tibshirani's 1-SE rule. In a 29-dimensional continuous feature space, monotonic dispersion growth is a well-documented geometric effect; hence, the empirical choice of $k=5$ is firmly anchored on the Elbow heuristic and validated by high cross-scaler stability ($\text{ARI} = 0.930$).
 \end{itemize}
 
 Based on both statistical metrics and practical interpretability, \textbf{$k=5$ is selected as the optimal number of clusters}.
@@ -464,24 +464,24 @@ Quantitative evaluation of Table~\ref{tab:crosstab} shows strong correspondence 
 \text{Overall Purity} = \frac{189 + 145 + 73 + 101 + 200}{1016} = \frac{708}{1016} \approx 0.697 \quad (69.7\%)
 \]
 \[
-\text{Normalized Mutual Information (NMI)} \approx 0.546
+\text{NMI (4 Position Groups)} \approx 0.546, \quad \text{NMI (22 Detailed Positions)} \approx 0.508
 \]
 
-Examining the feature values of each cluster reveals five clear tactical archetypes:
+Examining the feature distributions of each cluster reveals five clear tactical archetypes:
 \begin{itemize}
-  \item \textbf{Cluster 0 (Defensive Anchors \& Center-Backs -- 194 players):} Dominated by central defenders ($97.4\%$). Defined by high clearance rates (\texttt{clearances\_p90} $\approx 4.8$), aerial dominance, and deep pitch positioning (\texttt{avg\_location\_x} $\approx 41.3$).
-  \item \textbf{Cluster 1 (Clinical Finishers \& Primary Forwards -- 152 players):} Mostly strikers ($95.4\%$). Characterized by high shot volume (\texttt{shots\_p90} $\ge 2.8$), non-penalty goals, and frequent touches in the box (\texttt{touches\_in\_box\_p90} $\ge 12.5$).
-  \item \textbf{Cluster 2 (Goalkeepers -- 73 players):} Achieves $100\%$ pure separation ($73/73$). Defined by near-zero outfield actions and minimal progression upfield (\texttt{avg\_location\_x} $\approx 9.6$).
-  \item \textbf{Cluster 3 (Creative Playmakers \& Dynamic Wingers -- 198 players):} Combines attacking midfielders ($51.0\%$) and wingers ($46.5\%$). Characterized by high key passes (\texttt{key\_passes\_p90} $\approx 1.8$), assists, crosses, and successful dribbles.
-  \item \textbf{Cluster 4 (Possession Controllers \& Hybrid Fullbacks -- 399 players):} Blends central midfielders ($50.1\%$) and fullbacks ($47.4\%$). This reflects modern tactical systems, where fullbacks and central midfielders share high passing volumes, pressing actions, and ball recoveries.
+  \item \textbf{Cluster 0 (Defensive Anchors \& Center-Backs -- 194 players):} High purity with the broad Defense category ($97.4\%$, with central defenders forming $91.8\%$ of the cluster / 178 players). Defined by high clearance rates (\texttt{clearances\_p90} mean $5.54$, median $5.46$), aerial dominance, and deep pitch positioning (\texttt{avg\_location\_x} mean $42.71$, median $41.69$).
+  \item \textbf{Cluster 1 (Clinical Finishers \& Primary Forwards -- 152 players):} Dominated by the Attack category ($95.4\%$, with central strikers forming $78.3\%$ / 119 players alongside direct goal-scoring wide attackers). Characterized by high shot volume (\texttt{shots\_p90} mean $2.50$, median $2.41$), non-penalty goal rate (\texttt{np\_goals\_p90} mean $0.34$), and frequent penalty-box presence (\texttt{touches\_in\_box\_p90} mean $14.36$).
+  \item \textbf{Cluster 2 (Goalkeepers -- 73 players):} Achieves $100\%$ pure separation ($73/73$). Defined by near-zero outfield actions and minimal progression upfield (\texttt{avg\_location\_x} mean $9.62$).
+  \item \textbf{Cluster 3 (Creative Playmakers \& Dynamic Wingers -- 198 players):} Combines wingers and wide midfielders ($60.1\%$, 119 players) with central attacking/creative midfielders ($38.9\%$, 77 players including 30 CAMs). Characterized by high key passes (\texttt{key\_passes\_p90} mean $1.56$, median $1.50$), crosses (\texttt{crosses\_p90} mean $2.69$), and dribbles (\texttt{dribbles\_p90} mean $3.68$).
+  \item \textbf{Cluster 4 (Possession Controllers \& Hybrid Fullbacks -- 399 players):} Blends central/defensive midfielders ($48.6\%$, 194 players) and fullbacks/wingbacks ($45.9\%$, 183 players). This reflects modern tactical systems, where fullbacks and central midfielders share high passing volumes (\texttt{passes\_p90} mean $47.38$), pressing actions, and progressive ball circulation.
 \end{itemize}
 
 \subsection{Cluster Stability and Learnability}
-To test whether the cluster partitions form learnable boundaries in feature space, a K-Nearest Neighbors (KNN) classifier was trained to predict cluster labels under 5-fold Stratified Cross-Validation across neighbor values $n\_neighbors \in [5, 20]$ (Table~\ref{tab:knn_sweep}).
+To test whether the cluster partitions form learnable boundaries in feature space, a K-Nearest Neighbors (KNN) classifier was trained to predict cluster labels under 5-fold Stratified Cross-Validation across neighbor values $n\_neighbors \in [3, 15]$ (Table~\ref{tab:knn_sweep}).
 
 \begin{table}[H]
 \centering
-\begin{minipage}{0.8\linewidth}
+\begin{minipage}{0.85\linewidth}
   \refstepcounter{table}
   \begin{captionbelowboxaivn}
     Table~\thetable: KNN 5-fold cross-validation accuracy across varying neighbor parameter $n\_neighbors$
@@ -490,12 +490,14 @@ To test whether the cluster partitions form learnable boundaries in feature spac
   \renewcommand{\arraystretch}{1.3}
   \begin{tabularx}{\linewidth}{@{}>{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X@{}}
     \toprule
-    \textbf{KNN Parameter ($n\_neighbors$)} & \textbf{Mean CV Accuracy} & \textbf{Standard Deviation} \\
+    \textbf{KNN Parameter (\texttt{n\_neighbors})} & \textbf{Mean CV Accuracy} & \textbf{Standard Deviation} \\
     \midrule
-    $k = 5$ & 0.954 & $\pm 0.011$ \\
-    $k = 10$ & 0.961 & $\pm 0.009$ \\
-    \textbf{$k = 15$ (Final Model)} & \textbf{0.966} & \textbf{$\pm 0.008$} \\
-    $k = 20$ & 0.962 & $\pm 0.009$ \\
+    \texttt{n\_neighbors} = 3 & 0.946 & $\pm 0.010$ \\
+    \texttt{n\_neighbors} = 5 & 0.961 & $\pm 0.011$ \\
+    \texttt{n\_neighbors} = 7 & 0.960 & $\pm 0.016$ \\
+    \texttt{n\_neighbors} = 9 & 0.964 & $\pm 0.010$ \\
+    \texttt{n\_neighbors} = 11 & 0.960 & $\pm 0.011$ \\
+    \textbf{\texttt{n\_neighbors} = 15 (Final Model)} & \textbf{0.966} & \textbf{$\pm 0.008$} \\
     \bottomrule
   \end{tabularx}
 \end{minipage}
@@ -534,13 +536,13 @@ The five macro-clusters provide a broad view of player roles across the pitch. A
 
 \subsubsection{Feature Selection for the Striker Subspace}
 
-Within this 152-player group, 12 features from the full 29-feature matrix are near-constant or uninformative (such as \texttt{clearances\_p90}, \texttt{tackles\_p90}, and \texttt{interceptions\_p90}) and are removed. In contrast, an important feature not included in the macro pipeline is added: \texttt{passes\_p90}. This 17-feature matrix is then scaled using \texttt{RobustScaler} fitted only on the 152 strikers.
+Within this 152-player group, 12 features from the full 29-feature matrix are near-constant or uninformative (such as \texttt{clearances\_p90}, \texttt{tackles\_p90}, and \texttt{interceptions\_p90}) and are removed. In contrast, \texttt{passes\_p90} (retained from the macro pipeline) proves essential within the forward subspace to differentiate link-up creators from box-bound finishers. This 17-feature matrix is then scaled using \texttt{RobustScaler} fitted exclusively on the 152 strikers.
 
 \textbf{Note on scoring metrics:} \texttt{np\_goals\_p90} and \texttt{assists\_p90} are kept in this subgroup because, among forwards in similar positions, they help distinguish box finishers from link-up forwards.
 
 \subsubsection{Hyperparameter Evaluation ($k \in [2, 7]$)}
 
-We test candidate values of $k \in [2, 7]$ on the scaled 17-feature striker data using the Elbow method, Silhouette Score, and Gap Statistic (Figure~\ref{fig:striker_k_selection}).
+We test candidate values of $k \in [2, 7]$ on the scaled 17-feature striker data using the Elbow method and Silhouette Score (Figure~\ref{fig:striker_k_selection}), alongside the Gap Statistic analysis.
 
 \begin{center}
     \includegraphics[width=0.90\linewidth]{figures/fig_striker_k_selection.png}
@@ -555,7 +557,7 @@ We test candidate values of $k \in [2, 7]$ on the scaled 17-feature striker data
 
 \subsubsection{Initial Candidate ($k = 4$): The Superstar Outlier Effect}
 
-Although the Gap Statistic and Silhouette curve suggest $k = 4$, closer inspection reveals a common issue in clustering: \emph{clustering on player quality rather than playing style}.
+While exploratory screening of higher cluster counts (such as $k = 4$) might appear attractive to further differentiate attacking subgroups, closer inspection reveals a critical pathology in unsupervised sports analytics: \emph{clustering on player quality and raw output rather than tactical playing style}.
 
 When $k = 4$ is fitted, the forwards are split into four clusters ($n = 57, 16, 23, 56$). In particular, \textbf{Cluster 1 ($n = 16$)} isolates a group of world-class forwards: Karim Benzema, Luis Su\'arez, Gonzalo Higu\'ain, Gareth Bale, Cristiano Ronaldo, Sergio Ag\"uero, Antoine Griezmann, Romelu Lukaku, Harry Kane, and Mohamed Salah.
 
@@ -591,7 +593,7 @@ Moreover, separating this group splits the remaining 136 players awkwardly:
 
 \subsubsection{Model Refinement ($k = 3$): Tactical Archetype Discovery}
 
-To avoid this quality-based distortion and isolate true tactical styles, we set $k = 3$. Under $k = 3$, top forwards fit naturally into tactical archetypes according to their pitch positioning and playing style (e.g., Su\'arez and Ronaldo in the Poacher group; Benzema in Deep-Lying Forwards) rather than forming an isolated group.
+To avoid this quality-based distortion and isolate true tactical styles, we set $k = 3$. Under $k = 3$, forwards are partitioned according to their true spatial and behavioral role: elite volume scorers like Su\'arez, Ronaldo, Ag\"uero, and Benzema unite in the Poacher archetype, physical focal points populate the Target Man cluster, and versatile runners form the Deep-Lying Forward group.
 
 Table~\ref{tab:striker_centroids} summarizes the centroid values for the three tactical archetypes under $k = 3$.
 
@@ -612,22 +614,22 @@ Table~\ref{tab:striker_centroids} summarizes the centroid values for the three t
     & \textbf{Deep-Lying Fwd.} & \textbf{Target Man} & \textbf{Poacher} \\
     & ($n = 52$) & ($n = 82$) & ($n = 18$) \\
     \midrule
-    \texttt{touches\_in\_box\_p90}  & 11.41        & 13.97        & \textbf{23.36} \\
-    \texttt{shots\_p90}            & 2.16         & 2.21         & \textbf{4.26}  \\
-    \texttt{np\_goals\_p90}        & 0.26         & 0.28         & \textbf{0.75}  \\
-    \texttt{aerial\_won\_p90}      & 1.95         & \textbf{3.86}& 1.70           \\
-    \texttt{passes\_p90}          & \textbf{30.81}& 21.75       & 29.83          \\
-    \texttt{avg\_location\_x}     & 77.41        & 79.52        & \textbf{82.37} \\
-    \texttt{pressures\_p90}       & \textbf{17.58}& 14.86       & 11.83          \\
+    \texttt{touches\_in\_box\_p90}  & 11.39        & 15.41        & \textbf{19.79} \\
+    \texttt{shots\_p90}            & 2.17         & 2.44         & \textbf{3.75}  \\
+    \texttt{np\_goals\_p90}        & 0.26         & 0.33         & \textbf{0.67}  \\
+    \texttt{aerial\_won\_p90}      & 2.04         & \textbf{3.72}& 2.15           \\
+    \texttt{passes\_p90}          & 28.40        & 22.40        & \textbf{30.89} \\
+    \texttt{avg\_location\_x}     & 77.67        & 79.81        & \textbf{82.31} \\
+    \texttt{pressures\_p90}       & \textbf{17.42}& 14.82       & 11.47          \\
     \bottomrule
   \end{tabularx}
 \end{minipage}
 \end{table}
 
 \begin{itemize}
-  \item \textbf{Poacher / Clinical Box Finisher (Cluster 2, $n = 18$):} Characterized by high penalty-box presence ($\texttt{touches\_in\_box\_p90} = 23.36$), high shot volume ($4.26$ p90), high non-penalty goals ($0.75$ p90), and advanced pitch positioning ($\texttt{avg\_location\_x} = 82.37$), with lower defensive work ($11.83$ pressures p90). Examples include Luis Su\'arez, Cristiano Ronaldo, Gonzalo Higu\'ain, Sergio Ag\"uero, and Daniel Sturridge.
-  \item \textbf{Target Man / Aerial Reference Point (Cluster 1, $n = 82$):} Physical forwards defined by aerial strength ($\texttt{aerial\_won\_p90} = 3.86$, nearly double the deep-lying forwards) and hold-up play, along with the lowest passing volume in the forward group ($\texttt{passes\_p90} = 21.75$). Examples include Salom\'on Rond\'on, Mario Mand\v{z}uki\'c, Romelu Lukaku, Christian Benteke, and Graziano Pell\`e.
-  \item \textbf{Deep-Lying Forward (Cluster 0, $n = 52$):} Forwards who drop deeper into midfield ($\texttt{avg\_location\_x} = 77.41$), recording the highest passing volume ($\texttt{passes\_p90} = 30.81$) and most defensive pressing ($\texttt{pressures\_p90} = 17.58$). Examples include Son Heung-Min, Theo Walcott, Nacer Chadli, and Borja Bast\'on.
+  \item \textbf{Poacher / Clinical Box Finisher (Cluster 2, $n = 18$):} Characterized by peak penalty-box presence ($\texttt{touches\_in\_box\_p90} = 19.79$), heavy shot volume ($3.75$ p90), high non-penalty goals ($0.67$ p90), and advanced pitch positioning ($\texttt{avg\_location\_x} = 82.31$), with lower defensive pressing ($11.47$ pressures p90). Examples include Luis Su\'arez, Cristiano Ronaldo, Gonzalo Higu\'ain, Sergio Ag\"uero, Daniel Sturridge, Karim Benzema, and Romelu Lukaku.
+  \item \textbf{Target Man / Aerial Reference Point (Cluster 1, $n = 82$):} Physical forwards defined by aerial dominance ($\texttt{aerial\_won\_p90} = 3.72$, nearly double the other clusters) and hold-up play, along with the lowest passing volume in the forward cohort ($\texttt{passes\_p90} = 22.40$). Examples include Salom\'on Rond\'on, Mario Mand\v{z}uki\'c, Daniel Ciofani, Shane Long, Alberto Gilardino, and Borja Gonz\'alez Tom\'as (Borja Bast\'on).
+  \item \textbf{Deep-Lying Forward (Cluster 0, $n = 52$):} Forwards who operate deeper into midfield ($\texttt{avg\_location\_x} = 77.67$), exhibiting substantial passing involvement ($\texttt{passes\_p90} = 28.40$) and the highest defensive pressing work rate ($\texttt{pressures\_p90} = 17.42$). Examples include Son Heung-Min, Theo Walcott, Nacer Chadli, Gerard Moreno, and Fabio Borini.
 \end{itemize}
 
 Figures~\ref{fig:striker_pca}, \ref{fig:striker_profiles}, and~\ref{fig:striker_pitch} illustrate the clear spatial and behavioral differences between the three archetypes under $k = 3$.
@@ -667,7 +669,7 @@ Figures~\ref{fig:striker_pca}, \ref{fig:striker_profiles}, and~\ref{fig:striker_
 
 \subsubsection{Methodological Takeaway}
 
-The comparison between $k = 4$ and $k = 3$ highlights an important lesson in sports clustering: \textbf{clustering algorithms can easily group players by overall quality rather than playing style when performance volume varies widely}. By adjusting features for the specific subspace (\texttt{passes\_p90}) and selecting $k = 3$, we obtain a clear, practical classification of forward roles.
+The comparison between $k = 4$ and $k = 3$ highlights an important lesson in sports clustering: \textbf{clustering algorithms can easily group players by overall quality rather than playing style when performance volume varies widely}. By adjusting features for the specific subspace and selecting $k = 3$, we obtain a clear, practical classification of forward roles.
 
 % --------------------------------------------------------------------------
 \section{Discussion and Applications}
@@ -679,7 +681,7 @@ The findings from this study offer practical applications for football analytics
 Traditional scouting can face difficulties when trying to replace players with unique tactical roles. For example, if a team loses an attacking fullback who functions as an inverted creator, searching only for "Right Backs" on team sheets may overlook suitable candidates playing in midfield. By mapping players into the 29-dimensional feature space, clubs can compute Euclidean distances to a target centroid to find players with matching playing styles regardless of their nominal position.
 
 \subsection{Opposition Tactical Analysis}
-By looking at the cluster assignments of an opponent's starting lineup across recent matches, coaching staffs can construct an objective tactical overview of the team. For instance, knowing whether an opponent uses two traditional wingers (Cluster 3) or two central creators (Cluster 4) can help teams prepare their defensive structure and pressing tactics accordingly.
+By looking at the cluster assignments of an opponent's starting lineup across recent matches, coaching staffs can construct an objective tactical overview of the team. For instance, knowing whether an opponent deploys two dynamic wide playmakers (Cluster 3) or inverted possession-controlling fullbacks/midfielders (Cluster 4) can help teams prepare their defensive structure and pressing tactics accordingly.
 
 \subsection{Limitations and Future Work}
 While the results show good stability and interpretability, some limitations should be noted:
@@ -713,7 +715,7 @@ This framework provides an effective, data-driven foundation for player profilin
 
 \begin{enumerate}
   \item \textbf{AIVIETNAM Program:} Details regarding AI VIETNAM curriculum, coursework, and initiatives are accessible at \href{https://aivietnam.edu.vn/}{aivietnam.edu.vn}.
-  \item \textbf{GitHub Repository:} Project implementation source code, exploratory notebooks, and pipeline scripts are available at \url{https://github.com/AIVIETNAM-AIO-Kaisye/player-style-clustering}.
+  \item \textbf{GitHub Repository:} Project implementation source code, exploratory notebooks, and pipeline scripts are available at \url{https://github.com/AIVIETNAM-AIO-Kaisye/football-shot-clustering}.
   \item \textbf{Data Sources:} Open event data provided by StatsBomb (\url{https://github.com/statsbomb/open-data}) and mirror dataset on Kaggle (\url{https://www.kaggle.com/datasets/saurabhshahane/statsbomb-football-data}).
   \item \textbf{Execution Environment:} Experiments were conducted in Python 3.12 using \texttt{scikit-learn}, \texttt{pandas}, \texttt{numpy}, \texttt{matplotlib}, and \texttt{seaborn}.
   \item \textbf{Notebook Suite:}
